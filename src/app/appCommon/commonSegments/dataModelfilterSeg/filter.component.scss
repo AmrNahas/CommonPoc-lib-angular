@@ -1,0 +1,67 @@
+.ngb-dp-arrow {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  padding-right: 0;
+  padding-left: 0;
+  margin: 0;
+  width: 2rem;
+  height: 2rem;
+}
+.ngb-dp-header {
+  border-bottom: 0;
+  border-radius: .25rem .25rem 0 0;
+  padding-top: .25rem;
+}
+.ngb-datepicker-navigation-select>.custom-select {
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  padding: 0 .5rem;
+  /*font-size: .875rem;
+  height: 1.85rem;*/
+}
+.ngb-dp-arrow-btn {
+  /* padding: 0 .25rem; */
+  /* margin: 0 .5rem; */
+  border: none;
+  /* background-color: transparent; */
+  z-index: -3;
+}
+
+select {
+  -webkit-writing-mode: horizontal-tb !important;
+  text-rendering: auto;
+  color: -internal-light-dark(black, white);
+  letter-spacing: normal;
+  word-spacing: normal;
+  text-transform: none;
+  text-indent: 0px;
+  text-shadow: none;
+  display: inline-block;
+  text-align: start;
+  appearance: menulist;
+  box-sizing: border-box;
+  align-items: center;
+  white-space: pre;
+  -webkit-rtl-ordering: logical;
+ /* background-color: -internal-light-dark(rgb(255, 255, 255), rgb(59, 59, 59));*/
+  cursor: default;
+  margin: 0em;
+  font: 400 13.3333px Arial;
+  border-radius: 0px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: -internal-light-dark(rgb(118, 118, 118), rgb(195, 195, 195));
+  border-image: initial;
+  background-color: #3F51B5 !important;
+}
+ngb-datepicker-navigation-select{
+  color: #3F51B5 !important;
+  background-color: #3F51B5 !important;
+}
+ngb-datepicker{
+  color: #3F51B5 !important;
+  background-color: #3F51B5 !important;
+}
+

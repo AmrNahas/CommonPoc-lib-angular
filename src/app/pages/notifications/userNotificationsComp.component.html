@@ -1,0 +1,121 @@
+<div  style="padding: 1% 5%;">
+<div  class="flex-p"   >
+    <!--start card   -->
+    <mat-card class="custom-card">
+
+
+        <!--start card header  -->
+        <mat-card-header class="bg-primary" fxLayoutAlign="space-between center">
+            <mat-card-title class="p-1"><h6>{{'GENERIC.notifications'|translate}} </h6></mat-card-title>
+        </mat-card-header>
+        <!--end card header  -->
+
+
+        <!--start card content  -->
+        <mat-card-content class="p-">
+
+
+            <!-- start include App filter Component -->
+            <app-filter-form  [componentObject]="this"></app-filter-form>
+            <!-- end include App filter Component -->
+
+            <div *ngIf="dataSource && dataSource.data.length==0" fxLayout="row wrap" class="noResultDiv">
+                <h4> {{'GENERIC.result.empty' | translate }}</h4>
+            </div>
+            <!--                  <div  class="flex-p" >-->
+            <!--start table  -->   <!--  matSortDisableClear matSortDirection="desc"-->
+            <mat-table #table [dataSource]="dataSource" class="mat-elevation-z8 " matSort
+                       (matSortChange)="sortColumn($event)" >
+
+                    <ng-container matColumnDef="seq">
+                       <mat-header-cell *matHeaderCellDef>
+                           <label class="table-cell-light">#</label>
+                       </mat-header-cell>
+                        <mat-cell  *matCellDef="let element; let i = index;"> {{i+1}} </mat-cell>
+                   </ng-container>
+
+                <ng-container matColumnDef="type">
+                    <mat-header-cell *matHeaderCellDef>
+                        <label class="table-cell-light">{{ 'sv.type'| translate}}</label>
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let item" > {{isArabicLang()? item.typeNameAr:item.typeNameEn}} </mat-cell>
+                </ng-container>
+
+
+
+
+                <ng-container matColumnDef="createdInLong">
+                    <mat-header-cell *matHeaderCellDef>
+                        <label class="table-cell-light">{{'resv.date'| translate}}</label>
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let item"> {{item.createdInLong | date}} </mat-cell>
+                </ng-container>
+
+
+                <ng-container matColumnDef="message">
+                    <mat-header-cell *matHeaderCellDef style="width: 20%">
+                        <label class="table-cell-light">{{'sv.comments'| translate}}</label>
+                    </mat-header-cell>
+                    <mat-cell class="mat-row "  *matCellDef="let item" > {{isArabicLang()? item.message : item.messageEn}} </mat-cell>
+                </ng-container>
+
+
+                    <ng-container matColumnDef="userReadStatus">
+                        <mat-header-cell *matHeaderCellDef>
+                            <label class="table-cell-light">{{'USERS.status'| translate}}</label>
+                        </mat-header-cell>
+                        <mat-cell  *matCellDef="let item">
+                                    <mat-icon matTooltip="{{item.userReadStatus==0? 'not seen':'seen'}}"   color="{{item.userReadStatus==0?'warn':''}}">notifications_active</mat-icon>
+
+                        </mat-cell>
+                    </ng-container>
+
+
+
+               <ng-container matColumnDef="actions">
+                    <mat-header-cell *matHeaderCellDef>
+                        <label class="table-cell-light">{{'GENERIC.actions'| translate}}</label>
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let item">
+                        <!--*hasPermission="permsEnum.SP_UPDATE_RELATED_USERS_PERMISSIONS"-->
+                        <ng-container >
+                            <button (click)="viewInfo(item)"     mat-button color="primary" >
+                                <mat-icon>pageview</mat-icon>
+                                <span>{{'GENERIC.action.view'|translate}}</span>
+                            </button>
+                        </ng-container>
+
+
+                    </mat-cell>
+                </ng-container>
+                <!--end Actions container -->
+
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </mat-table>
+            <!--end table  -->
+
+
+
+        </mat-card-content>
+        <!--end card content  -->
+
+        <!--start include  paginator -->
+        <app-pagination [componentObject]="this"></app-pagination>
+        <!--end  include paginator -->
+
+    </mat-card>
+    <!--start card   -->
+
+
+
+
+    <!--spinner-->
+    <div *ngIf="!dataSource" fxLayout="column" fxLayoutAlign="center center" class="user-spinner">
+        <mat-spinner color="primary"></mat-spinner>
+    </div>
+
+
+</div>
+</div>

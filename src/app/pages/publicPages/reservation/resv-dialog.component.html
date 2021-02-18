@@ -1,0 +1,219 @@
+<div>
+<div fxLayoutAlign="end center" class="closeBtn">
+    <button   matTooltip="{{'GENERIC.action.close' |translate}}"       type="button"    (click)="close()">
+        <mat-icon>cancel</mat-icon>
+    </button>
+</div>
+
+<h2 mat-dialog-title>
+    <span>{{'resv.title'|translate}}</span>
+</h2>
+
+    <form [formGroup]="form" class="user-form" (ngSubmit)="saveNewSv()">
+    <mat-card class="mat-card-border">
+        <mat-card-header>
+            <mat-card-subtitle><h3>{{'GENERIC.data'|translate}}</h3></mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+    <table style="width: 100%">
+
+        <tr>
+            <td><h5>{{'sv.nameAr'| translate}} </h5></td>
+            <td><label>{{sv.nameAr}}</label></td>
+            <td><h5>{{'sv.nameEn'| translate}}  </h5></td>
+            <td><label>{{sv.nameEn}}</label></td>
+        </tr>
+        <tr>
+            <td><h5>{{'sv.type'| translate}} </h5></td>
+            <td><label>{{sv.typeName}}</label></td>
+            <td><h5>{{'registration.country'| translate}} </h5> </td>
+            <td><label>{{sv.countryName}}</label></td>
+        </tr>
+        <tr>
+            <td><h5>{{'registration.city'| translate}}</h5> </td>
+            <td><label>{{sv.cityName}}</label></td>
+            <td><h5>{{'sv.licenseNum'| translate}}</h5> </td>
+            <td>{{sv.licenseNum}}</td>
+        </tr>
+
+        <tr>
+            <td><h5>{{'sv.locationAddress'| translate}}</h5> </td>
+            <td><label>{{sv.locationAddress}}</label></td>
+            <td><h5>{{'sv.pricePerHour'| translate}}</h5> </td>
+            <td>{{sv.pricePerHour}}
+                <mat-chip  color="primary" selected="true"  class="info-chip">
+                {{'GENERIC.SR' | translate }}</mat-chip>
+            </td>
+        </tr>
+
+        <tr>
+            <td><h5>{{'sv.maxSeats'| translate}}</h5> </td>
+            <td><label>{{sv.maxSeatsNum}}</label></td>
+            <td style="background-color: #efc371"><h5>{{'sv.minHourForHire'| translate}}</h5> </td>
+            <td>{{sv.minHourForHire}}</td>
+        </tr>
+
+     </table>
+            <br>
+
+            <p fxLayout="row"  style="font-size: small">
+                <span style="font-weight: bold">   {{'resv.services'| translate}}  :</span>
+                <span>{{'sv.services.toilet'|translate}}</span>
+                <span>   <mat-icon
+                        [color]=" sv.hasToiletValue ? 'primary':'warn'">{{sv.hasToiletValue ? 'done' : 'highlight_off'}}</mat-icon> </span>
+                <span>|</span>
+                <span>{{'sv.services.kitchen'|translate}} </span>
+                <span>   <mat-icon
+                        [color]=" sv.hasKitchenValue ? 'primary':'warn'">{{sv.hasKitchenValue ? 'done' : 'highlight_off'}}</mat-icon> </span>
+                <span>|</span>
+                <span>{{'sv.services.emergencyTools'|translate}}</span>
+                <span>   <mat-icon
+                        [color]=" sv.hasEmergencyToolsValue ? 'primary':'warn'">{{sv.hasEmergencyToolsValue ? 'done' : 'highlight_off'}}</mat-icon> </span>
+                <span>|</span>
+                <span>{{'sv.services.fishingTools'|translate}}</span>
+                <span>   <mat-icon
+                        [color]=" sv.hasFishingToolsValue ? 'primary':'warn'">{{sv.hasFishingToolsValue ? 'done' : 'highlight_off'}}</mat-icon> </span>
+
+            </p>
+        </mat-card-content>
+    </mat-card>
+    <br>
+
+    <mat-card class="mat-card-border">
+        <mat-card-header>
+            <mat-card-subtitle><h3>{{'resv.data'|translate}}</h3></mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <h5  > <span style="background-color: #efc371"> {{'resv.price.hint1' |translate}} </span></h5>
+            <br/>
+            <div fxLayout="row">
+
+                <mat-form-field>
+                <input matInput matNativeControl [disabled]="true" placeholder="{{'resv.date'| translate}}" formControlName="date" [matDatepicker]="myDatepicker"
+                        >
+                <mat-datepicker-toggle matSuffix [for]="myDatepicker"
+                                       ></mat-datepicker-toggle>
+                <mat-datepicker #myDatepicker disabled="false"></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-select   placeholder="{{'resv.numOfPersons'| translate}}" formControlName="numOfPersons">
+                        <mat-option  [value]=" "> --{{'GENERIC.select'|translate}} {{'resv.numOfPersons' | translate }}--
+                        </mat-option>
+                        <mat-option [value]="item"
+                                    *ngFor="let item of personsNumList">{{isArabicLang() ? item : item }} </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+
+            </div>
+            <div fxLayout="row">
+
+                <mat-form-field>
+                    <mat-select (selectionChange)="changeFromHour()" placeholder="{{'resv.from'| translate}}" formControlName="from">
+                        <mat-option  [value]=" "> --{{'GENERIC.select'|translate}} {{'resv.from' | translate }}--
+                        </mat-option>
+                        <mat-option [value]="item.value"
+                                    *ngFor="let item of timesListFrom">{{item.nameAr }} </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-select  (selectionChange)="changeToHour()" placeholder="{{'resv.to'| translate}}" formControlName="to">
+                        <mat-option [value]=" "> --{{'GENERIC.select'|translate}} {{'resv.to' | translate }}--
+                        </mat-option>
+                        <mat-option [value]="item.value"
+                                    *ngFor="let item of timesListTo">{{item.nameAr }} </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+
+              <!--  <mat-form-field>
+                    <input matInput placeholder="{{'resv.hoursNum'| translate}}" formControlName="hoursNum" [disabled]="true">
+                    <mat-error *ngIf="form.controls.hoursNum.errors?.required">{{'GENERIC.required' | translate}}</mat-error>
+                </mat-form-field>-->
+
+            </div>
+
+
+        <!--    <div fxLayout="row">
+
+                <mat-form-field>
+                    <input matInput placeholder="{{'resv.price'| translate}}" formControlName="price" [disabled]="true">
+                    <mat-error *ngIf="form.controls.price.errors?.required">{{'GENERIC.required' | translate}}</mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input matInput placeholder="{{'resv.vat'| translate}}" formControlName="vat" [disabled]="true">
+                    <mat-error *ngIf="form.controls.price.errors?.required">{{'GENERIC.required' | translate}}</mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input matInput placeholder="{{'resv.priceWithVat'| translate}}" formControlName="priceWithVat" [disabled]="true">
+                    <mat-error *ngIf="form.controls.priceWithVat.errors?.required">{{'GENERIC.required' | translate}}</mat-error>
+                </mat-form-field>
+
+            </div>-->
+        </mat-card-content>
+    </mat-card>
+    <br/>
+    <mat-card *ngIf="hoursNum>0" class="mat-card-border">
+        <mat-card-header>
+            <mat-card-subtitle><h3>{{'resv.price.details'|translate}}</h3></mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <table style="width: 100%">
+
+                <tr>
+                    <td><h5>{{'resv.hoursNum'| translate}}</h5></td>
+                    <td><label>{{hoursNum}}</label></td>
+                    <td><h5>{{'resv.price'| translate}}  </h5></td>
+                    <td>
+                        <label>
+                                {{price}} {{'GENERIC.SR' | translate }}
+                        </label>
+                    </td>
+
+                    <td><h5>{{'resv.vat'| translate}} </h5></td>
+                    <td>
+                        <label>
+                                {{vat}} {{'GENERIC.SR' | translate }}
+                        </label>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td><h5>{{'resv.priceWithVat'| translate}} </h5></td>
+                    <td>
+                        <label>
+                        <mat-chip  color="primary" selected="true"  class="info-chip">
+                        {{priceWithVat}} {{'GENERIC.SR' | translate }}</mat-chip>
+                       </label>
+                    </td>
+
+                </tr>
+
+
+
+
+            </table>
+        </mat-card-content>
+    </mat-card>
+
+
+    <br>
+    <div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
+        <button mat-raised-button type="submit" color="primary" [disabled]="!form.valid  || submitted" >
+            <span>{{'GENERIC.save'|translate}}</span>
+        </button>
+        <button mat-raised-button color="accent" type="button" [disabled]="submitted"
+                (click)="close()">{{'GENERIC.cancel'|translate}}</button>
+    </div>
+
+</form>
+
+    <div *ngIf="submitted" fxLayout="column" fxLayoutAlign="center center" class="user-spinner">
+        <mat-spinner color="primary"></mat-spinner>
+    </div>
+</div>
+

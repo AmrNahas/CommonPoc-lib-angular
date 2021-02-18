@@ -1,0 +1,18 @@
+<button matTooltip="{{'LANDING.theme.lang'|translate}}" mat-icon-button [matMenuTriggerFor]="flagsMenu" #flagsMenuTrigger="matMenuTrigger">
+    <mat-icon>language</mat-icon>
+</button>
+<mat-menu #flagsMenu="matMenu" [overlapTrigger]="false" class="toolbar-dropdown-menu flags">
+    <span  >
+        <button mat-menu-item (click)="changeLang('en')"  [disabled]="!rtlFlag">
+            <img src="assets/img/flags/gb.svg" width="20" alt="--">
+            {{'LANDING.lang.en' | translate}}
+           <span *ngIf="!rtlFlag"> <mat-icon>done</mat-icon></span>
+        </button>
+        <button mat-menu-item  (click)="changeLang('ar')" [disabled]="rtlFlag">
+            <img src="assets/img/flags/ksa.svg" width="20" alt="--">
+            {{'LANDING.lang.ar' | translate}}
+            <span *ngIf="rtlFlag"> <mat-icon>done</mat-icon></span>
+        </button>
+
+    </span>
+</mat-menu>

@@ -1,0 +1,143 @@
+<div style="padding: .5% 10%;">
+    <div fxLayout="column" fxLayout.gt-sm="row wrap">
+        <div fxFlex="25" class="flex-p">
+            <!--        [class.bg-accent]="true"-->
+            <mat-card class="mat-card-border_all">
+                <mat-card-header fxLayoutAlign="center">
+                    <mat-card-subtitle><h2>{{'GENERIC.filter'|translate}}</h2></mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content fxLayoutAlign="center">
+                    <app-itemsfilter-form [componentObject]="this"></app-itemsfilter-form>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div fxFlex="75" class="flex-p">
+
+            <mat-card *ngIf="!removeRegHint" >
+                <button    (click)="closeRegPanel()"   style="float: left ;    width: 26px;height: 26px;"      >
+                    <mat-icon>close</mat-icon>
+                </button>
+                <mat-card-header>
+                    <mat-card-subtitle> {{'GENERIC.landing.reg.title.res'|translate}}
+                        <button   mat-flat-button   style="margin-right: 3px;float: left;margin-top: -7px;" routerLink="/custReg" color="primary"  > {{'LANDING.REGISTER' | translate }}
+                        <mat-icon>person_add</mat-icon>
+                    </button></mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content  >
+
+                </mat-card-content>
+            </mat-card>
+
+             <!--{{'resv.order.by'|translate}}  appearance="legacy"  class="light_border_all"-->
+            <mat-button-toggle-group value="{{sortByValue}}" style="margin-top: 8px "    >
+                <mat-button-toggle   class="cell_sort" >{{'resv.order.by'|translate}}</mat-button-toggle>
+                <mat-button-toggle   class="{{sortByValue==sortByLessPrice ? 'cell_sort_selected':''}}"       (change)="sortBy(sortByLessPrice)" value="{{sortByLessPrice}}">{{'resv.price.less'|translate}}</mat-button-toggle>
+                <mat-button-toggle   class="{{sortByValue==sortByHighRate ?  'cell_sort_selected':''}}"       (change)="sortBy(sortByHighRate)"  value="{{sortByHighRate}}" >{{'resv.rate.high'|translate}}</mat-button-toggle>
+                <mat-button-toggle   class="{{sortByValue==sortByLessHours ? 'cell_sort_selected':''}}"       (change)="sortBy(sortByLessHours)" value="{{sortByLessHours}}">{{'resv.minHour.less'|translate}}</mat-button-toggle>
+            </mat-button-toggle-group>
+
+            <mat-progress-bar *ngIf="loadDataFlag" mode="indeterminate"></mat-progress-bar>
+            <br/>
+            <mat-card>
+                <mat-card-content fxLayoutAlign="center">
+                    <div *ngIf="dataSource && dataSource.data.length==0" fxLayout="row wrap" style="background-color: #efc371">
+                       <h4> {{'GENERIC.result.empty' | translate }}</h4>
+                    </div>
+                    <div *ngIf="dataSource" fxLayout="row wrap">
+                        <div *ngFor="let sv of dataSource.data" fxFlex="100" fxFlex.gt-md="100" fxFlex.md="50"
+                             class="flex-p">
+                            <mat-card class="p-0  mat-card-border_all-sm">
+                                <div class="user-content" fxLayout="row" fxLayoutAlign="space-around center">
+
+                                    <div fxFlex="30" fxLayout="column" fxLayoutAlign="center center">
+                                        <div class="user-img">
+                                                <img (click)="openSvPhoto(sv.masterPicBase64)"
+                                                     [src]="sv.masterPicBase64|veichlePicPipe" class="transition-2">
+
+                                        </div>
+<!--
+                                        <div class="user-social">
+                                            <mat-slide-toggle color="primary"></mat-slide-toggle>
+                                        </div>-->
+                                    </div>
+
+                                    <!--   <div fxFlex="2" fxLayout="column" fxLayoutAlign="center center">
+                                           <div>
+                                           </div>
+                                       </div>-->
+
+                                    <div fxFlex="60" fxLayout="column" class="user-details transition-2">
+                                        <h3 fxLayout="row" fxLayoutAlign="start center"
+                                            style="font-weight: bolder;color: rgb(37 121 149)">
+                                            <span> {{sv.nameAr}} - {{sv.typeName}}   </span>
+                                        </h3>
+
+                                        <p fxLayout="row" fxLayoutAlign="start center">
+                                            <mat-icon color="primary" class="muted-text">location_on</mat-icon>
+                                            <span>{{sv.countryName}} ,{{sv.cityName}} , {{sv.locationAddress}}</span>
+                                        </p>
+                                        <p fxLayout="row" fxLayoutAlign="start center">
+                                            <mat-icon color="primary" class="muted-text"> supervisor_account</mat-icon>
+                                            <span> {{sv.maxSeatsNum}} {{'Home.maxPersons'|translate}}</span>
+                                        </p>
+
+
+                                      <!--  <p fxLayout="row" fxLayoutAlign="start center">
+                                            <mat-icon color="primary" class="muted-text">call</mat-icon>
+                                            <span>05041254784</span>
+                                        </p>-->
+
+                                        <p fxLayout="row" matTooltip="{{sv.descriptionAr}}"   fxLayoutAlign="start center" style="color: rgb(37 121 149) ;font-size: small ;width: 300px">
+                                            <mat-icon color="primary" class="muted-text">comments</mat-icon>
+                                            <span>{{sv.descriptionAr}}</span>
+                                        </p>
+
+                                        <p fxLayout="row" fxLayoutAlign="start center" style="font-size: x-small">
+                                            <span>{{'sv.services.toilet'|translate}}</span>
+                                            <span>   <mat-icon
+                                                    [color]=" sv.hasToiletValue ? 'primary':'warn'">{{sv.hasToiletValue ? 'done' : 'highlight_off'}}</mat-icon> </span>
+                                            <span>{{'sv.services.kitchen'|translate}} </span>
+                                            <span>   <mat-icon
+                                                    [color]=" sv.hasKitchenValue ? 'primary':'warn'">{{sv.hasKitchenValue ? 'done' : 'highlight_off'}}</mat-icon> </span>
+                                            <span>{{'sv.services.emergencyTools'|translate}}</span>
+                                            <span>   <mat-icon
+                                                    [color]=" sv.hasEmergencyToolsValue ? 'primary':'warn'">{{sv.hasEmergencyToolsValue ? 'done' : 'highlight_off'}}</mat-icon> </span>
+                                            <span>{{'sv.services.fishingTools'|translate}}</span>
+                                            <span>   <mat-icon
+                                                    [color]=" sv.hasFishingToolsValue ? 'primary':'warn'">{{sv.hasFishingToolsValue ? 'done' : 'highlight_off'}}</mat-icon> </span>
+
+                                        </p>
+
+
+                                    </div>
+                                    <div fxFlex="20" fxLayout="column">
+
+                                        <mat-chip-list>
+                                            <mat-chip  style="float: left;font-size: small" color="primary" selected="true"
+                                                      class="info-chip">
+                                                8.8 جيد
+                                            </mat-chip>
+
+                                            <mat-chip color="accent" selected="true" class="info-chip" style="font-size: small">
+                                                {{sv.pricePerHour}} {{'GENERIC.SR' | translate }}
+                                                /{{'Home.hour' | translate }}</mat-chip>
+
+                                        </mat-chip-list>
+                                        <br/> <br/>
+                                        <button mat-raised-button color="primary" [matTooltipDisabled]="isLoggedIn"  matTooltip="{{'GENERIC.landing.reg.title.res'|translate}}"
+                                                (click)="doReservation(sv)">  {{'Home.reserve' | translate }}</button>
+
+                                    </div>
+
+                                </div>
+                            </mat-card>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+            <app-itemsPagination [componentObject]="this"></app-itemsPagination>
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,29 @@
+<div fxFlex="100" >
+    <div fxLayoutAlign="end center" class="closeBtn">
+    <button   matTooltip="{{'GENERIC.action.close' |translate}}" mat-icon-button matSuffix  color="warn"  type="button"    (click)="close()">
+        <mat-icon>cancel</mat-icon>
+    </button>
+    </div>
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>  <span>{{'GENERIC.action.viewAtt' |translate}}</span>
+                <a  [href]="fileUrlToDownload"  matTooltip="{{'GENERIC.action.download' |translate}}"  download="{{fileImage.name}}"  class="m-1" color="accent"  mat-icon-button matSuffix   >
+                <mat-icon>cloud_download</mat-icon>
+            </a>
+            </mat-card-title>
+            <mat-card-subtitle>{{fileImage.name}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <div >
+                <div *ngIf="loading" fxLayout="column" fxLayoutAlign="center center" class="user-spinner">
+                    <mat-spinner color="primary"></mat-spinner>
+                </div>
+
+                <img  [src]="previewUrl" *ngIf="  fileType==FileTypeEnum.IMAGE" height="400" width="500" />
+                <pdf-viewer  [src]="previewUrl" *ngIf="  fileType==FileTypeEnum.PDF" [original-size]="false" style="width: 500px;height: 300px"  ></pdf-viewer>
+
+            </div>
+        </mat-card-content>
+
+    </mat-card>
+</div>

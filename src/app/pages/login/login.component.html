@@ -1,0 +1,40 @@
+<mat-sidenav-container>
+
+  <div fxLayout="row" fxLayoutAlign="center center" class="h-100">
+
+       <form [formGroup]="form" (ngSubmit)="onSubmit()" fxFlex="80" fxFlex.gt-sm="30" fxFlex.sm="60">
+
+            <mat-card class="p-0 mat-elevation-z24 box">
+                <div fxLayout="column" fxLayoutAlign="center center" class="bg-primary box-header">
+                    <button mat-fab color="accent" class="mat-elevation-z12" type="button" >
+                        <mat-icon>exit_to_app</mat-icon>
+                    </button>
+                    <a mat-button routerLink="/custReg">{{'LOGIN.headline' | translate}} </a>
+                </div>
+                <mat-card-content fxLayout="column" fxLayoutAlign="end center" class="box-content">
+                    <mat-card fxLayout="column" fxLayoutAlign="center center" class="mat-elevation-z12 box-content-inner">
+                        <span class="box-content-header">{{'LOGIN.title' | translate}}</span>
+                        <mat-form-field class="w-100">
+                            <input matInput placeholder="{{'LOGIN.userName' | translate}}" formControlName="userName">
+                            <mat-error *ngIf="form.controls.userName.errors?.required">{{'GENERIC.required' | translate}}</mat-error>
+                            <!-- <mat-error *ngIf="form.controls.email.hasError('invalidEmail')">Invalid email address</mat-error> -->
+                        </mat-form-field>
+                        <mat-form-field class="w-100">
+                            <input type="password" matInput placeholder="{{'LOGIN.password' | translate}}" formControlName="password">
+                            <mat-error *ngIf="form.controls.password.errors?.required">{{'GENERIC.required' | translate}}</mat-error>
+<!--                            <mat-error *ngIf="form.controls.password.hasError('minlength')">Password isn't long enough, minimum of 6 characters</mat-error>-->
+                        </mat-form-field>
+                    </mat-card>
+                    <button mat-raised-button color="primary" class="mat-elevation-z12 box-button" type="submit">{{'LOGIN.signIn' | translate}}</button>
+                </mat-card-content>
+
+                <div *ngIf="loading" fxLayout="column" fxLayoutAlign="center center" class="user-spinner">
+                    <mat-spinner color="primary"></mat-spinner>
+                </div>
+            </mat-card>
+            
+        </form>    
+  
+  </div>
+
+</mat-sidenav-container>

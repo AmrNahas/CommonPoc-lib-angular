@@ -1,0 +1,218 @@
+<div fxLayoutAlign="end center" class="closeBtn">
+    <button matTooltip="{{'GENERIC.action.close' |translate}}" mat-icon-button matSuffix type="button" color="warn"
+            (click)="close()">
+        <mat-icon>cancel</mat-icon>
+    </button>
+</div>
+<h1 mat-dialog-title>
+    <span>{{'sv.addSv'|translate}}</span>
+</h1>
+
+<div class="flex-p">
+    <!--<mat-card  style=" height: 50px"  class="mat-card-border" >
+        <mat-card-header  >
+            <mat-card-title>{{'sv.addSv'|translate}}</mat-card-title>
+            <mat-card-subtitle>{{'sv.addSv'|translate}}</mat-card-subtitle>
+        </mat-card-header>
+    </mat-card>-->
+    <mat-card class="mat-card-border">
+        <mat-card-header>
+            <mat-card-subtitle><h3>{{'GENERIC.data'|translate}}</h3></mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+
+            <table style="width: 100%">
+
+                <tr>
+                    <td><h5>{{'GENERIC.serviceProvider'| translate}} </h5></td>
+                    <td><label>{{sv.ownerName}}</label></td>
+
+                    <td *ngIf="sv.ownerTypeId==Constants.SP_TYPE_COMP"><h5>{{'SP.commRegNum'| translate}} </h5></td>
+                    <td *ngIf="sv.ownerTypeId==Constants.SP_TYPE_INDIV"><h5>{{'SP.IdNo'| translate}} </h5></td>
+
+                    <td *ngIf="sv.ownerTypeId==Constants.SP_TYPE_COMP"><label>{{sv.ownerCommRegNum}}</label></td>
+                    <td *ngIf="sv.ownerTypeId==Constants.SP_TYPE_INDIV"><label>{{sv.ownerIdNo}}</label></td>
+                </tr>
+
+                <tr>
+                    <td><h5>{{'sv.sp.type'| translate}} </h5></td>
+                    <td>
+                        <mat-chip color="primary" selected="true" class="info-chip">{{sv.ownerType}}</mat-chip>
+                    </td>
+                    <td><h5>{{'GENERIC.reqId'| translate}} </h5></td>
+                    <td><label>{{sv.id}}</label></td>
+                </tr>
+                <tr>
+                    <td><h5>{{'sv.nameAr'| translate}} </h5></td>
+                    <td><label>{{sv.nameAr}}</label></td>
+                    <td><h5>{{'sv.nameEn'| translate}}  </h5></td>
+                    <td><label>{{sv.nameEn}}</label></td>
+                </tr>
+                <tr>
+                    <td><h5>{{'sv.type'| translate}} </h5></td>
+                    <td><label>{{sv.typeName}}</label></td>
+                    <td><h5>{{'registration.country'| translate}} </h5></td>
+                    <td><label>{{sv.countryName}}</label></td>
+                </tr>
+                <tr>
+                    <td><h5>{{'registration.city'| translate}}</h5></td>
+                    <td><label>{{sv.cityName}}</label></td>
+                    <td><h5>{{'sv.licenseNum'| translate}}</h5></td>
+                    <td>{{sv.licenseNum}}</td>
+                </tr>
+
+                <tr>
+                    <td><h5>{{'sv.locationAddress'| translate}}</h5></td>
+                    <td><label>{{sv.locationAddress}}</label></td>
+                    <td><h5>{{'sv.pricePerHour'| translate}}</h5></td>
+                    <td>{{sv.pricePerHour}}
+                        <mat-chip color="primary" selected="true" class="info-chip">
+                            {{'GENERIC.SR' | translate }}</mat-chip>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><h5>{{'sv.maxSeats'| translate}}</h5></td>
+                    <td><label>{{sv.maxSeatsNum}}</label></td>
+                    <td><h5>{{'sv.minHourForHire'| translate}}</h5></td>
+                    <td>{{sv.minHourForHire}}</td>
+                </tr>
+
+
+                <tr>
+                    <td><h5>{{'GENERIC.reqStatus'| translate}}</h5></td>
+                    <td>
+                        <mat-chip color="{{sv.reqStatusColor}}" selected="true" class="info-chip">
+                            {{sv.reqStatusStr | translate }}</mat-chip>
+                    </td>
+
+                </tr>
+
+            </table>
+            <br>
+            <table style="width: 100%">
+                <tr>
+                    <td><h5>{{'sv.descAr'| translate}} </h5></td>
+                    <td><label>{{sv.descriptionAr}}</label></td>
+                </tr>
+
+                <tr>
+                    <td><h5>{{'sv.descEn'| translate}} </h5></td>
+                    <td><label>{{sv.descriptionEn}}</label></td>
+                </tr>
+
+            </table>
+
+
+        </mat-card-content>
+    </mat-card>
+    <br/>
+    <mat-card class="mat-card-border">
+        <mat-card-header>
+            <mat-card-subtitle><h3>{{'sv.features'|translate}}</h3></mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <table style="width: 60%">
+                <tr>
+                    <td><h5>{{'sv.services.toilet'|translate}} </h5></td>
+                    <td><span><mat-icon
+                            [color]=" sv.hasToiletValue ? 'primary':'warn'">{{sv.hasToiletValue ? 'done' : 'close'}}</mat-icon></span>
+                    </td>
+                    <td><label>|</label></td>
+                    <td><h5>{{'sv.services.kitchen'|translate}} </h5></td>
+                    <td><span><mat-icon
+                            [color]=" sv.hasKitchenValue ? 'primary':'warn'">{{sv.hasKitchenValue ? 'done' : 'close'}}</mat-icon></span>
+                    </td>
+                    <td><label>|</label></td>
+                    <td><h5>{{'sv.services.emergencyTools'|translate}} </h5></td>
+                    <td><span><mat-icon
+                            [color]=" sv.hasEmergencyToolsValue ? 'primary':'warn'">{{sv.hasEmergencyToolsValue ? 'done' : 'close'}}</mat-icon></span>
+                    </td>
+                    <td><label>|</label></td>
+                    <td><h5>{{'sv.services.fishingTools'|translate}} </h5></td>
+                    <td><span><mat-icon
+                            [color]=" sv.hasFishingToolsValue ? 'primary':'warn'">{{sv.hasFishingToolsValue ? 'done' : 'close'}}</mat-icon></span>
+                    </td>
+                </tr>
+
+
+            </table>
+
+        </mat-card-content>
+    </mat-card>
+
+    <br/>
+    <mat-card class="mat-card-border">
+        <mat-card-header>
+            <mat-card-subtitle><h3>{{'GENERIC.attachments'|translate}}</h3></mat-card-subtitle>
+        </mat-card-header>
+
+        <div fxLayout="row wrap">
+            <div fxFlex="100" fxFlex.gt-md="33.3" fxFlex.md="50" class="flex-p">
+                <mat-nav-list>
+                    <mat-list-item *ngFor="let doc of this.photos">
+                        <img matListAvatar [src]="doc.userPhotoBase64|imagePipe" alt="image">
+                        <h3 matLine>{{doc.fileName}} </h3>
+                        <p matLine>
+                            <small> {{doc.fileName}}</small>
+                        </p>
+                        <!--                        color="primary"-->
+                        <button matTooltip="{{'GENERIC.action.viewAtt' |translate}}" mat-flat-button class="m-1"
+                                type="button" mat-icon-button
+                                (click)="viewAttachment(doc)">
+                            <mat-icon color="primary">pageview</mat-icon>
+                        </button>
+                    </mat-list-item>
+
+                </mat-nav-list>
+
+            </div>
+
+            <div fxFlex="100" fxFlex.gt-md="33.3" fxFlex.md="50" class="flex-p">
+                <mat-nav-list>
+                    <mat-list-item *ngFor="let doc of this.documents">
+                        <img matListAvatar *ngIf="doc.fileType!='application/pdf'"
+                             [src]="doc.userPhotoBase64|imageSvPipe" alt="image">
+                        <img matListAvatar *ngIf="doc.fileType=='application/pdf'" [src]="null|imagePdfPipe" alt="pfd">
+                        <h3 matLine>{{doc.fileName}} </h3>
+                        <p matLine>
+                            <small> {{doc.fileName}}</small>
+                        </p>
+                        <button matTooltip="{{'GENERIC.action.viewAtt' |translate}}" mat-flat-button class="m-1"
+                                type="button" mat-icon-button matSuffix
+                                (click)="viewAttachment(doc)">
+                            <mat-icon color="primary">pageview</mat-icon>
+                        </button>
+                    </mat-list-item>
+
+                </mat-nav-list>
+            </div>
+
+        </div>
+
+    </mat-card>
+    <br/>
+    <mat-card class="mat-card-border">
+        <mat-card-header>
+            <mat-card-subtitle><h3>{{'sv.comments'|translate}}</h3></mat-card-subtitle>
+        </mat-card-header>
+        <h3>{{sv.comments}}</h3>
+        <input *ngIf="canDoAction" matInput placeholder="{{'sv.comments'|translate}}" [(ngModel)]="comments">
+    </mat-card>
+
+    <!--    <input [(ngModel)]="comments" >-->
+    <div *ngIf="canDoAction" mat-dialog-actions fxLayout="row" fxLayoutAlign=" center">
+        <button mat-raised-button *ngIf="sv.reqStatus==1" color="primary" (click)=" approveRequest()">
+            <span>{{'GENERIC.accept'|translate}}</span>
+        </button>
+
+
+        <button mat-raised-button *ngIf="sv.reqStatus==1" (click)="rejectRequest()">
+            <span>{{'GENERIC.reject'|translate}}</span>
+        </button>
+
+    </div>
+
+
+</div>
+

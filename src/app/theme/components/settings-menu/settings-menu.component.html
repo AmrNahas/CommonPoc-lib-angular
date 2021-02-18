@@ -1,0 +1,18 @@
+<button matTooltip="{{'LANDING.settings'|translate}}" mat-icon-button [matMenuTriggerFor]="flagsMenu" #flagsMenuTrigger="matMenuTrigger">
+    <mat-icon>settings</mat-icon>
+</button>
+<mat-menu #flagsMenu="matMenu" [overlapTrigger]="false" class="toolbar-dropdown-menu flags">
+    <span  >
+        <button mat-menu-item (click)="changeTheme('green-dark')"  [disabled]="themeTypeDark">
+<!--            <img src="assets/img/flags/gb.svg" width="20" alt="&#45;&#45;">-->
+            {{'LANDING.theme.dark' | translate}}
+            <span *ngIf="themeTypeDark"> <mat-icon>done</mat-icon></span>
+        </button>
+        <button mat-menu-item  (click)="changeTheme('teal-light')" [disabled]="!themeTypeDark">
+<!--            <img src="assets/img/flags/ksa.svg" width="20" alt="&#45;&#45;">-->
+            {{'LANDING.theme.light' | translate}}
+            <span *ngIf="!themeTypeDark"> <mat-icon>done</mat-icon></span>
+        </button>
+
+    </span>
+</mat-menu>

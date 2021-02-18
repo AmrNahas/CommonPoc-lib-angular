@@ -1,0 +1,256 @@
+@import "mixins";
+
+.app[dir="rtl"]{
+    .sidenav-toggle{
+        margin-right: 0;
+        margin-left: 10px;
+    }
+    .options-icon{
+        left: -4px;
+    }
+    .options{
+        .mat-slider-horizontal{
+            overflow: hidden;  //for solve chrome bug
+        }
+    }
+    .pin{
+        right: auto;
+        left: 2px;
+    }
+    .menu-icon{
+        margin-left: 12px;
+    }
+    .menu-expand-icon{
+        right: auto;
+        left: 10px;
+    }
+    .sub-menu{
+        @include menu-level-padding('rtl');
+        .mat-button{
+            padding-right: 20px;      
+        }
+    }
+    .back-to-top{
+        right: auto;
+        left: 20px;
+    }
+    .messages img{
+        margin-right: 0;
+        margin-left: 8px;
+    }
+    .messages{
+        img, .row-1{
+            margin-right: 0;
+            margin-left: 8px;
+        }
+        span.text{
+            text-align: right;
+        }
+    }
+    .flags img{
+        margin-right: 0;
+        margin-left: 8px;
+    }
+
+    .mat-chip.info-chip .mat-icon{
+        margin-right: 0;
+        margin-left: 4px;
+    }
+  
+    .chat-status-icon{
+        margin-right: 0;
+        margin-left: 6px;
+    }
+    .chat-sidenav, .mailbox-sidenav{
+        border-right: none;
+        border-left: 1px solid transparent;      
+    }
+
+    .ql-editor.ql-blank::before{
+        right: 6px;
+    }
+    .ql-editor{
+        text-align: right;
+    }
+    .horizontal-menu-item {
+        .horizontal-menu-icon{
+            margin-right: 0;
+            margin-left: 5px;
+        }
+    }
+    .horizontal-sub-menu .horizontal-sub-menu{
+        left: auto;
+        right: 100%;
+    }
+    &.horizontal-menu{
+        &.compact{
+            .horizontal-menu-item{
+                 .horizontal-sub-menu{
+                     .mat-button{
+                        .horizontal-menu-icon{
+                            margin-right: 0;
+                            margin-left: 10px;
+                        }
+                    }
+                 }
+            }
+        }
+    }
+    &.compact{
+        .menu-icon{
+            margin-left: 0;
+        }
+        .sub-menu .mat-button{
+            padding-right: 0 !important;
+        }
+    }
+    &.mini{
+        .menu-icon{
+            margin-left: 0;
+        }
+        .sub-menu .mat-button{
+            padding-right: 0 !important;
+        }
+        .menu-expand-icon{
+            right: auto;
+            left: 0;
+        }
+    }
+
+
+    
+    .cal-month-view {
+        .cal-day-number{
+            float: left;
+            margin-right: 0;
+            margin-left: 15px;
+        }
+        .cal-day-badge{
+            margin-left: 0;
+            margin-right: 10px;
+        }
+    }
+
+    input.mat-input-element{
+        text-align: right;
+    }
+    .mat-dialog-title{
+        text-align: right;
+    }
+
+
+    .ps__rail-y{
+        right: auto !important;
+        left: 0 !important;
+    }
+    .ps__thumb-y{
+        right: auto !important;
+        left: 1px !important;
+    }
+
+
+    /*custom CSS Classes*/
+    .messageError{
+        background: #ff5252;
+    }
+
+    .messageInfo{
+        background:  #00685b;
+    }
+
+    .table-cell-light{
+        font-weight: bolder;
+       // color: #00685b;
+
+    }
+
+    .table-cell-light{
+        font-weight: bolder;
+        // color: #00685b;
+
+    }
+
+     .mat-card-border{
+         border-right: 10px  solid #257995;
+         //background:  #e1e1e147
+     }
+
+    .mat-card-border_all{
+        border: 3px  solid rgba(14, 14, 14, 0.48);
+    }
+
+    .light_border_all{
+        border: 1px  solid rgba(14, 14, 14, 0.48);
+    }
+
+    .cell_sort_selected{
+        background-color: #257995;
+        color: white !important;
+    }
+
+    .cell_sort{
+        background-color: rgb(224 224 224)
+    }
+
+    .mat-card-border_all-sm{
+        border: 1px  solid rgba(14, 14, 14, 0.48);
+    }
+
+   // #257995
+    .mat-card-border-top{
+        border-top: 10px  solid #257995
+    }
+
+    // form field class
+    mat-form-field {
+        margin-left: 8px;
+    }
+
+    .closeBtn{
+        margin-top: -28px ;
+        margin-left: -22px;
+    }
+
+    .noResultDiv{
+        background-color: #efc371
+    }
+
+     .mat-row {
+        min-width: 18%;
+      }
+
+    .lightgrey-bk{
+        background-color: lightgrey;
+    }
+
+/*
+    // override typography for font
+    @import '~@angular/material/theming';
+    // Define a custom typography config that overrides the font-family as well as the
+    // `headlines` and `body-1` levels.
+    $custom-typography: mat-typography-config(
+            $font-family:   'Droid Arabic Kufi, monospace',
+            $display-4:     mat-typography-level(112px, 112px, 300, $letter-spacing: -0.05em),
+            $display-3:     mat-typography-level(56px, 56px, 400, $letter-spacing: -0.02em),
+            $display-2:     mat-typography-level(45px, 48px, 400, $letter-spacing: -0.005em),
+            $display-1:     mat-typography-level(34px, 40px, 400),
+            $headline:      mat-typography-level(24px, 32px, 400),
+            $title:         mat-typography-level(20px, 32px, 500),
+            $subheading-2:  mat-typography-level(16px, 28px, 400),
+            $subheading-1:  mat-typography-level(15px, 24px, 400),
+            $body-2:        mat-typography-level(14px, 24px, 500),
+            $body-1:        mat-typography-level(14px, 20px, 400),
+            $caption:       mat-typography-level(12px, 20px, 400),
+            $button:        mat-typography-level(14px, 14px, 500),
+                // Line-height must be unit-less fraction of the font-size.
+            $input:         mat-typography-level(inherit, 1.125, 400)
+    );
+    @include mat-base-typography($custom-typography);
+    // Override typography for a specific Angular Material components.
+    @include mat-checkbox-typography($custom-typography);
+    // Override typography for all Angular Material, including mat-base-typography and all components.
+    @include angular-material-typography($custom-typography);
+    // Override the typography in the core CSS.
+    @include mat-core($custom-typography);
+    // end override typography for font*/
+}

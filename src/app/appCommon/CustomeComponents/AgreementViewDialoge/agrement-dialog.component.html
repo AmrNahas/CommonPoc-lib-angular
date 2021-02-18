@@ -1,0 +1,23 @@
+<div fxFlex="100" >
+    <div fxLayoutAlign="end center" class="closeBtn">
+    <button   matTooltip="{{'GENERIC.action.close' |translate}}" mat-icon-button matSuffix  color="warn"  type="button"    (click)="close()">
+        <mat-icon>cancel</mat-icon>
+    </button>
+    </div>
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>  <span>{{'SP.agreement.headline'|translate}}</span>
+
+            </mat-card-title>
+            <mat-card-subtitle>{{'SP.agreement.headline.sub'|translate}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-list>
+                <mat-list-item>Item 1</mat-list-item>
+                <mat-list-item>Item 2</mat-list-item>
+                <mat-list-item>Item 3</mat-list-item>
+            </mat-list>
+        </mat-card-content>
+
+    </mat-card>
+</div>

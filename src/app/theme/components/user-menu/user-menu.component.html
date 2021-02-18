@@ -1,0 +1,40 @@
+<button mat-icon-button [matMenuTriggerFor]="userMenu" #userMenuTrigger="matMenuTrigger" >
+    <mat-icon>account_circle</mat-icon>
+</button>
+
+<mat-menu #userMenu="matMenu" [overlapTrigger]="false" class="toolbar-dropdown-menu user-menu">
+    <!--<span (mouseleave)="userMenuTrigger.closeMenu()">-->
+        <mat-toolbar color="primary">
+            <div fxLayout="row" fxLayoutAlign="space-around center" class="user-info">
+<!--               <img [src]="imageBlobUrl|imagePipe" alt="user-image" width="40" class="rounded mat-elevation-z6">-->
+                <p>{{authUser.name}} <br> <small style="font-weight: bold">{{partyName|translate}}</small></p>
+            </div>
+        </mat-toolbar>
+        <!--<a mat-menu-item routerLink="/profile/projects">
+            <mat-icon>person</mat-icon> edit
+            <span>Profile</span> 
+        </a>-->
+        <a mat-menu-item routerLink="/profile/user-info"> 
+            <mat-icon>person </mat-icon>
+            <span> {{'MENU.profile' |translate}}</span>
+        </a>
+       <!-- <a mat-menu-item routerLink="settings">
+            <mat-icon>settings</mat-icon>
+            <span>Settings</span> 
+        </a>-->
+      <!--  <a mat-menu-item routerLink="/">
+            <mat-icon>lock</mat-icon>
+            <span>Lock screen</span> 
+        </a>-->
+        <a mat-menu-item routerLink="/support">
+            <mat-icon>help</mat-icon>
+            <span>{{'MENU.help' |translate}}</span>
+        </a>
+        <div class="divider"></div>
+        <a mat-menu-item (click)="logOut()" > 
+            <mat-icon>power_settings_new</mat-icon>
+            <span>  {{'GENERIC.logout' | translate}}</span>
+        </a>
+        
+    <!--</span>-->
+</mat-menu>

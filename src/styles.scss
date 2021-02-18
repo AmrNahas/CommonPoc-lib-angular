@@ -1,0 +1,129 @@
+// for npm roboto-fontface package (to load local files)
+
+@import '~@angular/material/theming';
+@import url(https://fonts.googleapis.com/earlyaccess/droidarabickufi.css);
+
+
+$roboto-font-path: "~roboto-fontface/fonts" !default;
+@import "~roboto-fontface/css/roboto/sass/roboto-fontface";
+
+// for npm material-icons package (to load local files)
+$material-icons-font-path: '~material-icons/iconfont/';
+@import '~material-icons/iconfont/material-icons.scss';
+
+
+@import url('https://cdn.quilljs.com/1.2.2/quill.snow.css');
+@import url('https://cdn.quilljs.com/1.2.2/quill.bubble.css');
+
+// indigo-pink, deeppurple-amber, purple-green and pink-bluegrey.
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+@import "app/theme/styles/base";
+@import "app/theme/styles/theme";
+@import "app/theme/styles/libs-override";
+@import "app/theme/styles/rtl";
+/* @import url('https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css');*/
+// @import "~@material/layout-grid/mdc-layout-grid";
+
+
+/*.ngb-dp-weekday{
+  width: 2.1rem !important;
+}*/
+
+  ngb-datepicker {
+      position: fixed !important;
+      background-color: white;
+
+    .ngb-dp-today {
+      //background-color: #e6e6e6;
+    }
+
+    .ngb-dp-arrow {
+      //background-color:#00695c ;
+    }
+
+    .bg-primary {
+      background-color: #00695c;
+      color: white;
+    }
+
+    .ngb-dp-day {
+      /*   background-color: #00695c;
+         color: white;*/
+    }
+
+    .btn-light {
+      /* background-color: #00695c;
+       color: white;*/
+    }
+
+    .ngb-dp-weekday {
+      color: #00695c;
+      font-size: 10px;
+      font-weight: bold;
+    }
+
+
+    .ngb-dp-header {
+      //background-color: rgb(52, 104, 191);
+    }
+
+    select {
+      // background-color: rgba(52,104,191,1);
+      color: #00695c !important;
+      font-weight: bold;
+    }
+
+    option {
+      color: #00695c !important;
+      font-weight: bold;
+    }
+
+
+    .ngb-dp-arrow.right {
+
+    }
+
+    /*  .active{
+        background-color: #388E3C;
+      }
+      &.outside {
+        opacity: 0.5;
+      }
+
+      &:hover,
+      &.focused
+       {
+        background-color: #e6e6e6;
+      }*/
+
+
+    ngb-datepicker-navigation-select > .custom-select {
+      -ms-flex: 1 1 auto;
+      flex: 1 1 auto;
+      padding: 0 .5rem;
+      font-size: .875rem;
+      height: 1.85rem;
+    }
+
+    .ngb-dp-navigation-chevron {
+      border-style: solid;
+      border-width: .2em .2em 0 0;
+      display: inline-block;
+      width: .75em;
+      height: .75em;
+      margin-left: .25em;
+      margin-right: .15em;
+      -webkit-transform: rotate(-135deg);
+      transform: rotate(-135deg);
+    }
+
+    .ngb-dp-arrow-btn {
+      padding: 0 .25rem;
+      margin: 0 .5rem;
+      border: none;
+      background-color: transparent;
+      z-index: 1;
+    }
+  }
+

@@ -1,0 +1,61 @@
+<!--  search form -->
+<div>
+    <form [formGroup]="componentObject.filterComponentForm" (ngSubmit)="componentObject.search()">
+        <mat-form-field appearance="outline" *ngFor="let filter of componentObject.filterPropertiesArr">
+            <mat-label>{{filter.localName | translate}}</mat-label>
+
+            <mat-select formControlName="{{filter.columnProp}}" *ngIf="filter.columnType ==  ColumnTypEnum.DROPDOWN">
+                <mat-option [value]=" "> --{{'GENERIC.select'|translate}} {{filter.localName | translate }}--
+                </mat-option>
+                <mat-option [value]="item.value"
+                            *ngFor="let item of filter.options">{{isArabicLang() ? item.nameAr : item.nameEn }} </mat-option>
+            </mat-select>
+
+            <mat-select multiple formControlName="{{filter.columnProp }}"
+                        *ngIf="filter.columnType ==  ColumnTypEnum.DROPDOWN_MULTI">
+                <mat-option disabled="true" [value]=" ">
+                    --{{'GENERIC.select'|translate}} {{filter.localName | translate }}--
+                </mat-option>
+                <mat-option [value]="item.value"
+                            *ngFor="let item of filter.options">{{isArabicLang() ? item.nameAr : item.nameEn}} </mat-option>
+            </mat-select>
+
+
+            <input matInput matNativeControl formControlName="{{filter.columnProp}}" [matDatepicker]="myDatepicker"
+                   *ngIf="filter.columnType ==  ColumnTypEnum.DATE_GEO">
+            <mat-datepicker-toggle matSuffix [for]="myDatepicker"
+                                   *ngIf="filter.columnType ==  ColumnTypEnum.DATE_GEO"></mat-datepicker-toggle>
+            <mat-datepicker #myDatepicker disabled="false"></mat-datepicker>
+
+            <input *ngIf="filter.columnType == ColumnTypEnum.TEXT" matInput formControlName="{{filter.columnProp}}">
+
+
+            <textarea matNativeControl matTextareaAutosize *ngIf="filter.columnType == ColumnTypEnum.MULTI_LINES_TEXT"
+                      matAutosizeMinRows="1" matAutosizeMaxRows="2" formControlName="{{filter.columnProp}}">
+               </textarea>
+
+            <!--   <button mat-icon-button matSuffix  *ngIf="componentObject.filterComponentForm.controls[filter.columnProp].value"  (click)="componentObject.clearValue(filter.columnProp)"  type="button"  [attr.aria-label]="'Hide password'" >
+                   <mat-icon> close </mat-icon>
+               </button>-->
+
+            <mat-error
+                    *ngIf="componentObject.filterComponentForm.controls[filter.columnProp].errors">{{'GENERIC.filter.input.notValid' | translate}}</mat-error>
+            <!-- <mat-hint>Hint</mat-hint>-->
+
+        </mat-form-field>
+
+        <br/>
+
+        <div fxLayoutAlign="center center">
+            <button *ngIf="componentObject.filterPropertiesArr.length>0" mat-raised-button color="primary"
+                    [disabled]="!componentObject.filterComponentForm.valid"
+                    type="submit">  {{'GENERIC.filter' | translate }}</button>
+        </div>
+        <!--        <button *ngIf="componentObject.filterPropertiesArr.length>0" mat-raised-button color="primary" type="button"
+                        (click)="componentObject.resetFilters()"> {{'GENERIC.reset' | translate }} </button>-->
+    </form>
+
+
+</div>
+<!-- (keyup)="componentObject.filterChange(filter.columnProp,filter.value)" [(ngModel)]="filter.value"-->
+
