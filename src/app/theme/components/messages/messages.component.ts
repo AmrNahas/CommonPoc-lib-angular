@@ -6,13 +6,10 @@ import {NotificationsService} from "../../../services/userNotifications/Notifica
 import {UserNotifications} from "../../../models/DTO/UserNotifications";
 import {UtilityController} from "../../../appCommon/controllers/UtilityController";
 import {MatDialog} from "@angular/material/dialog";
-import {SvHiringReservation} from "../../../models/DTO/SvHiringReservation";
 import {AppSettings} from "../../../app.settings";
-import {HiringVResvSpDialogComponent} from "../../../pages/ServiceProvider/reservations/hiringVehicleResv/hiringVResvSp-dialog.component";
 import {Constants} from "../../../models/utilites/Constants";
-import {ResrvServiceSp} from "../../../services/reservations/sp/ResrvServiceSp";
 import {MessagesService} from "../../../appCommon/utility/MessagesService";
-import {ActivatedRoute, ActivatedRouteSnapshot, Router, RouterStateSnapshot} from "@angular/router";
+import {Router} from "@angular/router";
 
 
 // providers: [MessagesService]
@@ -35,7 +32,7 @@ export class MessagesComponent extends UtilityController implements OnInit {
     public loading: boolean;
 
     // private messagesService: MessagesService, old
-    constructor( public messagesService:MessagesService, public resvHiringService: ResrvServiceSp, public appSettings: AppSettings,
+    constructor( public messagesService:MessagesService,public appSettings: AppSettings,
                  public dialog: MatDialog, private webSocketService: WebSocketService, private authService: AuthService,
                  private  notificationsService: NotificationsService ,public route:Router) {
         // this.messages = messagesService.getMessages();
@@ -138,7 +135,7 @@ export class MessagesComponent extends UtilityController implements OnInit {
 
    public openNotificationDetInfo( notification:UserNotifications)
    {
-       if (notification.type == Constants.NOTIFICATIONS_USER_TYPE_RESERVATIONS) {
+    /*   if (notification.type == Constants.NOTIFICATIONS_USER_TYPE_RESERVATIONS) {
            this.resvHiringService.getById(notification.recordId).subscribe(item => {
                    if (item) {
                        let dialogRef = this.dialog.open(HiringVResvSpDialogComponent, {
@@ -159,7 +156,7 @@ export class MessagesComponent extends UtilityController implements OnInit {
 
        }else  if(notification.type == Constants.NOTIFICATIONS_USER_TYPE_TICKET_MESSAGE){
            this.route.navigate(["/support",notification.recordId])
-       }
+       }*/
    }
 
 }

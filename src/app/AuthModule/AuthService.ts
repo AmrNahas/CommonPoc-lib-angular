@@ -1,27 +1,17 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {User} from '../models/user';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {AuthUser} from './AuthUser';
 import {map} from 'rxjs/operators';
-import {RegiseterDto} from './models/RegiseterDto';
 import {Router} from '@angular/router';
-import {RegUserDto} from '../models/DTO/RegUserDto';
 import {Constants} from '../models/utilites/Constants';
 import {EncryptDecrypt} from '../appCommon/utility/EncryptDecrypt';
-import {ResponseDataModel} from "../appCommon/models/dto/ResponseDataModel";
-import {SvHiringReservation} from "../models/DTO/SvHiringReservation";
 import {ResponseDto} from "../models/DTO/ResponseDto";
 
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
 
-    /* token:string;
-     private subject =new BehaviorSubject<AuthUser>(null) ;
-     user:Observable<AuthUser>=this.subject.asObservable();
-     isLoggedIn:Observable<boolean>=this.user.pipe( map(user=> !!user.id));
-     isLoggedOut:Observable<boolean>=this.user.pipe( map(isLoggedIn=>!isLoggedIn));*/
     private currentUserSubject: BehaviorSubject<AuthUser>;
     public currentUser: Observable<AuthUser>;
 
@@ -126,24 +116,8 @@ export class AuthService {
 
 
 
-//old
- /*   public isUserHavePerm(permCode: any): boolean {
-        if (!permCode) {
-            return true;
-        }
-        let hasPerm = false;
-        const permissions = this.currentUserValue.permissions;
-        permissions.forEach(perm => {
-            if (permCode == perm) {
-                hasPerm = true;
-                return true;
-            }
-        });
-        return hasPerm;
-    }*/
-
     public isUserHavePerm(permCode: any): boolean {
-        if (!permCode) {
+    /*    if (!permCode) {
             return true;
         }
         let hasPerm = false;
@@ -154,7 +128,9 @@ export class AuthService {
         if (hasPermission) {
             hasPerm = true;
         }
-        return hasPerm;
+        return hasPerm;*/
+
+        return true;
     }
 
     public getUserNameAuth(){

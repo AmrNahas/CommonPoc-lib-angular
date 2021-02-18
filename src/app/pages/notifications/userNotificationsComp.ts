@@ -3,23 +3,17 @@ import {Router} from '@angular/router';
 
 import {SortDirection} from '@swimlane/ngx-datatable';
 import {MatDialog} from "@angular/material/dialog";
-import {Observable} from "rxjs";
 import {AbstractDataModelController} from "../../appCommon/controllers/AbstractDataModelController";
 import {DropDownService} from "../../services/commonServices/drop-down-service.service";
 import {FilterProperty} from "../../appCommon/models/dto/FilterProperty";
 import {ColumnTypEnum} from "../../appCommon/models/enum/ColumnTypEnum";
 import {FilterOperationEnum} from "../../appCommon/models/enum/FilterOperationEnum";
 import {SortCriteria} from "../../appCommon/models/dto/SortCriteria";
-import {SvHiringReservation} from "../../models/DTO/SvHiringReservation";
-import {HiringVDialogComponent} from "../customer/reservations/hiringVehicleResv/hiringV-dialog.component";
 import {LocalSelectItem} from "../../appCommon/models/dto/LocalSelectItem";
 import {UserNotifications} from "../../models/DTO/UserNotifications";
 import {NotificationsService} from "../../services/userNotifications/NotificationsService ";
 import {Constants} from "../../models/utilites/Constants";
-import {HiringVResvSpDialogComponent} from "../ServiceProvider/reservations/hiringVehicleResv/hiringVResvSp-dialog.component";
 import {MessagesService} from "../../appCommon/utility/MessagesService";
-import {ResrvServiceSp} from "../../services/reservations/sp/ResrvServiceSp";
-
 
 
 @Component({
@@ -33,7 +27,7 @@ export class UserNotificationsComp extends AbstractDataModelController<UserNotif
     public repId:number;
     constructor(
         public dialog: MatDialog, public dropDownServices: DropDownService, private messagesService:MessagesService,
-        public service: NotificationsService, public router: Router , public resvHiringService: ResrvServiceSp) {
+        public service: NotificationsService, public router: Router ) {
         super(service);
         this.formsManager.upsert('Notifications', this.filterComponentForm);
 
@@ -66,7 +60,7 @@ export class UserNotificationsComp extends AbstractDataModelController<UserNotif
     editData() {
     }
 
-    viewInfo(notification:UserNotifications) {
+/*    viewInfo(notification:UserNotifications) {
 
         if(notification.userReadStatus==0) {
             notification.userReadStatus=1;
@@ -94,7 +88,7 @@ export class UserNotificationsComp extends AbstractDataModelController<UserNotif
         }else {
             console.log(notification.type);
         }
-    }
+    }*/
 
     updateNotificationStatusForUser(notificationUserMapId: number) {
         try {

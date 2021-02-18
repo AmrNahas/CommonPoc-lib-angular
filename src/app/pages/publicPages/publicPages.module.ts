@@ -14,7 +14,6 @@ import {NgxPaginationModule} from "ngx-pagination";
 import {NgxContentLoadingModule} from "ngx-content-loading";
 import {ItemsfilterComponent} from "./publicCommonSegments/itemsDataModelfilterSeg/itemsfilter.component";
 import {ItemPaginationComponent} from "./publicCommonSegments/itemsDataModelPaginationSeg/itemPagination.component";
-import {ResvDialogComponent} from "./reservation/resv-dialog.component";
 
 
 
@@ -47,14 +46,12 @@ export const routes = [
         welcomeComponent,
         ItemsfilterComponent,
         ItemPaginationComponent,
-        ResvDialogComponent
     ]
     ,
     exports: [
 
         ItemsfilterComponent,
         ItemPaginationComponent,
-        ResvDialogComponent
     ],
 })
 export class PublicPagesModule {

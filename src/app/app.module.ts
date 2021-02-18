@@ -49,11 +49,9 @@ import {AttImgDialogComponent} from "./appCommon/CustomeComponents/attachmentPre
 import {AttImg64DialogComponent} from "./appCommon/CustomeComponents/attachmentBase64Preview/att-img64-dialog.component";
 import {AgrementDialogComponent} from "./appCommon/CustomeComponents/AgreementViewDialoge/agrement-dialog.component";
 import {NgxContentLoadingModule} from "ngx-content-loading";
-import {SvItemPreviewDialogComponent} from "./appCommon/CustomeComponents/svItemPreview/svItemPreview-dialog.component";
 import {MatBadgeModule} from "@angular/material/badge";
 import {WebSocketService} from "./notifications/WebSocketService ";
 import {NotificationsService} from "./services/userNotifications/NotificationsService ";
-import {HiringVResvSpDialogComponent} from "./pages/ServiceProvider/reservations/hiringVehicleResv/hiringVResvSp-dialog.component";
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -136,8 +134,6 @@ export function createTranslateLoader(http: HttpClient) {
         AttImgDialogComponent,
         AttImg64DialogComponent,
         AgrementDialogComponent,
-        SvItemPreviewDialogComponent,
-        HiringVResvSpDialogComponent,
     ],
     providers: [
         AppSettings, AuthService, AuthenticationGuard, LoginGuard, AuthorizationGuard, SpGuard, AdminGuard,WebSocketService,NotificationsService,

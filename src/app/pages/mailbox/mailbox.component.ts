@@ -7,7 +7,6 @@ import {Mail} from './mail.model';
 import {MailboxService} from './mailbox.service';
 import {AbstractDataModelController} from "../../appCommon/controllers/AbstractDataModelController";
 import {SortCriteria} from 'src/app/appCommon/models/dto/SortCriteria';
-import {RepServices} from "../../services/repServices/RepServices";
 import {FilterCriteria} from "../../appCommon/models/dto/FilterCriteria";
 import {FilterOperationEnum} from "../../appCommon/models/enum/FilterOperationEnum";
 import {FilterProperty} from "../../appCommon/models/dto/FilterProperty";
@@ -73,7 +72,7 @@ export class MailboxComponent extends AbstractDataModelController<Mail> {
     @ViewChild('mailbox-content') private myScrollContainer: ElementRef;
     public routeTicketId: number;
 
-    constructor(public appSettings: AppSettings, public repServices: RepServices,
+    constructor(public appSettings: AppSettings,
                 public formBuilder: FormBuilder, private route: ActivatedRoute, private router: Router,
                 public snackBar: MatSnackBar, public dropDownService: DropDownService,
                 private mailboxService: MailboxService, public authService: AuthService) {
