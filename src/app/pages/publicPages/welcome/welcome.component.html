@@ -1,117 +1,57 @@
-<div  style="padding: 3% 10%;" fxLayout="row wrap" >
-   <!-- fxFlex.sm="85" fxFlex.md="80" fxFlex.lg="75"-->
-    <div fxFlex="100"  class="flex-p">
-        <mat-card      >
-            <mat-card-header>
-                <mat-card-title> {{'GENERIC.welcome.headlines'|translate}}</mat-card-title>
-                <mat-card-subtitle> {{'GENERIC.welcome.intro'|translate}}</mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content  >
-<!--                class="py-1"-->
-                <form [formGroup]="form" (ngSubmit)="search()">
-            <section style="padding: 0% 3%">
-                <mat-form-field appearance="outline"  >
-                    <mat-label>{{'Home.search.destination'|translate}}</mat-label>
-                    <mat-select   formControlName="dest" >
-                        <mat-option [value]=" "> --{{'GENERIC.select'|translate}} {{'Home.search.destination'|translate}}--
-                        </mat-option>
-                        <mat-option [value]="item.value"
-                                    *ngFor="let item of citiesDropDown">{{isArabicLang() ? item.nameAr : item.nameEn }} </mat-option>
-                    </mat-select>
-                </mat-form-field >
 
-                <mat-form-field appearance="outline"  >
-                    <mat-label>{{'sv.type'|translate}}</mat-label>
-                    <mat-select     formControlName="type" >
-                        <mat-option [value]=" "> --{{'GENERIC.select'|translate}} {{'sv.type'|translate}}--
-                        </mat-option>
-                        <mat-option [value]="item.value"
-                                    *ngFor="let item of types">{{isArabicLang() ? item.nameAr : item.nameEn }} </mat-option>
-                    </mat-select>
-                </mat-form-field >
-
-
-                <mat-form-field appearance="outline" >
-                    <mat-label>{{'Home.search.persons.count'|translate}}</mat-label>
-                    <input matInput    formControlName="num"   placeholder="{{'Home.search.persons.count'|translate}}"  >
-                </mat-form-field>
-                <button    type="submit"  mat-flat-button color="primary" > {{'GENERIC.filter' | translate }} </button>
-            </section>
-                </form>
-            </mat-card-content>
-        </mat-card>
-        <br>
-
-        <mat-card style="background: #f5f5f575">
-            {{'GENERIC.byCity'|translate}}
-        </mat-card>
-        <br>
-        <div fxLayout="row wrap" class="projects-wrapper">
-                <div *ngFor="let project of cities" fxFlex="100" fxFlex.gt-sm="50" class="flex-p">
-                    <mat-card>
-                        <mat-card-header>
-                            <mat-card-header>
-                                <mat-card-title>{{project.nameAr}} <img src="assets/img/flags/ksa.svg" width="25" alt="--"></mat-card-title>
-                                <mat-card-subtitle>{{project.subtitleAr}}</mat-card-subtitle>
-                            </mat-card-header>
-                        </mat-card-header>
-                        <img mat-card-image height="360" [src]="project.image" alt="">
-                        <mat-card-content>
-                            <p class="text-justify mt-2">{{project.desc}}</p>
-                        </mat-card-content>
-                        <mat-divider></mat-divider>
-                        <mat-card-actions fxLayoutAlign="end center">
-                  <!--          <button mat-icon-button><mat-icon>favorite</mat-icon></button>
-                            <button mat-icon-button><mat-icon>share</mat-icon></button>-->
-                            <a href="javascript:void(0);" mat-stroked-button color="primary">
-                                {{'GENERIC.More'|translate}} <mat-icon>arrow_right_alt</mat-icon>
-                            </a>
-                        </mat-card-actions>
-                    </mat-card>
-
-                </div>
-            </div>
-         <br>
-        <mat-card style="    background: #f5f5f575">
-            {{'GENERIC.byActivity'|translate}}
-        </mat-card>
-
-        <br>
-        <div fxLayout="row wrap" class="projects-wrapper">
-            <div *ngFor="let project of activities" fxFlex="100" fxFlex.gt-sm="33.3" class="flex-p">
-                <mat-card>
-                    <mat-card-header>
-                        <mat-card-header>
-                            <mat-card-title>{{project.nameAr}} </mat-card-title>
-                            <mat-card-subtitle>{{project.subtitleAr}}</mat-card-subtitle>
-                        </mat-card-header>
-                    </mat-card-header>
-                    <img mat-card-image height="280" [src]="project.image" alt="">
-                    <mat-divider></mat-divider>
-                    <mat-card-actions fxLayoutAlign="end center">
-                        <a href="javascript:void(0);" mat-stroked-button color="primary">
-                            {{'GENERIC.More'|translate}} <mat-icon>arrow_right_alt</mat-icon>
-                        </a>
-                    </mat-card-actions>
-                </mat-card>
-
-            </div>
-        </div>
-
-        <br>
-        <mat-card *ngIf="!isLoggedIn" style="    background: #f5f5f575">
-            <mat-card-header>
-                <mat-card-title> {{'GENERIC.landing.reg.title'|translate}}</mat-card-title>
-                <mat-card-subtitle> {{'GENERIC.landing.reg.subTitle'|translate}}</mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content  >
-                <button   mat-flat-button   style="margin-right: 3px" routerLink="/custReg" color="primary"  > {{'LANDING.REGISTER' | translate }}
-                <mat-icon>person_add</mat-icon>
-                </button>
-            </mat-card-content>
-        </mat-card>
-
-  <!--      <router-outlet></router-outlet>-->
+<div fxLayout="column" fxLayoutAlign="center center" class="landing-header">
+    <p class="logo">ارشاد</p>
+    <p class="intro-text">ملتقى الطلاب الخريجين و الجدد  </p>
+    <p class="desc m-0" *ngIf="!isLoggedIn">بادر بانشاء حسابك كى تتمكن من التواصل مع الاخربن و الاستفادة من الخدمات  المقدمة على المنصة   </p>
+    <p class="desc"> تنظيم مقابلات علمية و طرح مواضيع خاصة بالدراسة و العمل ومشاركة  الافكار </p>
+    <div fxLayout="row" fxLayoutAlign="center center">
+        <button   mat-flat-button  *ngIf="!isLoggedIn" color="primary" style="margin-right: 3px" routerLink="/login">  {{'LANDING.LOGIN' | translate }}</button>
+        <button   mat-flat-button *ngIf="!isLoggedIn" color="accent" style="margin-right: 3px" routerLink="/custReg"   > {{'LANDING.REGISTER' | translate }} </button>
     </div>
+
 </div>
 
+
+<div class="container">
+    <h2 class="muted-text">الخدمات المقدمة على المنصة</h2>
+        <div fxLayout="row wrap" class="py-1">
+
+            <div fxFlex="100" fxFlex.gt-sm="25" class="demo">
+                <p class="text">خدمة (Topics)</p>
+                <a routerLink="/" (click)="changeLayout('horizontal','compact', false)" class="link">
+                    <img src="assets/img/landing/thinking.jpg">
+                </a>
+            </div>
+
+        <div fxFlex="100" fxFlex.gt-sm="25" class="demo">
+            <p class="text">تنظيم مقابلات علمية</p>
+            <a routerLink="/" (click)="changeLayout('vertical','default', false)" class="link">
+                <img src="assets/img/landing/meetings.jpg">
+            </a>
+        </div>
+        <div fxFlex="100" fxFlex.gt-sm="25" class="demo">
+            <p class="text">محادثات علمية مع الطلاب الخريجين</p>
+            <a routerLink="/" (click)="changeLayout('horizontal','default', false)" class="link">
+                <img src="assets/img/landing/topics.jpg">
+            </a>
+        </div>
+        <div fxFlex="100" fxFlex.gt-sm="25" class="demo">
+            <p class="text">جدول زمني لتنظيم مواعيدك العلمية</p>
+            <a routerLink="/" (click)="changeLayout('vertical','compact', false)" class="link">
+                <img src="assets/img/landing/scheduler.jpg">
+            </a>
+        </div>
+
+
+
+    </div>
+
+
+</div>
+
+<!--<div class="bg-primary w-100">
+    <div fxLayout.xs="column" fxLayout.gt-xs="row wrap" fxLayoutAlign="space-between center" class="landing-footer">
+        <span>Copyright ©2018 All Rights Reserved</span>
+        <span>made by <a mat-button href="https://themeforest.net/user/theme_season/portfolio" target="blank">ThemeSeason</a></span>
+    </div>
+</div>-->

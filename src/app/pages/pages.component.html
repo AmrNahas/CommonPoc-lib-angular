@@ -32,7 +32,7 @@
                     <app-applications  *ngIf="userLoggedIn" fxShow="false" fxShow.gt-sm></app-applications>
                     <app-messages  *ngIf="userLoggedIn" fxShow="false" fxShow.gt-xs></app-messages>
                     <app-user-menu *ngIf="userLoggedIn"></app-user-menu>
-                    <app-public-action *ngIf="!userLoggedIn"></app-public-action>
+<!--                    <app-public-action *ngIf="!userLoggedIn"></app-public-action>-->
 
                 </div>
             </div>
@@ -59,12 +59,12 @@
                 <router-outlet></router-outlet>
             </div>
             <div style="height:60px "  fxLayout="row" fxLayoutAlign="space-between center" class="footer bg-primary p-1">
-                <div>
+             <!--   <div>
                     <button  *ngIf="!userLoggedIn" matTooltip="{{'registration.sp.reg' | translate }}"  mat-flat-button color="accent" style="margin-right: 3px" routerLink="/register"   > {{'GENERIC.Sp.reg' | translate }}
                         <mat-icon class="mx-2">shopping_cart</mat-icon> </button>
-                </div>
+                </div>-->
                 <div class="text-center">
-                    <small>Copyright © 2019 All Rights Reserved</small>
+                    <small>Copyright © 2021 All Rights Reserved</small>
                 </div>
             </div>
         </div>
