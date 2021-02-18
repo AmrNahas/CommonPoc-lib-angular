@@ -12,6 +12,7 @@ import {DropDownService} from '../../../services/commonServices/drop-down-servic
 import {GenericFormValidators} from '../../../appCommon/customFormValidators/GenericFormValidators';
 import {matchingPasswords} from '../../../theme/utils/app-validators';
 import {RegService} from '../../../services/publicServices/RegService';
+import {Constants} from "../../../models/utilites/Constants";
 
 
 @Component({
@@ -26,6 +27,7 @@ export class CustomerRegister extends UtilityController implements OnInit {
     public settings: Settings;
     public regUser: RegUserDto;
     public submitted:boolean;
+    public Constants=Constants;
 
     constructor(public appSettings: AppSettings, public fb: FormBuilder, private regService: RegService,
                 public router: Router, private authService: AuthService, private msgService: MessagesService, private dropDownService: DropDownService) {
@@ -34,6 +36,8 @@ export class CustomerRegister extends UtilityController implements OnInit {
         this.settings = this.appSettings.settings;
         this.form = this.fb.group({
             'firstName': [null, Validators.compose([Validators.required,GenericFormValidators.StartWithSpaceValidator])],
+             'typeId': [null, Validators.compose([Validators.required])],
+            'lastName': [null, Validators.compose([Validators.required,GenericFormValidators.StartWithSpaceValidator])],
             'email': [null, Validators.compose([Validators.required, Validators.email])],
             'userName': [null, Validators.compose([Validators.required, Validators.minLength(5),GenericFormValidators.WithOutSpaceValidator])],
             'password': [null, Validators.compose([Validators.required, Validators.minLength(8),GenericFormValidators.WithOutSpaceValidator])],
@@ -50,7 +54,7 @@ export class CustomerRegister extends UtilityController implements OnInit {
             this.form.disable();
             this.regUser = this.form.value;
             this.submitted=true;
-            this.regService.customerSignUp(this.regUser).subscribe(
+            this.regService.signUp(this.regUser).subscribe(
                   data => {
                       this.form.enable();
                       this.msgService.showInfoMessageLocal("registration.submit.server.success");

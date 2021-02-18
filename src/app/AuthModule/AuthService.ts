@@ -33,30 +33,14 @@ export class AuthService {
         };
 
         return this.http.post<AuthUser>(Constants.URL + '/api/auth/authenticate', loginModel).pipe(map(data => {
-            // const authUser=new AuthUser(data.id,data.name,data.userName,data.token,);
-
-            let permsEncArr = [];
-            data.permissions.forEach(p => {
-                permsEncArr.push(EncryptDecrypt.encrypt(p));
-            });
             localStorage.setItem('currentUser', JSON.stringify(data));
-            localStorage.setItem('partyId', data.partyId.toString());
-
-            localStorage.setItem('sec_sess_pems', permsEncArr.toString());
+            localStorage.setItem('sec_sess_tpId',EncryptDecrypt.encrypt( data.typeId.toString()));
             localStorage.setItem('sec_sess_kn', data.token);
-            localStorage.setItem('sec_sess_pt',EncryptDecrypt.encrypt(data.partyId.toString()));
-            localStorage.setItem('sec_sess_rp_id',EncryptDecrypt.encrypt(data.repId.toString()));
             localStorage.setItem('sec_sess_tkn_et', data.tokenExpiredTime.toString());
-
             this.currentUserSubject.next(data);
             return data;
         }));
 
-    }
-
-    getCurrentUserRepId(){
-       let rpId= localStorage.getItem('sec_sess_rp_id');
-       return EncryptDecrypt.decrypt(rpId);
     }
 
     userPermissions():any[] {
@@ -109,9 +93,9 @@ export class AuthService {
       //EncryptDecrypt.decrypt(localStorage.getItem('sec_sess_kn'))
     }
 
-    getUserParty (){
-       let pt= localStorage.getItem('sec_sess_pt')
-        return  pt!=null? EncryptDecrypt.decrypt(localStorage.getItem('sec_sess_pt')):null;
+    getUserType (){
+       let pt= localStorage.getItem('sec_sess_tpId')
+        return  pt!=null? EncryptDecrypt.decrypt(localStorage.getItem('sec_sess_tpId')):null;
     }
 
 

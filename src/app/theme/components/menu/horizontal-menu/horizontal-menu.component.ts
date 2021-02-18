@@ -33,15 +33,15 @@ export class HorizontalMenuComponent extends UtilityController implements OnInit
 
     prepareMenuAsPerParty() {
         if (this.authService.validateToken()) {
-            this.partyId=EncryptDecrypt.decrypt(localStorage.getItem('sec_sess_pt'));
-            if ( this.partyId== this.partyEnum.ADMIN.toString()) {
+            this.partyId=EncryptDecrypt.decrypt(localStorage.getItem('sec_sess_tpId'));
+            if ( this.partyId== this.partyEnum.GUIDER.toString()) {
                 this.menuItems = this.menuService.getHorizontalAdminMenuItems();
-            } else if (this.partyId == this.partyEnum.CUSTOMER.toString()) {
+            } else if (this.partyId == this.partyEnum.STUDENT.toString()) {
                 this.menuItems = this.menuService.getHorizontalCustomerMenuItems();
-            } else if (this.partyId == this.partyEnum.SERVICE_PROVIDER.toString()) {
-                this.menuItems = this.menuService.getHorizontalSpMenuItems();
             }
-        } else {
+
+            }
+           else {
             /*getHorizontalPublicMenuItems*/
             this.menuItems = this.menuService.getHorizontalPublicMenuItems();// this.menuService.getHorizontalCustomerMenuItems();
         }

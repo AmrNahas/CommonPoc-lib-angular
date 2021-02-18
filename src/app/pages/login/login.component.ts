@@ -51,7 +51,7 @@ export class LoginComponent {
                     data => {
                         this.form.enable();
                         this.loading = false;
-                        this.goToCorrectPage(data.partyId);
+                        this.goToCorrectPage(data.typeId);
                     },
                     error => {
                         this.form.enable();
@@ -65,13 +65,14 @@ export class LoginComponent {
     }
 
 
-    goToCorrectPage(partyId: number) {
-        if (partyId == PartiesEnum.ADMIN)
+    goToCorrectPage(typeId: number) {
+        if (typeId == PartiesEnum.GUIDER)
             this.router.navigate(['']);
-        else if (partyId == PartiesEnum.CUSTOMER)
+        else if (typeId == PartiesEnum.STUDENT)
             this.router.navigate(['']);
-        else if (partyId == PartiesEnum.SERVICE_PROVIDER)
-            this.router.navigate(['/spDashboard']);
+        // else if (typeId == PartiesEnum.SERVICE_PROVIDER)
+        //     this.router.navigate(['/spDashboard']);
+        else  this.router.navigate(['']);
     }
 
     ngAfterViewInit() {

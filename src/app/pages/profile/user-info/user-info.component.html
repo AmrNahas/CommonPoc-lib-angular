@@ -24,15 +24,6 @@
                     <mat-error *ngIf="form.controls.firstName.hasError('hasSpace')">{{'validation.hasSpace'|translate}}</mat-error>
                 </mat-form-field>
 
-             <!--   <mat-form-field class="w-100" style="margin-top: 20px;">
-                    <input matInput     matNativeControl placeholder="{{'registration.age'| translate}}" formControlName="age"  >
-                    <mat-error *ngIf="form.controls.age.errors?.required">{{'GENERIC.required' | translate}}</mat-error>
-                    <mat-error *ngIf="form.controls.age.hasError('minlength')">{{'validation.err.email'|translate}}</mat-error>
-                    <mat-error *ngIf="form.controls.age.hasError('maxlength')">{{'validation.err.email'|translate}}</mat-error>
-                    <mat-error *ngIf="form.controls.age.hasError('min')">{{'validation.err.email'|translate}}</mat-error>
-                    <mat-error *ngIf="form.controls.age.hasError('hasSpace')">{{'validation.err.email'|translate}}</mat-error>
-                </mat-form-field>-->
-
                 <mat-form-field class="w-100" style="margin-top: 20px;">
                     <input matInput placeholder="{{'registration.identityNum'| translate}}" formControlName="identityNum">
                     <mat-error *ngIf="form.controls.identityNum.hasError('minlength')">{{'validation.identity.ksa'|translate}}</mat-error>
@@ -99,66 +90,9 @@
 </mat-card>
 <br>
  <mat-divider> </mat-divider>
+<br/>
 <div  fxLayout="row wrap" >
-<div fxFlex="100" fxFlex.gt-md="50" fxFlex.md="50" class="flex-p">
-     <mat-card class="p-0">
-         <mat-card-header class="bg-primary" fxLayoutAlign="space-between center">
-             <mat-card-title class="p-1"><h6>{{'registration.settings.edit' | translate}}</h6></mat-card-title>
-             <button matTooltip="{{'GENERIC.action.edit' | translate}}" *ngIf="!settingsFormEnableFlag" (click)="enableUserPreferncesForm()"  mat-icon-button  >
-                 <mat-icon>edit</mat-icon>
-             </button>
-         </mat-card-header>
 
-         <form [formGroup]="settingsForm" (ngSubmit)="onChangeSettingsSubmit()" fxLayout="row wrap" class="user-form p-1">
-             <div  fxLayout="row wrap" >
-                 <div fxFlex="100" fxFlex.gt-md="33.3" fxFlex.md="50" class="flex-p">
-                     <mat-form-field class="w-100">
-                         <mat-select placeholder="{{'LANDING.theme.lang'| translate}}" formControlName="lang"    >
-                             <mat-option [value]=" "> &#45;&#45;{{'GENERIC.select'|translate}} {{'LANDING.theme.lang' | translate }}&#45;&#45;</mat-option>
-                             <mat-option [value]="item.value" *ngFor="let item of langs">{{isArabicLang() ? item.nameAr : item.nameEn }} </mat-option>
-                         </mat-select>
-                         <mat-error *ngIf="settingsForm.controls.lang.errors?.required">{{'GENERIC.required' | translate}}</mat-error>
-                     </mat-form-field>
-                 </div>
-
-                 <div fxFlex="100" fxFlex.gt-md="33.3" fxFlex.md="50" class="flex-p">
-                     <mat-form-field class="w-100">
-                         <mat-select placeholder="{{'LANDING.theme'| translate}}" formControlName="theme"    >
-                             <mat-option [value]=" "> &#45;&#45;{{'GENERIC.select'|translate}} {{'LANDING.theme' | translate }}&#45;&#45;</mat-option>
-                             <mat-option [value]="item.value" *ngFor="let item of themes">{{isArabicLang() ? item.nameAr : item.nameEn }} </mat-option>
-                         </mat-select>
-                         <mat-error *ngIf="settingsForm.controls.theme.errors?.required">{{'GENERIC.required' | translate}}</mat-error>
-                     </mat-form-field>
-                 </div>
-
-                 <div fxFlex="100" fxFlex.gt-md="33.3" fxFlex.md="50" class="flex-p">
-                     <mat-form-field class="w-100">
-
-                         <mat-select placeholder="{{'LANDING.theme.currency'| translate}}" formControlName="currency"    >
-                             <mat-option [value]=" "> &#45;&#45;{{'GENERIC.select'|translate}} {{'LANDING.theme.currency' | translate }}&#45;&#45;</mat-option>
-                             <mat-option [value]="item.value" *ngFor="let item of currencies">{{isArabicLang() ? item.nameAr : item.nameEn }} </mat-option>
-                         </mat-select>
-                         <mat-error *ngIf="settingsForm.controls.currency.errors?.required">{{'GENERIC.required' | translate}}</mat-error>
-                     </mat-form-field>
-                 </div>
-
-
-
-
-             </div>
-
-             <div fxFlex="100" class="p-1 text-center">
-                 <br>
-                 <button mat-raised-button color="primary" *ngIf="settingsFormEnableFlag" [disabled]="submitted" class="uppercase mx-1" type="submit">{{'GENERIC.save' | translate}}</button>
-                 <button mat-raised-button color="accent"  *ngIf="settingsFormEnableFlag" (click)="disableUserPreferncesForm()" [disabled]="submitted" class="uppercase mx-1" type="button">{{'GENERIC.cancel' | translate}}</button>
-
-             </div>
-         </form>
-
-        </mat-card>
-</div>
-
-<div fxFlex="100" fxFlex.gt-md="50" fxFlex.md="50" class="flex-p">
     <mat-card class="p-0">
         <mat-card-header class="bg-primary" fxLayoutAlign="space-between center">
             <mat-card-title class="p-1"><h6>{{'registration.password.edit' | translate}}</h6></mat-card-title>
@@ -208,5 +142,5 @@
 
 
     </mat-card>
-</div>
+
 </div>

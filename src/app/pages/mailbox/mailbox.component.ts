@@ -81,7 +81,7 @@ export class MailboxComponent extends AbstractDataModelController<Mail> {
             return false;
         };
         this.settings = this.appSettings.settings;
-        this.partyId = authService.getUserParty();
+        this.partyId = authService.getUserType();
         authService.getUserNameAuth().subscribe(data => {
             this.currentUserName = data.userName;
         })

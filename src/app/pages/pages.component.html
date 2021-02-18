@@ -20,14 +20,6 @@
                     <a *ngIf="settings.menu == 'horizontal'"  class="logo" routerLink="/" (click)="closeSubMenus()"> {{'GENERIC.seaWorld'|translate}}</a>
                 </div>            
                 <div fxLayout="row" fxLayoutAlign="end center">
-                <!--    <div fxLayout="row" fxLayoutAlign="start center" fxShow="false" fxShow.gt-xs class="search-bar">
-                        <form method="get">
-                            <input type="text" placeholder="Type to search..." class="mat-elevation-z3"  [class.show]="toggleSearchBar">
-                            <button mat-icon-button (click)="toggleSearchBar = !toggleSearchBar" type="button">
-                                <mat-icon>search</mat-icon>
-                            </button> 
-                        </form>
-                    </div> -->
 
                     <button *ngIf="userLoggedIn && this.isSpParty"  mat-flat-button  style="margin-left: 10px;margin-right: 10px" color="accent"  matTooltip="{{'GENERIC.schedule'|translate}}"  routerLink="/schedule"  >
                         <mat-icon>today</mat-icon>

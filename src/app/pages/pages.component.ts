@@ -61,8 +61,6 @@ export class PagesComponent implements OnInit {
         this.menuTypeOption = this.settings.menuType;
         this.defaultMenu = this.settings.menu;
         if(this.userLoggedIn){
-            this.partyId = EncryptDecrypt.decrypt(localStorage.getItem('sec_sess_pt'));
-            if(this.partyId && this.partyId==PartiesEnum.SERVICE_PROVIDER)
                 this.isSpParty=true;
         }
     }

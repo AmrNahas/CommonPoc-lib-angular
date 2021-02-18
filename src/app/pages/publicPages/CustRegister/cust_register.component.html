@@ -12,22 +12,18 @@
                       <span class="box-content-header">{{'registration.headline'| translate}}</span>
                       <a mat-button routerLink="/login">{{'registration.alreadyHasAccount'| translate}}</a>
                   </div>
+
                   <mat-card-content fxLayout="column" fxLayoutAlign="end center" class="box-content">
                       <mat-card fxLayout="column" fxLayoutAlign="center center" class="mat-elevation-z12 box-content-inner">
+
+                          <div  fxLayout="row wrap" >
+
+                      <div fxFlex="100" fxFlex.gt-md="50" fxFlex.md="50" class="flex-p">
                           <mat-form-field class="w-100">
                             <input matInput placeholder="{{'registration.firstName'| translate}}" formControlName="firstName">
                             <mat-error *ngIf="form.controls.firstName.errors?.required">{{'GENERIC.required' | translate}}</mat-error>
                               <mat-error *ngIf="form.controls.firstName.hasError('startWithSpace')">{{'validation.hasSpace'|translate}}</mat-error>
                           </mat-form-field>
-
-
-
-                      <mat-form-field class="w-100">
-                          <input matInput placeholder="{{'registration.userName'| translate}}" formControlName="userName">
-                          <mat-error *ngIf="form.controls.userName.errors?.required">{{'GENERIC.required' | translate}}</mat-error>
-                          <mat-error *ngIf="form.controls.userName.hasError('minlength')">{{'validation.min.userName'|translate}}</mat-error>
-                          <mat-error *ngIf="form.controls.userName.hasError('hasSpace')">{{'validation.hasSpace'|translate}}</mat-error>
-                      </mat-form-field>
 
                           <mat-form-field class="w-100">
                               <input matInput placeholder="{{'registration.email'| translate}}" formControlName="email">
@@ -35,25 +31,45 @@
                               <mat-error *ngIf="form.controls.email.errors?.email">{{'validation.err.email'|translate}}</mat-error>
                           </mat-form-field>
 
-                           <!--<mat-form-field class="w-100">
-                              <input matInput placeholder="{{'registration.phoneNum'| translate}}" formControlName="phoneNumber">
-                              <mat-error *ngIf="form.controls.phoneNumber.errors?.required">{{'GENERIC.required' | translate}}</mat-error>
-                              <mat-error *ngIf="form.controls.phoneNumber.hasError('ksaPhone')">{{'validation.ksa.phone'|translate}}</mat-error>
-                           </mat-form-field>-->
+                          <mat-form-field class="w-100">
+                              <input matInput placeholder="{{'registration.password'| translate}}" formControlName="password" type="password"  >
+                              <mat-error *ngIf="form.controls.password.errors?.required">{{'GENERIC.required' | translate}}</mat-error>
+                              <mat-error *ngIf="form.controls.password.hasError('minlength')">{{'validation.min.password'|translate}}</mat-error>
+                              <mat-error *ngIf="form.controls.password.hasError('hasSpace')">{{'validation.hasSpace'|translate}}</mat-error>
+                          </mat-form-field>
+
+
+                              </div>
+
+                    <div fxFlex="100" fxFlex.gt-md="50" fxFlex.md="50" class="flex-p">
+
+
+                            <mat-form-field class="w-100">
+                                <input matInput placeholder="{{'registration.lastName'| translate}}" formControlName="lastName">
+                                <mat-error *ngIf="form.controls.firstName.errors?.required">{{'GENERIC.required' | translate}}</mat-error>
+                                <mat-error *ngIf="form.controls.firstName.hasError('startWithSpace')">{{'validation.hasSpace'|translate}}</mat-error>
+                            </mat-form-field>
 
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="{{'registration.password'| translate}}" formControlName="password" type="password"  >
-                          <mat-error *ngIf="form.controls.password.errors?.required">{{'GENERIC.required' | translate}}</mat-error>
-                          <mat-error *ngIf="form.controls.password.hasError('minlength')">{{'validation.min.password'|translate}}</mat-error>
-                          <mat-error *ngIf="form.controls.password.hasError('hasSpace')">{{'validation.hasSpace'|translate}}</mat-error>
+                            <input matInput placeholder="{{'registration.userName'| translate}}" formControlName="userName">
+                            <mat-error *ngIf="form.controls.userName.errors?.required">{{'GENERIC.required' | translate}}</mat-error>
+                            <mat-error *ngIf="form.controls.userName.hasError('minlength')">{{'validation.min.userName'|translate}}</mat-error>
+                            <mat-error *ngIf="form.controls.userName.hasError('hasSpace')">{{'validation.hasSpace'|translate}}</mat-error>
+                            </mat-form-field>
+
+                        <mat-form-field class="w-100">
+                            <input matInput placeholder="{{'registration.confirmPassword'| translate}}" formControlName="confirmPassword" type="password">
+                            <mat-error *ngIf="form.controls.confirmPassword.errors?.required">{{'GENERIC.required' | translate}}</mat-error>
+                            <mat-error *ngIf="form.controls.confirmPassword.hasError('mismatchedPasswords')">{{'validation.password.Notmatch'|translate}}</mat-error>
                         </mat-form-field>
 
-                       <mat-form-field class="w-100">
-                           <input matInput placeholder="{{'registration.confirmPassword'| translate}}" formControlName="confirmPassword" type="password">
-                              <mat-error *ngIf="form.controls.confirmPassword.errors?.required">{{'GENERIC.required' | translate}}</mat-error>
-                                 <mat-error *ngIf="form.controls.confirmPassword.hasError('mismatchedPasswords')">{{'validation.password.Notmatch'|translate}}</mat-error>
-                       </mat-form-field>
+                         </div>
+                          </div>
 
+                          <mat-radio-group formControlName="typeId" >
+                              <mat-radio-button [value]="Constants.SP_TYPE_COMP" class="mx-1">{{'SP.type.organisation'| translate}}</mat-radio-button>
+                              <mat-radio-button [value]="Constants.SP_TYPE_INDIV" class="mx-1">{{'SP.type.individual'| translate}}</mat-radio-button>
+                          </mat-radio-group>
 
                       </mat-card>
                       <button mat-raised-button  [disabled]="submitted"  color="primary" class="mat-elevation-z12 box-button" type="submit">{{ 'GENERIC.save' | translate}}</button>

@@ -39,10 +39,6 @@ export const horizontal_Admin_MenuItems = [
 ];
 
 export const horizontal_Customer_MenuItems = [
-/*    new Menu(1, 'Hiring', '/', null, 'rowing', null, false, 0, 'Home.Hiring', null),
-    new Menu(2, 'Trips', '/', null, 'toys', null, false, 0, 'Home.Trips', null),
-    new Menu(3, 'Courses', '/', null, 'rowing', null, true, 0, 'Home.Courses', null),*/
-
     new Menu(1, 'reservations', '/reservations', null, 'toys', null, true, 0, 'resv.prev.resrv', null),
     new Menu(2, 'HiringV', '/reservations/HiringV', null, 'rowing', null, false, 1, 'resv.prev.resrv.hiring', null),
 
@@ -51,14 +47,11 @@ export const horizontal_Customer_MenuItems = [
 export const horizontal_SP_MenuItems = [
     new Menu(1, 'Dashboard', '/spDashboard', null, 'dashboard', null, false, 0, 'MENU.Dashboard', null),
     new Menu(2, 'SpAdminstration', '/spAdmin/sp-sys-users', null, 'supervisor_account', null, true, 0, 'SP.admins', null),
-    new Menu(3, 'Sp System Users', '/spAdmin/sp-sys-users', null, 'supervisor_account', null, false, 2, 'SP.users', PermsEnum.SP_VIEW_RELATED_USERS),
+    new Menu(3, 'Sp System Users', '/spAdmin/sp-sys-users', null, 'supervisor_account', null, false, 2, 'SP.users', null),
     new Menu(4, 'Sp Services Menu', null, null, 'toys', null, true, 0, 'SP.myServices', null),
-    new Menu(5, 'Vehicles', '/spServices/sp-vehicles', null, 'two_wheeler', null, false, 4, 'SP.vehicles', PermsEnum.SP_SV_LIST_VIEW),
-    new Menu(6, 'Vehicles-req', '/spServices/sp-vehicles-req', null, 'two_wheeler', null, false, 4, 'sv.Reqs', PermsEnum.SP_SV_LIST_VIEW),
+    new Menu(5, 'Vehicles', '/spServices/sp-vehicles', null, 'two_wheeler', null, false, 4, 'SP.vehicles', null),
+    new Menu(6, 'Vehicles-req', '/spServices/sp-vehicles-req', null, 'two_wheeler', null, false, 4, 'sv.Reqs', null)
 
-    new Menu(7, 'resv', '/reservationsSp', null, 'two_wheeler', null, true, 0, 'GENERIC.resv',PermsEnum.SP_VIEW_RESRERVATIONS),
-    new Menu(8, 'vehiclesHiringResv', '/reservationsSp/vehiclesHiringResv', null, 'two_wheeler', null, false, 7, 'resv.prev.resrv.hiring',PermsEnum.SP_VIEW_RESRERVATIONS),
-    // new Menu(9, 'schedule', '/schedule', null, 'calender_today', null, false, 7, 'GENERIC.schedule',null),
 
 ];
 

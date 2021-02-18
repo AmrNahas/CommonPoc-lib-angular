@@ -82,7 +82,7 @@
                                 <mat-icon>more_vert</mat-icon>
                             </button>-->
                         </div>
-                        <button *ngIf="!replyEvent && partyId==PARTY.CUSTOMER" mat-raised-button color="accent" (click)="compose()"> {{'GENERIC.compose'|translate}}</button>
+                        <button *ngIf="!replyEvent && partyId==PARTY.STUDENT" mat-raised-button color="accent" (click)="compose()"> {{'GENERIC.compose'|translate}}</button>
                     </mat-toolbar>
       <!--              <mat-menu #moreMenu="matMenu" xPosition="before" overlapTrigger="true">
                         <span (mouseleave)="moreMenuTrigger.closeMenu()">
@@ -102,7 +102,7 @@
                                 |
                                 <mat-chip  color="primary" >{{isArabicLang()? mail.partyNameAr:mail.partyNameEn}}</mat-chip>
 
-                                <button *ngIf="!replyEvent && partyId==PARTY.ADMIN && mail.status==0" mat-raised-button color="warn" (click)="closeTicket(mail)"> {{'GENERIC.closeTicket'|translate}}</button>
+                                <button *ngIf="!replyEvent && partyId==PARTY.GUIDER && mail.status==0" mat-raised-button color="warn" (click)="closeTicket(mail)"> {{'GENERIC.closeTicket'|translate}}</button>
                                 <mat-chip *ngIf="mail.status==1"  style="background-color: #ff5252; color: white" >{{'GENERIC.closed'|translate}}</mat-chip>
                             </mat-chip-list>
                         </div>

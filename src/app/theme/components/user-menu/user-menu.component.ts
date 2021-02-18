@@ -18,32 +18,25 @@ export class UserMenuComponent implements OnInit {
     authUser: AuthUser;
     public userLoggedIn: boolean;
     public partyName: string;
-    public partyId: number;
+    public typeId: number;
 
     constructor(private router: Router, public authService: AuthService, public userService: UsersService) {
         this.authUser = authService.currentUserValue
         this.userLoggedIn = authService.validateToken();
-        this.partyId = EncryptDecrypt.decrypt(localStorage.getItem('sec_sess_pt'));
+        this.typeId = EncryptDecrypt.decrypt(localStorage.getItem('sec_sess_tpId'));
     }
 
 
     ngOnInit() {
-        if (this.partyId) {
-            if (this.partyId == PartiesEnum.SERVICE_PROVIDER)
-                this.partyName = "GENERIC.sp.user";
-            else if (this.partyId == PartiesEnum.ADMIN)
-                this.partyName = "GENERIC.admin";
-            else if (this.partyId == PartiesEnum.CUSTOMER)
-                this.partyName = "GENERIC.customer";
+        if (this.typeId) {
+              if (this.typeId == PartiesEnum.GUIDER)
+                this.partyName = "SP.type.organisation";
+            else if (this.typeId == PartiesEnum.STUDENT)
+                this.partyName = "SP.type.individual";
             else
                 this.partyName = "resv.UNKOWN";
         }
 
-        /*    this.userService.getUserPhoto(this.authUser.id).subscribe((data: UserPhotoDTORecv)=>  {
-              // get base 64 from java
-              this.imageBlobUrl=data.userPhotoBase64;
-            }) ;
-      */
 
     }
 

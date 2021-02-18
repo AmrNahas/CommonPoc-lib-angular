@@ -18,7 +18,7 @@ export const routes: Routes = [
             { path: 'profile',canActivate:[AuthenticationGuard], loadChildren: () => import ('./pages/profile/profile.module').then(m => m.ProfileModule), data: { breadcrumb: 'MENU.profile' } },
             { path: 'spDashboard',canActivate:[AuthenticationGuard,SpGuard], loadChildren: () => import('./pages/ServiceProvider/spDashboard/dashboard.module').then(m => m.DashboardModule), data: { breadcrumb: 'MENU.Dashboard' } },
             { path: 'notifications',canActivate:[AuthenticationGuard], loadChildren: () => import('./pages/notifications/userNotifications.module').then(m => m.UserNotificationsModule), data: { breadcrumb: 'GENERIC.notifications' } },
-            { path: 'schedule',canActivate:[AuthenticationGuard,SpGuard], loadChildren: () => import('./pages/ServiceProvider/schedule/schedule.module').then(m => m.ScheduleModule), data: { breadcrumb: 'GENERIC.schedule' } },
+            { path: 'schedule',canActivate:[AuthenticationGuard], loadChildren: () => import('./pages/ServiceProvider/schedule/schedule.module').then(m => m.ScheduleModule), data: { breadcrumb: 'GENERIC.schedule' } },
             { path: 'support/:id',canActivate:[AuthenticationGuard], loadChildren: () => import('./pages/mailbox/mailbox.module').then(m => m.MailboxModule), data: { breadcrumb: 'MENU.help' } },
             { path: 'support',canActivate:[AuthenticationGuard], loadChildren: () => import('./pages/mailbox/mailbox.module').then(m => m.MailboxModule), data: { breadcrumb: 'MENU.help' } },
 
