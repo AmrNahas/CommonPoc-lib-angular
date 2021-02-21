@@ -1,9 +1,8 @@
-
 <div fxLayout="column" fxLayoutAlign="center center" class="landing-header">
-    <p class="logo">ارشاد</p>
-    <p class="intro-text">ملتقى الطلاب الخريجين و الجدد  </p>
-    <p class="desc m-0" *ngIf="!isLoggedIn">بادر بانشاء حسابك كى تتمكن من التواصل مع الاخربن و الاستفادة من الخدمات  المقدمة على المنصة   </p>
-    <p class="desc"> تنظيم مقابلات علمية و طرح مواضيع خاصة بالدراسة و العمل ومشاركة  الافكار </p>
+    <p class="logo">{{'guider.logo'|translate}}</p>
+    <p class="intro-text">{{'guider.intro-text'|translate}}  </p>
+    <p class="desc m-0" *ngIf="!isLoggedIn">{{'guider.desc1'|translate}}</p>
+    <p class="desc">{{'guider.desc2'|translate}} </p>
     <div fxLayout="row" fxLayoutAlign="center center">
         <button   mat-flat-button  *ngIf="!isLoggedIn" color="primary" style="margin-right: 3px" routerLink="/login">  {{'LANDING.LOGIN' | translate }}</button>
         <button   mat-flat-button *ngIf="!isLoggedIn" color="accent" style="margin-right: 3px" routerLink="/custReg"   > {{'LANDING.REGISTER' | translate }} </button>
@@ -13,30 +12,30 @@
 
 
 <div class="container">
-    <h2 class="muted-text">الخدمات المقدمة على المنصة</h2>
+    <h2 class="muted-text">{{'guider.header'|translate}} </h2>
         <div fxLayout="row wrap" class="py-1">
 
             <div fxFlex="100" fxFlex.gt-sm="25" class="demo">
-                <p class="text">خدمة (Topics)</p>
-                <a routerLink="/" (click)="changeLayout('horizontal','compact', false)" class="link">
+                <p class="text"> <mat-icon> post_add</mat-icon>{{'guider.topics'|translate}}</p>
+                <a routerLink="/topics"   class="link">
                     <img src="assets/img/landing/thinking.jpg">
                 </a>
             </div>
 
         <div fxFlex="100" fxFlex.gt-sm="25" class="demo">
-            <p class="text">تنظيم مقابلات علمية</p>
+            <p class="text"> <mat-icon> people</mat-icon> {{'guider.meetings'|translate}}</p>
             <a routerLink="/" (click)="changeLayout('vertical','default', false)" class="link">
-                <img src="assets/img/landing/meetings.jpg">
+                <img src="assets/img/landing/mm.jpg">
             </a>
         </div>
         <div fxFlex="100" fxFlex.gt-sm="25" class="demo">
-            <p class="text">محادثات علمية مع الطلاب الخريجين</p>
+            <p class="text"><mat-icon> chat</mat-icon> {{'guider.chat'|translate}}</p>
             <a routerLink="/" (click)="changeLayout('horizontal','default', false)" class="link">
-                <img src="assets/img/landing/topics.jpg">
+                <img src="assets/img/landing/chatting.jpg">
             </a>
         </div>
         <div fxFlex="100" fxFlex.gt-sm="25" class="demo">
-            <p class="text">جدول زمني لتنظيم مواعيدك العلمية</p>
+            <p class="text"> <mat-icon> today</mat-icon> {{'guider.sheduals'|translate}}</p>
             <a routerLink="/" (click)="changeLayout('vertical','compact', false)" class="link">
                 <img src="assets/img/landing/scheduler.jpg">
             </a>
@@ -49,9 +48,6 @@
 
 </div>
 
-<!--<div class="bg-primary w-100">
-    <div fxLayout.xs="column" fxLayout.gt-xs="row wrap" fxLayoutAlign="space-between center" class="landing-footer">
-        <span>Copyright ©2018 All Rights Reserved</span>
-        <span>made by <a mat-button href="https://themeforest.net/user/theme_season/portfolio" target="blank">ThemeSeason</a></span>
-    </div>
-</div>-->
+
+
+

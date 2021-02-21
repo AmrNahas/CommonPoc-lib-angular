@@ -1,5 +1,6 @@
 .landing-header{
   position: relative;
+  font-family: 'Calibri';
   color: #fff;
   font: mat-typography-config();
   height: 400px; //520
@@ -40,6 +41,7 @@
 
 .container {
   max-width: 1200px;
+  font-family: 'Calibri';
   margin: 0 auto;
   padding: 16px 32px;
   text-align: center;
@@ -53,6 +55,7 @@
     padding: 16px;
     .text{
       font-size: 16px;
+      font-weight: bold;
       text-transform: uppercase;
       margin-bottom: 1rem;
     }

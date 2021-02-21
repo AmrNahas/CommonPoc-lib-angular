@@ -44,14 +44,11 @@ export const routes = [
     declarations: [
         LandComponent,
         welcomeComponent,
-        ItemsfilterComponent,
-        ItemPaginationComponent,
+
     ]
     ,
     exports: [
 
-        ItemsfilterComponent,
-        ItemPaginationComponent,
     ],
 })
 export class PublicPagesModule {

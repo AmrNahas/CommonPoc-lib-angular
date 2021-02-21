@@ -266,5 +266,12 @@
     "rate.high":"High Rate First",
     "minHour.less":"Less Hours For Reservation First",
     "order.by":"Order By  :"
+  },
+  "guider": { guider.topics
+    "topics": " المواضيع المفتوحة",
+    "meetings": "مقابلات علمية",
+    "chat": "محادثات علمية مع الطلاب الخريجين",
+    "sheduals": "جدول زمني لتنظيم مواعيدك العلمية"
+
   }
 }

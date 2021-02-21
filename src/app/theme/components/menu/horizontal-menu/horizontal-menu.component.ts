@@ -32,6 +32,9 @@ export class HorizontalMenuComponent extends UtilityController implements OnInit
     }
 
     prepareMenuAsPerParty() {
+        this.menuItems = this.menuService.getHorizontalPublicMenuItems();// this.menuService.getHorizontalCustomerMenuItems();
+
+     /*
         if (this.authService.validateToken()) {
             this.partyId=EncryptDecrypt.decrypt(localStorage.getItem('sec_sess_tpId'));
             if ( this.partyId== this.partyEnum.GUIDER.toString()) {
@@ -42,9 +45,9 @@ export class HorizontalMenuComponent extends UtilityController implements OnInit
 
             }
            else {
-            /*getHorizontalPublicMenuItems*/
+            /!*getHorizontalPublicMenuItems*!/
             this.menuItems = this.menuService.getHorizontalPublicMenuItems();// this.menuService.getHorizontalCustomerMenuItems();
-        }
+        }*/
 
     }
 

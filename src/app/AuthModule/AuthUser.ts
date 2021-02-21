@@ -9,6 +9,7 @@ export class AuthUser {
     services:Array<any>;
     typeId:number;
 
+
     constructor(id: number, name: string, userName: string,token: string,tokenExpiredTime:number,permissions:Array<number> ) {
         this.id = id;
         this.name = name;

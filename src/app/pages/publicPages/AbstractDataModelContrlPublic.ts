@@ -26,7 +26,6 @@ import {SqSort} from "../../appCommon/cofigurations/SqSort";
 import {ColumnTypEnum} from "../../appCommon/models/enum/ColumnTypEnum";
 import {FilterOperationEnum} from "../../appCommon/models/enum/FilterOperationEnum";
 import {InputDataModel} from "../../appCommon/models/dto/InputDataModel";
-import {Params} from "@angular/router";
 
 @Injectable({
     providedIn: 'root'
@@ -67,17 +66,9 @@ export abstract class AbstractDataModelContrlPublic<T> extends UtilityController
     public cityValue :number;
     public numOfPersons :number;
     public typeValue :number;
-    protected constructor(public service: AbstractDataModelService<T> , public params: Observable<Params> ) {
+    protected constructor(public service: AbstractDataModelService<T>  ) {
         super();
-              this.params.subscribe(param => {
-             if(param.dest)
-                 this.cityValue=param.dest;
-             if(param.num)
-                 this.numOfPersons=param.num;
-             if(param.type)
-                 this.typeValue=param.type;
-         }
-     );
+
 
         // prepare the needed objects by using   AppInjector >> define in App Module
         this.fb = AppInjector.get<FormBuilder>(FormBuilder);
@@ -154,12 +145,12 @@ export abstract class AbstractDataModelContrlPublic<T> extends UtilityController
             this.prepareDateAndPaginationValues(response);
                 console.log(response)
                 this.loadDataFlag=false;
-                document.getElementById('main-content').scrollTop = 0;
+            //    document.getElementById('main-content').scrollTop = 0;
         },
             error => {
                 console.log("erorrrrrrr")
                 console.log(error);
-                document.getElementById('main-content').scrollTop = 0;
+             //   document.getElementById('main-content').scrollTop = 0;
 
             }
         );
@@ -230,7 +221,6 @@ export abstract class AbstractDataModelContrlPublic<T> extends UtilityController
         this.pageIndex = event.pageIndex;
         this.pageSize = event.pageSize;
         this.loadDataAndPublish();
-        this.scrollToTop(); // to scroll to top page
     }
 
 
@@ -268,13 +258,6 @@ export abstract class AbstractDataModelContrlPublic<T> extends UtilityController
     }
 
 
-    public scrollToTop() {
-        /*     this.pss.forEach(ps => {
-                 if (ps.elementRef.nativeElement.id == 'main' || ps.elementRef.nativeElement.id == 'main-content') {
-                     ps.scrollToTop(0, 250);
-                 }
-             });*/
-    }
 
 // prepare all filters and search criteria
     prepareAllFilterCriteria():boolean{
@@ -288,10 +271,6 @@ export abstract class AbstractDataModelContrlPublic<T> extends UtilityController
                 if (propertyValue instanceof Date && filterProperty.columnType == ColumnTypEnum.DATE_GEO && filterProperty.operation == FilterOperationEnum.DAY_EQUAL) {
                     propertyValue = new DatePipe('en').transform(propertyValue, 'dd/MM/y');
                 }
-/*
-                if ( filterProperty.columnType == ColumnTypEnum.DATE_Hij) {
-                    propertyValue = new HijriFormatFromNgStructPipe().transform(propertyValue);
-                }*/
 
                 if ( filterProperty.columnType == ColumnTypEnum.DROPDOWN_MULTI && propertyValue!=null ) {
                     let values:[]= propertyValue;
@@ -316,7 +295,6 @@ export abstract class AbstractDataModelContrlPublic<T> extends UtilityController
 
 
     ngOnDestroy(): void {
-        console.log('destroyeeeed');
         if(this.dataSourceSub)
         this.dataSourceSub.unsubscribe();
     }
