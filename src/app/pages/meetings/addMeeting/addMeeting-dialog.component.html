@@ -1,0 +1,98 @@
+<div fxLayoutAlign="end center" class="closeBtn">
+    <button   matTooltip="{{'GENERIC.action.close' |translate}}" mat-icon-button matSuffix  color="warn"   type="button"    (click)="close()">
+        <mat-icon>cancel</mat-icon>
+    </button>
+</div>
+
+<h2 mat-dialog-title>
+    <span>  {{'guider.meetings.add'|translate}}</span></h2>
+<div fxLayout="row wrap" fxLayoutAlign="center">
+    <div fxFlex="100" fxFlex.gt-sm="50" fxFlex.sm="60" class="flex-p">
+        <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+        <mat-card class="list">
+            <mat-card-content>
+
+                    <mat-form-field class="w-100">
+                        <input matInput placeholder="{{ 'guider.meetings.title'|translate}}" formControlName="title">
+                        <mat-error *ngIf="form.controls.title.errors?.required">{{'GENERIC.required'|translate}}</mat-error>
+                        <mat-error *ngIf="form.controls.title.hasError('minlength')">Menu title isn't long enough, minimum of 3 characters</mat-error>
+                    </mat-form-field>
+
+
+                    <mat-form-field class="w-100">
+                        <input matInput placeholder="{{ 'guider.meetings.place'|translate}}" formControlName="place">
+                        <mat-error *ngIf="form.controls.place.errors?.required">{{'GENERIC.required'|translate}}</mat-error>
+                        <mat-error *ngIf="form.controls.place.hasError('minlength')">Menu title isn't long enough, minimum of 3 characters</mat-error>
+                    </mat-form-field>
+
+
+                    <div fxLayout="row">
+
+                        <mat-form-field>
+                            <input matInput matNativeControl [disabled]="true" placeholder="{{'resv.date'| translate}}"
+                                   formControlName="date_d" [matDatepicker]="myDatepicker"
+                            >
+                            <mat-datepicker-toggle matSuffix [for]="myDatepicker"
+                            ></mat-datepicker-toggle>
+                            <mat-datepicker #myDatepicker disabled="false"></mat-datepicker>
+                            <mat-error *ngIf="form.controls.date_d.errors?.required">{{'GENERIC.required'|translate}}</mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <mat-select  placeholder="{{'resv.from'| translate}}" formControlName="time">
+                                <mat-option  [value]=" "> --{{'GENERIC.select'|translate}} {{'resv.from' | translate }}--
+                                </mat-option>
+                                <mat-option [value]="item.value"
+                                            *ngFor="let item of timesListTo">{{item.nameAr }} </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="form.controls.time.errors?.required">{{'GENERIC.required'|translate}}</mat-error>
+
+                        </mat-form-field>
+
+                    </div>
+
+                    <mat-form-field class="w-100">
+                        <textarea matInput placeholder="{{ 'guider.meetings.desc'|translate}}" formControlName="description"></textarea>
+                        <mat-error *ngIf="form.controls.description.errors?.required">{{'GENERIC.required'|translate}}</mat-error>
+                        <mat-error *ngIf="form.controls.description.hasError('minlength')">Menu title isn't long enough, minimum of 3 characters</mat-error>
+                    </mat-form-field>
+
+
+              <!--  <mat-card-header fxLayoutAlign="center">
+                    <mat-card-subtitle><h3>{{'guider.meetings.agenda'|translate}}</h3></mat-card-subtitle>
+                </mat-card-header>
+                <div fxLayoutAlign="space-between">
+                    <mat-form-field class="w-100">
+                        <input matInput placeholder="{{'guider.meetings.agenda.point'|translate}}" (keyup)="addToDoItem($event)" [(ngModel)]="newTodoText">
+                    </mat-form-field>
+                    <button mat-mini-fab color="primary" (click)="addToDoItem($event)">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </div>
+                <div perfectScrollbar class="todo-list">
+                    <mat-selection-list>
+                        <mat-list-option *ngFor="let item of getNotDeleted()" checkboxPosition="before"
+                                         (mouseenter)="item.isActive=true" (mouseleave)="item.isActive=false">
+                            <div fxLayoutAlign="space-between center">
+                                <span class="text-truncate" matTooltip="{{ item.text }}">{{ item.text }}</span>
+                                <button mat-icon-button (click)="item.deleted = true" color="warn" *ngIf="item.isActive">
+                                    <mat-icon>delete_forever</mat-icon>
+                                </button>
+                            </div>
+                        </mat-list-option>
+                    </mat-selection-list>
+
+                </div>-->
+
+            </mat-card-content>
+            <div fxLayout="row" fxLayoutAlign="center">
+<!--                || getNotDeleted().length==0-->
+                <button mat-raised-button color="primary" [disabled]="!form.valid " type="submit">
+                    {{'guider.meetings.add'|translate}}</button>
+            </div>
+        </mat-card>
+        </form>
+    </div>
+</div>
+
+

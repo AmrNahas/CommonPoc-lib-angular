@@ -277,7 +277,7 @@
   },
   "guider": {
     "topics": " المواضيع المفتوحة (Topics)",
-    "meetings": "المقابلات العلمية",
+    "meetings": "المقابلات العلمية (Seminars)",
     "chat": "المحادثات العلمية ",
     "sheduals": "الجدول الزمني ",
     "header":"الخدمات المقدمة على المنصة",
@@ -295,8 +295,20 @@
     "post.management": "موضوع ادارى",
     "post.likes": "اعجاب",
     "post.comments": "تعليق",
-    "post.comments.write": "اكتب تعليقك"
-
+    "post.comments.write": "اكتب تعليقك",
+    "meetings.headline": "انشاء مقابلة علمية",
+    "meetings.title": "العنوان",
+    "meetings.place": "المكان",
+    "meetings.date": "التاريخ",
+    "meetings.desc": "الوصف ",
+    "meetings.inviteros": "المدعوين",
+    "meetings.list": " المقابلات العلمية (Seminar)",
+    "meetings.add": "اضافة مقابلة علمية(Seminar)",
+    "meetings.agenda": "جدول الاعمال",
+    "meetings.agenda.point": "اضف هنا ...",
+    "meetings.pm": "مساءا",
+    "meetings.am": "صباحا",
+    "meetings.schedual": "اضافة الحدث للتقويم"
 
   }
 }

@@ -88,6 +88,9 @@ export class TopicsComponent extends AbstractDataModelContrlPublic<Topic> implem
             this.msgService.showErrorMessageLocal("guide.post.input.err");
     }
 
+    focusAction(id:any){
+        alert(id);
+    }
     addLikeToTopic( topic:Topic ) {
        if(this.isLikedBefore(topic))
            return;

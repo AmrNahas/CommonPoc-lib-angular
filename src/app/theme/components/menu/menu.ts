@@ -57,7 +57,7 @@ export const horizontal_SP_MenuItems = [
 
 export const horizontal_Public_MenuItems = [
     new Menu(1, 'Topics', '/topics', null, 'post_add', null, false, 0, 'guider.topics', null),
-    new Menu(2, 'Meeting Organisation', '/spAdmin/sp-sys-users', null, 'people', null, false, 0, 'guider.meetings', null),
+    new Menu(2, 'Meeting Organisation', '/seminars', null, 'people', null, false, 0, 'guider.meetings', null),
     new Menu(3, 'Guiders Chat', '/spAdmin/sp-sys-users', null, 'chat', null, false, 0, 'guider.chat', null),
     new Menu(4, 'Schedule', "/schedule", null, 'today', null, false, 0, 'guider.sheduals', null),
 

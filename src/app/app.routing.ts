@@ -15,6 +15,8 @@ export const routes: Routes = [
         component: PagesComponent, children: [
             { path: '', loadChildren: () => import('./pages/publicPages/publicPages.module').then(m => m.PublicPagesModule), data: { breadcrumb: 'SP.vehicles' } },
             { path: 'topics', loadChildren: () => import('./pages/topics/topics.module').then(m => m.TopicsModule), data: { breadcrumb: 'guider.topics' } },
+            { path: 'meetings', loadChildren: () => import('./pages/meetings/meetings.module').then(m => m.MeetingsModule), data: { breadcrumb: 'guider.meetings' } },
+            { path: 'seminars', loadChildren: () => import('./pages/seminars/seminars.module').then(m => m.SeminarsModule), data: { breadcrumb: 'guider.meetings' } },
             { path: 'users',canActivate:[AuthenticationGuard], loadChildren: () => import('./pages/users/users.module').then(m => m.UsersModule), data: { breadcrumb: 'MENU.Users' } },
             { path: 'profile',canActivate:[AuthenticationGuard], loadChildren: () => import ('./pages/profile/profile.module').then(m => m.ProfileModule), data: { breadcrumb: 'MENU.profile' } },
             { path: 'spDashboard',canActivate:[AuthenticationGuard,SpGuard], loadChildren: () => import('./pages/ServiceProvider/spDashboard/dashboard.module').then(m => m.DashboardModule), data: { breadcrumb: 'MENU.Dashboard' } },

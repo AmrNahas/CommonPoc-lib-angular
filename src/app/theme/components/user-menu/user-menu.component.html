@@ -26,10 +26,14 @@
             <mat-icon>lock</mat-icon>
             <span>Lock screen</span> 
         </a>-->
-        <a mat-menu-item routerLink="/support">
+    <a mat-menu-item routerLink="/meetings">
+        <mat-icon>persons</mat-icon>
+        <span>{{'guider.meetings.list' |translate}}</span>
+    </a>
+<!--        <a mat-menu-item routerLink="/support">
             <mat-icon>help</mat-icon>
             <span>{{'MENU.help' |translate}}</span>
-        </a>
+        </a>-->
         <div class="divider"></div>
         <a mat-menu-item (click)="logOut()" > 
             <mat-icon>power_settings_new</mat-icon>

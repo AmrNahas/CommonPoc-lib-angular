@@ -1,134 +1,174 @@
-
 <div style="padding: .5% 10%;">
     <div fxLayout="column" fxLayout.gt-sm="row wrap">
-        <div fxFlex="25" class="flex-p">
+        <div fxFlex="10" class="flex-p">
 
-            <mat-card class="mat-card-border_all">
+      <!--      <mat-card class="mat-card-border_all">
                 <mat-card-header fxLayoutAlign="center">
                     <mat-card-subtitle><h2>{{'GENERIC.filter'|translate}}</h2></mat-card-subtitle>
                 </mat-card-header>
                 <mat-card-content fxLayoutAlign="center">
-                   <app-itemsfilter-form [componentObject]="this"></app-itemsfilter-form>
+                    <app-itemsfilter-form [componentObject]="this"></app-itemsfilter-form>
                 </mat-card-content>
-            </mat-card>
+            </mat-card>-->
         </div>
-        <div fxFlex="75" class="flex-p">
-
-
-            <mat-card *ngIf="isLoggedIn" >
+        <div fxFlex="90" class="flex-p">
+            <mat-card *ngIf="isLoggedIn">
 
                 <mat-card-header>
-                    <mat-form-field appearance="outline" style="width: 100%"   >
+                    <mat-form-field appearance="outline" style="width: 100%">
                         <mat-label>{{'guider.postTopic'|translate}}</mat-label>
-                        <textarea [disabled]="!isLoggedIn" matInput  [(ngModel)]="desc"  ></textarea>
+                        <textarea [disabled]="!isLoggedIn" matInput [(ngModel)]="desc"></textarea>
                     </mat-form-field>
                 </mat-card-header>
 
-                <mat-card-content  >
-                    <mat-radio-group [(ngModel)]="typeId" >
+                <mat-card-content>
+                    <mat-radio-group [(ngModel)]="typeId">
                         <mat-radio-button [value]="1" class="mx-1">{{'guider.post.tech'| translate}}</mat-radio-button>
-                        <mat-radio-button [value]="2" class="mx-1">{{'guider.post.general'| translate}}</mat-radio-button>
-                        <mat-radio-button [value]="3" class="mx-1">{{'guider.post.management'| translate}}</mat-radio-button>
+                        <mat-radio-button [value]="2"
+                                          class="mx-1">{{'guider.post.general'| translate}}</mat-radio-button>
+                        <mat-radio-button [value]="3"
+                                          class="mx-1">{{'guider.post.management'| translate}}</mat-radio-button>
                     </mat-radio-group>
 
-                    <button [disabled]="! canPostTopic() || !isLoggedIn"  mat-flat-button  color="primary" (click)="shareTopic()"     style="margin-left: 5px; margin-right: 5px; float: left ;  width: 80px;height: 30px;"      >
-                        {{'guider.post'|translate}}  <mat-icon>post_add</mat-icon>
+                    <button [disabled]="! canPostTopic() || !isLoggedIn" mat-flat-button color="primary"
+                            (click)="shareTopic()"
+                            style="margin-left: 5px; margin-right: 5px; float: left ;  width: 80px;height: 30px;">
+                        {{'guider.post'|translate}}
+                        <mat-icon>post_add</mat-icon>
                     </button>
                 </mat-card-content>
             </mat-card>
 
-            <mat-card *ngIf="!removeRegHint" >
-                <button    (click)="closeRegPanel()"   style="float: left ;    width: 26px;height: 26px;"      >
+            <mat-card *ngIf="!removeRegHint">
+                <button (click)="closeRegPanel()" style="float: left ;    width: 26px;height: 26px;">
                     <mat-icon>close</mat-icon>
                 </button>
                 <mat-card-header>
                     <mat-card-subtitle> {{'guider.reg.hint'|translate}}
-                        <button   mat-flat-button   style="margin-right: 3px;float: left;margin-top: -7px;" routerLink="/custReg" color="primary"  > {{'LANDING.REGISTER' | translate }}
+                        <button mat-flat-button style="margin-right: 3px;float: left;margin-top: -7px;"
+                                routerLink="/custReg" color="primary"> {{'LANDING.REGISTER' | translate }}
                             <mat-icon>person_add</mat-icon>
-                        </button></mat-card-subtitle>
+                        </button>
+                    </mat-card-subtitle>
                 </mat-card-header>
-                <mat-card-content  >
+                <mat-card-content>
 
                 </mat-card-content>
             </mat-card>
 
-<!--
-            <mat-button-toggle-group value="{{sortByValue}}" style="margin-top: 8px "    >
-                <mat-button-toggle   class="cell_sort" >{{'resv.order.by'|translate}}</mat-button-toggle>
-                <mat-button-toggle   class="{{sortByValue==sortByLessPrice ? 'cell_sort_selected':''}}"       (change)="sortBy(sortByLessPrice)" value="{{sortByLessPrice}}">{{'resv.price.less'|translate}}</mat-button-toggle>
-                <mat-button-toggle   class="{{sortByValue==sortByHighRate ?  'cell_sort_selected':''}}"       (change)="sortBy(sortByHighRate)"  value="{{sortByHighRate}}" >{{'resv.rate.high'|translate}}</mat-button-toggle>
-                <mat-button-toggle   class="{{sortByValue==sortByLessHours ? 'cell_sort_selected':''}}"       (change)="sortBy(sortByLessHours)" value="{{sortByLessHours}}">{{'resv.minHour.less'|translate}}</mat-button-toggle>
-            </mat-button-toggle-group>-->
+            <!--
+                        <mat-button-toggle-group value="{{sortByValue}}" style="margin-top: 8px "    >
+                            <mat-button-toggle   class="cell_sort" >{{'resv.order.by'|translate}}</mat-button-toggle>
+                            <mat-button-toggle   class="{{sortByValue==sortByLessPrice ? 'cell_sort_selected':''}}"       (change)="sortBy(sortByLessPrice)" value="{{sortByLessPrice}}">{{'resv.price.less'|translate}}</mat-button-toggle>
+                            <mat-button-toggle   class="{{sortByValue==sortByHighRate ?  'cell_sort_selected':''}}"       (change)="sortBy(sortByHighRate)"  value="{{sortByHighRate}}" >{{'resv.rate.high'|translate}}</mat-button-toggle>
+                            <mat-button-toggle   class="{{sortByValue==sortByLessHours ? 'cell_sort_selected':''}}"       (change)="sortBy(sortByLessHours)" value="{{sortByLessHours}}">{{'resv.minHour.less'|translate}}</mat-button-toggle>
+                        </mat-button-toggle-group>-->
 
             <mat-progress-bar *ngIf="loadDataFlag" mode="indeterminate"></mat-progress-bar>
             <br/>
 
 
-                    <div *ngIf="dataSource && dataSource.data.length==0" fxLayout="row wrap" style="background-color: #efc371">
-                        <h4> {{'GENERIC.result.empty' | translate }}</h4>
-                    </div>
-                    <div *ngIf="dataSource" fxLayout="row wrap">
-                        <div *ngFor="let sv of dataSource.data" fxFlex="100" fxFlex.gt-md="100" fxFlex.md="50" class="flex-p">
+            <div *ngIf="dataSource && dataSource.data.length==0" fxLayout="row wrap" style="background-color: #efc371">
+                <h4> {{'GENERIC.result.empty' | translate }}</h4>
+            </div>
+            <div *ngIf="dataSource" fxLayout="row wrap">
+                <div *ngFor="let sv of dataSource.data" fxFlex="100" fxFlex.gt-md="100" fxFlex.md="50" class="flex-p">
 
-                            <mat-card class="custom-card">
-                                <mat-card-header   fxLayoutAlign="space-between center">
-                                    <mat-card-title  class="m-0">
-                                    <h4 > <img style="width: 30px;height: 30px ;margin-top: 10px"  matListAvatar src="assets/img/users/default-user.jpg">
-                                             <span style="margin-right: 8px;text-align: center">{{sv.createdBy}}</span> </h4> </mat-card-title>
-                                    <mat-card-subtitle fxLayout="row" fxLayoutAlign="space-between center" class="m-0" >
-                                        <h5>  {{sv.date|date}} {{sv.date|date:'shortTime'}}</h5>
-                                        <h5 >  {{sv.typeStr}}  </h5>
-                                    </mat-card-subtitle>
+                    <mat-card class="custom-card" >
+                        <mat-card-header fxLayoutAlign="space-between center">
+                            <mat-panel-title style="margin-top: 12px;">
+                                <mat-icon color="primary">person</mat-icon>
+                                <strong >{{sv.createdBy}}</strong>
+                            </mat-panel-title>
+                            <!--   <mat-card-title class="m-0">
+                                   <h4><img style="width: 30px;height: 30px ;margin-top: 10px" matListAvatar
+                                            src="assets/img/users/default-user.jpg">
+                                       <span style="margin-right: 8px;text-align: center">{{sv.createdBy}}</span></h4>
+                               </mat-card-title>-->
+                            <!--   <button mat-icon-button>
+                                   <mat-icon>more_vert</mat-icon>
+                               </button>-->
+                        </mat-card-header>
 
-                                    <button mat-icon-button> <mat-icon>more_vert</mat-icon> </button>
-                                </mat-card-header>
-                                <br/>
-                                <mat-card-content   class="p-">
-                                    <p style="padding: 7px" [ngClass]="'bg-primary'" matLine class="message">
-                                      <span >{{sv.topicDesc}}</span>
-                                    </p>
-                                    <mat-card-actions fxLayoutAlign="end center">
-                                        <button    [color]="isLikedBefore(sv)? 'warn':''" (click)="addLikeToTopic(sv)" mat-icon-button>  <mat-icon> favorite</mat-icon> </button>
-                                        <div> {{sv.likersMaps.length}} {{'guider.post.likes'|translate}}</div>
+                        <mat-card-subtitle fxLayout="row" fxLayoutAlign="space-between center" class="m-0">
+                            <h5>  {{sv.date|date}} {{sv.date|date:'shortTime'}}</h5>
+                            <h5 style="color: rgb(2 119 189)">  {{sv.typeStr}}  </h5>
+                        </mat-card-subtitle>
 
-                                        <button   color="primary" mat-icon-button><mat-icon>comment</mat-icon></button>
-                                        <div> {{sv.det.length}} {{'guider.post.comments'|translate}}</div>
-                                    </mat-card-actions>
-                                </mat-card-content>
-                                <mat-divider></mat-divider>
-                                <mat-card-footer>
-                                        <div  [style]="sv.det.length>2 ? 'height:300px':'height:120px'"    class="chat-content" perfectScrollbar>
-                                            <mat-list *ngIf="sv.det" class="p-0" >
-                                                <mat-list-item *ngFor="let det of sv.det" class="talk-item">
-                                                  <img matTooltip="{{det.createdBy}}" matListAvatar src="assets/img/users/default-user.jpg">
-                                                    <p matLine class="message" matTooltip="{{det.comment}}">
-                                                        <span  style="padding: 8px"  [ngClass]="'bg-accent'">{{det.comment}}</span>
-                                                    </p>
-                                                    <p matLine class="message-date">
-                                                        <small>{{det.createdBy}} - {{det.date |date}} {{det.date |date:'shortTime'}}  </small>
-                                                    </p>
-                                                </mat-list-item>
-                                            </mat-list>
+                        <br/>
+                        <mat-card-content class="p-">
+                            <p style="padding: 7px ;color:  rgb(2 119 189) ;font-weight: bold" id="{{sv.id}}"
+                       matLine class="message">
+                                <span>{{sv.topicDesc}}</span>
+                            </p>
+                        </mat-card-content>
+<!--                        <mat-divider></mat-divider>-->
+                        <mat-card-footer>
+                            <mat-expansion-panel [expanded]="false">
+                                <mat-expansion-panel-header class="sender">
 
-                                        </div>
+                                    <mat-panel-description>
+                                        <mat-card-actions style="margin-top: 12px" fxLayoutAlign="end center">
+                                            <button [color]="isLikedBefore(sv)? 'warn':''" (click)="addLikeToTopic(sv)"
+                                                    mat-icon-button>
+                                                <mat-icon> favorite</mat-icon>
+                                            </button>
+                                            <div> {{sv.likersMaps.length}} {{'guider.post.likes'|translate}}</div>
+
+                                            <button color="primary" mat-icon-button>
+                                                <mat-icon>comment</mat-icon>
+                                            </button>
+                                            <div> {{sv.det.length}} {{'guider.post.comments'|translate}}</div>
+                                        </mat-card-actions>
+
+                                        <!--                                        <span>-->
+                                        <!--                                            {{mail.date|date }}  {{mail.date|date :'shortTime'}}-->
+                                        <!--                                            <mat-chip   style=" background-color: #257995 ;color: white" *ngIf="mail.unread && mail.sender!=currentUserName" >{{'GENERIC.new'|translate}}</mat-chip>-->
+                                        <!--                                        </span>-->
+                                    </mat-panel-description>
+
+                                </mat-expansion-panel-header>
+                                <div [style]="sv.det.length>2 ? 'height:300px':'height:120px'" class="chat-content"
+                                     perfectScrollbar>
+                                    <mat-list *ngIf="sv.det" class="p-0">
+                                        <mat-list-item *ngFor="let det of sv.det" class="talk-item">
+                                            <img matTooltip="{{det.createdBy}}" matListAvatar
+                                                 src="assets/img/users/default-user.jpg">
+                                            <p matLine class="message" matTooltip="{{det.comment}}">
+                                                <span style="padding: 8px;background-color: rgb(247 249 250)"
+                                                     >{{det.comment}}</span>
+                                            </p>
+                                            <p matLine class="message-date">
+                                                <small>{{det.createdBy}}
+                                                    - {{det.date |date}} {{det.date |date:'shortTime'}}  </small>
+                                            </p>
+                                        </mat-list-item>
+                                    </mat-list>
+
+                                </div>
 
 
-                                        <mat-form-field *ngIf="isLoggedIn" appearance="outline" style="width: 70% ;margin-left: 25px;margin-right: 25px"   >
-                                            <mat-label>{{'guider.post.comments.write'|translate}}</mat-label>
-                                            <textarea matInput [disabled]="!isLoggedIn"  [(ngModel)]="sv.comment_t"  ></textarea>
-                                        </mat-form-field>
+                                <mat-form-field *ngIf="isLoggedIn" appearance="outline"
+                                                style="width: 70% ;margin-left: 25px;margin-right: 25px">
+                                    <mat-label>{{'guider.post.comments.write'|translate}}</mat-label>
+                                    <textarea matInput [disabled]="!isLoggedIn" [(ngModel)]="sv.comment_t"></textarea>
+                                </mat-form-field>
 
-                                    <button *ngIf="isLoggedIn" [disabled]="! canPostComment(sv.comment_t)"  mat-flat-button  color="primary" (click)="addNewCommentToTopic(sv)"     style="margin-top:25px;margin-left: 5px; margin-right: 5px; float: left ;  width: 80px;height: 30px;"      >
-                                        {{'GENERIC.save'|translate}}  <mat-icon>post_add</mat-icon>
-                                    </button>
-                                </mat-card-footer>
-                            </mat-card>
+                                <button *ngIf="isLoggedIn" [disabled]="! canPostComment(sv.comment_t)" mat-flat-button
+                                        color="primary" (click)="addNewCommentToTopic(sv)"
+                                        style="margin-top:25px;margin-left: 5px; margin-right: 5px; float: left ;  width: 80px;height: 30px;">
+                                    {{'GENERIC.save'|translate}}
+                                    <mat-icon>post_add</mat-icon>
+                                </button>
+                            </mat-expansion-panel>
+                        </mat-card-footer>
+                    </mat-card>
 
 
-                        </div>
-                    </div>
-      <!--          </mat-card-content>
-            </mat-card>-->
+                </div>
+            </div>
+            <!--          </mat-card-content>
+                  </mat-card>-->
             <app-itemsPagination [componentObject]="this"></app-itemsPagination>
         </div>
 
