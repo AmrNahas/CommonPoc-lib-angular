@@ -5,12 +5,15 @@
                 <mat-card-title>{{meeting.title}}</mat-card-title>
                 <mat-card-subtitle> {{meeting.description}}</mat-card-subtitle>
             </mat-card-header>
-            <img   mat-card-image src="assets/img/landing/thinking.jpg" alt="Photo 6">
+            <img *ngIf="meeting.id%2==0"  mat-card-image src="assets/img/landing/thinking.jpg" alt="Photo 6">
+            <img  *ngIf="meeting.id%2>0"  mat-card-image src="assets/img/landing/mm.jpg" alt="Photo 6">
+
             <mat-card-content>
                 <div class="user-content" fxLayout="row" fxLayoutAlign="space-around center">
                     <div fxFlex="30" fxLayout="column" fxLayoutAlign="center center">
                         <div class="user-img">
                             <img   src="assets/img/users/default-user.jpg" class="transition-2"  >
+
                         </div>
                         <div class="user-social">
                             <span style="font-weight: bold">{{meeting.createdBy}}</span>
