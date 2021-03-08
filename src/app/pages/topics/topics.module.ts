@@ -9,6 +9,7 @@ import {SharedModule} from "../../shared/shared.module";
 import {ItemsfilterComponent} from "../publicPages/publicCommonSegments/itemsDataModelfilterSeg/itemsfilter.component";
 import {ItemPaginationComponent} from "../publicPages/publicCommonSegments/itemsDataModelPaginationSeg/itemPagination.component";
 import {PerfectScrollbarModule} from "ngx-perfect-scrollbar";
+import {SharedSegmentsModule} from "../../appCommon/commonSegments/sharedSegments.module";
 
 
 export const routes = [
@@ -25,17 +26,15 @@ export const routes = [
         SharedModule,
         TranslateModule,
         PerfectScrollbarModule,
+        SharedSegmentsModule,
 
 
     ],
   declarations: [
     TopicsComponent,
-      ItemsfilterComponent,
-      ItemPaginationComponent,
   ],
     exports:[
-        ItemsfilterComponent,
-        ItemPaginationComponent,
+
     ]
 })
 export class TopicsModule { }

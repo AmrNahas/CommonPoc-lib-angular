@@ -26,8 +26,8 @@
             <mat-icon>lock</mat-icon>
             <span>Lock screen</span> 
         </a>-->
-    <a mat-menu-item routerLink="/meetings">
-        <mat-icon>persons</mat-icon>
+    <a mat-menu-item *ngIf="this.typeId == 1" routerLink="/meetings">
+        <mat-icon>people</mat-icon>
         <span>{{'guider.meetings.list' |translate}}</span>
     </a>
 <!--        <a mat-menu-item routerLink="/support">

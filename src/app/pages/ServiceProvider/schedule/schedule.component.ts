@@ -119,6 +119,7 @@ export class ScheduleComponent extends UtilityController implements OnInit {
                     color: this.checkItemColor(item.startDateLong),
                     actions: this.actions
                 }
+
                 this.events.push(x);
             });
             this.loading=false;

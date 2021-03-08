@@ -21,8 +21,8 @@ export class EventsService   {
     }
 
     getEventsForCurrentUserByMonth(month:number,year:number ): Observable<Array<MyCalenderEvent>> {
-        console.log(month+">>"+year)
-        return this.httpClient.post<Array<MyCalenderEvent>>(Constants.URL+'/api/events/getEvents', {"month":month,"year":year});
+        console.log(month+1+">>"+year)
+        return this.httpClient.post<Array<MyCalenderEvent>>(Constants.URL+'/api/events/getEvents', {"month":month+1,"year":year});
     }
 
 

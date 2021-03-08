@@ -8,6 +8,7 @@ import {TranslateModule} from "@ngx-translate/core";
 import {NgxPaginationModule} from "ngx-pagination";
 import {CustomPipesModule} from "../../appCommon/customePipes/customPipes.module";
 import {CustomDirectivesModule} from "../../appCommon/customDirectivies/customDirectives.module";
+import {ItemPaginationComponent} from "../../pages/publicPages/publicCommonSegments/itemsDataModelPaginationSeg/itemPagination.component";
 
 
 @NgModule({
@@ -28,12 +29,14 @@ import {CustomDirectivesModule} from "../../appCommon/customDirectivies/customDi
     declarations: [
 
         FilterComponent,
-        Pagination
+        Pagination,
+        ItemPaginationComponent,
     ],
     exports: [
 
         FilterComponent,
-        Pagination
+        Pagination,
+        ItemPaginationComponent,
     ],
 
 // put  all needed  entry  component you need for this module  like dialog

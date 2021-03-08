@@ -10,7 +10,7 @@ export class AppSettings {
     }
 
     public settings = new Settings(
-        'Sea World',   //theme name
+        'Ershad',   //theme name
         true,       //loadingSpinner
         true,       //fixedHeader
         true,       //sidenavIsOpened

@@ -32,12 +32,10 @@ export const routes = [
     ],
   declarations: [
       SeminarsComponent,
-      ItemsfilterComponent,
-      ItemPaginationComponent,
+
   ],
     exports:[
-        ItemsfilterComponent,
-        ItemPaginationComponent,
+
     ]
 })
 export class SeminarsModule { }

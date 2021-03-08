@@ -34,12 +34,10 @@ export const routes = [
   declarations: [
     MeetingsComponent,
       AddMeetingDialogComponent,
-      ItemsfilterComponent,
-      ItemPaginationComponent,
+
   ],
     exports:[
-        ItemsfilterComponent,
-        ItemPaginationComponent,
+
     ]
 })
 export class MeetingsModule { }

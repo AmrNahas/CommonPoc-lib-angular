@@ -48,7 +48,7 @@ export class TopicsComponent extends AbstractDataModelContrlPublic<Topic> implem
         this.sortByValue = 1;
         if (this.isLoggedIn)
             this.removeRegHint = true;
-        console.warn("topics const")
+
 
     }
 
@@ -117,7 +117,6 @@ export class TopicsComponent extends AbstractDataModelContrlPublic<Topic> implem
                if (this.authService.currentUserValue.id == item.userId)
                    counter++;
            })
-           console.warn(counter);
            return counter > 0;
        }
        else return false;
