@@ -13,4 +13,13 @@ export class WebSocketService {
         let stompClient = Stomp.over(socket);
         return stompClient;
     }
+
+    // Open connection with the back-end socket
+    public chatConnect() {
+        let socket = new SockJs(Constants.URL + '/notify/socket');
+        let stompClient = Stomp.over(socket);
+        return stompClient;
+    }
+
+
 }
