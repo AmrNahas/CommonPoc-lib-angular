@@ -32,7 +32,8 @@ export class HorizontalMenuComponent extends UtilityController implements OnInit
     }
 
     prepareMenuAsPerParty() {
-        this.menuItems = this.menuService.getHorizontalPublicMenuItems();// this.menuService.getHorizontalCustomerMenuItems();
+        this.menuItems = this.menuService.getVerticalMenuItems();
+       // this.menuItems = this.menuService.getHorizontalPublicMenuItems();// this.menuService.getHorizontalCustomerMenuItems();
 
      /*
         if (this.authService.validateToken()) {

@@ -1,22 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {AppSettings} from '../../../app.settings';
 import {Settings} from '../../../app.settings.model';
-import {ActivatedRoute} from "@angular/router";
-import {Vehicles} from "../../../models/spServices/Vehicles";
-import {SortCriteria} from "../../../appCommon/models/dto/SortCriteria";
-import {SortDirection} from "@swimlane/ngx-datatable";
-import {AbstractDataModelContrlPublic} from "../AbstractDataModelContrlPublic";
-import {FilterProperty} from "../../../appCommon/models/dto/FilterProperty";
-import {ColumnTypEnum} from "../../../appCommon/models/enum/ColumnTypEnum";
-import {FilterOperationEnum} from "../../../appCommon/models/enum/FilterOperationEnum";
-import {Observable} from "rxjs";
-import {LocalSelectItem} from "../../../appCommon/models/dto/LocalSelectItem";
-import {PhotoDTO} from "../../../models/DTO/PhotoDTO";
-import {AttImg64DialogComponent} from "../../../appCommon/CustomeComponents/attachmentBase64Preview/att-img64-dialog.component";
-import {MatDialog} from "@angular/material/dialog";
-import {AuthService} from "../../../AuthModule/AuthService";
-import {MessagesService} from "../../../appCommon/utility/MessagesService";
-import {SortOrderEnum} from "../../../appCommon/models/enum/SortOrderEnum";
+
 
 // import 'rxjs/add/operator/filter';
 

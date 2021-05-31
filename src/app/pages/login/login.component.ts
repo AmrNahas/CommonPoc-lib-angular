@@ -66,9 +66,9 @@ export class LoginComponent {
 
 
     goToCorrectPage(typeId: number) {
-        if (typeId == PartiesEnum.GUIDER)
+        if (typeId == PartiesEnum.ADMIN)
             this.router.navigate(['']);
-        else if (typeId == PartiesEnum.STUDENT)
+        else if (typeId == PartiesEnum.CUSTOMER)
             this.router.navigate(['']);
         // else if (typeId == PartiesEnum.SERVICE_PROVIDER)
         //     this.router.navigate(['/spDashboard']);

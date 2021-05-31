@@ -16,7 +16,7 @@ export class AppSettings {
         true,       //sidenavIsOpened
         true,       //sidenavIsPinned
         true,       //sidenavUserBlock
-        'horizontal', //horizontal , vertical
+        'vertical', //horizontal , vertical
         'default',  //default, compact, mini
         localStorage.getItem('theme')=='green-dark'?'green-dark':'indigo-light',   //indigo-light, teal-light, red-light, blue-dark, green-dark, pink-dark indigo-light
         localStorage.getItem('lang')=='ar'?true:false      // true = rtl, false = ltr

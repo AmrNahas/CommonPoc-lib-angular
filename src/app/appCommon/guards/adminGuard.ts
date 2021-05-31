@@ -14,7 +14,7 @@ export class AdminGuard   implements CanActivate{
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
         const partyType=this.authService.getUserType();
-        if(partyType!=null && partyType==PartiesEnum.GUIDER)
+        if(partyType!=null && partyType==PartiesEnum.ADMIN)
             return true;
         else
              this.router.navigate(["/error"])

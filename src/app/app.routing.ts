@@ -14,19 +14,8 @@ export const routes: Routes = [
         path: '',
         component: PagesComponent, children: [
             { path: '', loadChildren: () => import('./pages/publicPages/publicPages.module').then(m => m.PublicPagesModule), data: { breadcrumb: 'SP.vehicles' } },
-            { path: 'topics', loadChildren: () => import('./pages/topics/topics.module').then(m => m.TopicsModule), data: { breadcrumb: 'guider.topics' } },
-            { path: 'meetings', loadChildren: () => import('./pages/meetings/meetings.module').then(m => m.MeetingsModule), data: { breadcrumb: 'guider.meetings' } },
-            { path: 'seminars', loadChildren: () => import('./pages/seminars/seminars.module').then(m => m.SeminarsModule), data: { breadcrumb: 'guider.meetings' } },
-            { path: 'chat', loadChildren: () => import('./pages/chat/chat.module').then(m => m.ChatModule), data: { breadcrumb: 'guider.chat' } },
-
-            { path: 'users',canActivate:[AuthenticationGuard], loadChildren: () => import('./pages/users/users.module').then(m => m.UsersModule), data: { breadcrumb: 'MENU.Users' } },
             { path: 'profile',canActivate:[AuthenticationGuard], loadChildren: () => import ('./pages/profile/profile.module').then(m => m.ProfileModule), data: { breadcrumb: 'MENU.profile' } },
-            { path: 'spDashboard',canActivate:[AuthenticationGuard,SpGuard], loadChildren: () => import('./pages/ServiceProvider/spDashboard/dashboard.module').then(m => m.DashboardModule), data: { breadcrumb: 'MENU.Dashboard' } },
-            { path: 'notifications',canActivate:[AuthenticationGuard], loadChildren: () => import('./pages/notifications/userNotifications.module').then(m => m.UserNotificationsModule), data: { breadcrumb: 'GENERIC.notifications' } },
-            { path: 'schedule',canActivate:[AuthenticationGuard], loadChildren: () => import('./pages/ServiceProvider/schedule/schedule.module').then(m => m.ScheduleModule), data: { breadcrumb: 'GENERIC.schedule' } },
-            { path: 'support/:id',canActivate:[AuthenticationGuard], loadChildren: () => import('./pages/mailbox/mailbox.module').then(m => m.MailboxModule), data: { breadcrumb: 'MENU.help' } },
-            { path: 'support',canActivate:[AuthenticationGuard], loadChildren: () => import('./pages/mailbox/mailbox.module').then(m => m.MailboxModule), data: { breadcrumb: 'MENU.help' } },
-
+            { path: 'example',canActivate:[AuthenticationGuard], loadChildren: () => import ('./pages/Example/example.module').then(m => m.ExampleModule), data: { breadcrumb: 'MENU.Users' } },
 
         ]
     },

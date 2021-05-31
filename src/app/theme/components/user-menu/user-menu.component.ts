@@ -29,9 +29,9 @@ export class UserMenuComponent implements OnInit {
 
     ngOnInit() {
         if (this.typeId) {
-              if (this.typeId == PartiesEnum.GUIDER)
+              if (this.typeId == PartiesEnum.ADMIN)
                 this.partyName = "SP.type.organisation";
-            else if (this.typeId == PartiesEnum.STUDENT)
+            else if (this.typeId == PartiesEnum.CUSTOMER)
                 this.partyName = "SP.type.individual";
             else
                 this.partyName = "resv.UNKOWN";
