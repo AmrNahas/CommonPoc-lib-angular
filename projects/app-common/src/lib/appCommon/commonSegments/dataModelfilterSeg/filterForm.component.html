@@ -1,4 +1,5 @@
 <!--  search form -->
+
 <div style="padding: 2px">
     <form [formGroup]="componentObject.filterComponentForm" class="user-form" (ngSubmit)="componentObject.search()">
         <mat-form-field  *ngFor="let filter of componentObject.filterPropertiesArr" style="margin-left: 6px">
@@ -57,5 +58,6 @@
 
 
 </div>
+
 <!-- (keyup)="componentObject.filterChange(filter.columnProp,filter.value)" [(ngModel)]="filter.value"-->
 
