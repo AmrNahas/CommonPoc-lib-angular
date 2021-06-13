@@ -1,7 +1,6 @@
 import {MatPaginatorIntl} from '@angular/material/paginator';
-import {AfterViewInit, Injectable, OnChanges, SimpleChanges} from '@angular/core';
-import {MessagesService} from '../utility/MessagesService';
-
+import {Injectable} from '@angular/core';
+import {MessagesService} from "app-common";
 
 
 @Injectable({
