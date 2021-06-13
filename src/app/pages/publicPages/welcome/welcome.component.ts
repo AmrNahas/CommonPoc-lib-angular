@@ -1,17 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {AppSettings} from '../../../app.settings';
 import {Settings} from '../../../app.settings.model';
-import {AuthService} from "../../../AuthModule/AuthService";
 import {Router} from "@angular/router";
-import {UtilityController} from "../../../appCommon/controllers/UtilityController";
-import {LocalSelectItem} from "../../../appCommon/models/dto/LocalSelectItem";
-import {Observable} from "rxjs";
 import {DropDownService} from "../../../services/commonServices/drop-down-service.service";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup} from "@angular/forms";
 import {AkitaNgFormsManager} from "@datorama/akita-ng-forms-manager";
-import {GenericFormValidators} from "../../../appCommon/customFormValidators/GenericFormValidators";
-import {MaxSizeValidator} from "@angular-material-components/file-input";
-import {matchingPasswords} from "../../../theme/utils/app-validators";
+import {AuthService} from "../../../AuthModule/AuthService";
+import {LocalSelectItem, UtilityController} from "../../../../../dist/app-common";
 
 
 @Component({

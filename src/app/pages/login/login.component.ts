@@ -1,20 +1,16 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
-import {FormGroup, FormBuilder, Validators} from '@angular/forms';
-import {emailValidator} from '../../theme/utils/app-validators';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AppSettings} from '../../app.settings';
 import {Settings} from '../../app.settings.model';
 import {UsersService} from 'src/app/services/usersServices/users.service';
 import {AlertService} from 'src/app/services/AlertServices/alert.service';
-import {User} from '../../models/user';
-import {MatSnackBar} from '@angular/material/snack-bar';
 import {TranslateService} from '@ngx-translate/core';
-import {MessagesService} from '../../appCommon/utility/MessagesService';
-import {AuthService} from '../../AuthModule/AuthService';
-import {AuthUser} from '../../AuthModule/AuthUser';
-import {HttpResponse} from '@angular/common/http';
-import {PartiesEnum} from "../../models/utilites/PartiesEnum";
 
+import {AuthUser} from '../../AuthModule/AuthUser';
+import {PartiesEnum} from "../../models/utilites/PartiesEnum";
+import {AuthService} from "../../AuthModule/AuthService";
+import {MessagesService} from "app-common";
 
 @Component({
     selector: 'app-login',

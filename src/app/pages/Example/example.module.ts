@@ -5,12 +5,11 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SharedModule} from '../../shared/shared.module';
 import {TranslateModule} from '@ngx-translate/core';
 import {NgxPaginationModule} from 'ngx-pagination';
-import {CustomPipesModule} from '../../appCommon/customePipes/customPipes.module';
-import {CustomDirectivesModule} from '../../appCommon/customDirectivies/customDirectives.module';
-import {SharedSegmentsModule} from "../../appCommon/commonSegments/sharedSegments.module";
 import {ExampleComponent} from "./DataPreview/example.component";
 import {ExampleDialogComponent} from "./DataOps/example-dialog.component";
-
+import {CustomPipesModule} from "../../common/customePipes/customPipes.module";
+import {CustomDirectivesModule} from "../../common/customDirectivies/customDirectives.module";
+import {SharedSegmentsModule} from "../../../../projects/app-common/src/lib/appCommon/commonSegments/sharedSegments.module";
 
 
 export const routes = [

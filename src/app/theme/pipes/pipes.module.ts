@@ -14,21 +14,21 @@ import { MailSearchPipe } from './search/mail-search.pipe';
         CommonModule 
     ],
     declarations: [
-        PaginationPipe,
-        ProfilePicturePipe,
-        ChatPersonSearchPipe,
-        UserSearchPipe,
-        TruncatePipe,
-        MailSearchPipe,
+        //PaginationPipe,
+        // ProfilePicturePipe,
+        // ChatPersonSearchPipe,
+        // UserSearchPipe,
+        // TruncatePipe,
+        // MailSearchPipe,
 
     ],
     exports: [
-        PaginationPipe,
-        ProfilePicturePipe,
-        ChatPersonSearchPipe,
-        UserSearchPipe,
-        TruncatePipe,
-        MailSearchPipe,
+       // PaginationPipe,
+       //  ProfilePicturePipe,
+       //  ChatPersonSearchPipe,
+       //  UserSearchPipe,
+       //  TruncatePipe,
+       //  MailSearchPipe,
 
 
     ]

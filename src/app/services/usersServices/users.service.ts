@@ -6,15 +6,16 @@ import {UsersRolesConjDto} from '../../models/DTO/UsersRolesConjDto';
 import {UserPhotoDTO} from '../../models/DTO/UserPhotoDTO';
 import {UserPhotoDTORecv} from '../../models/DTO/UserPhotoDTORecv';
 import {RolePermsConjDto} from '../../models/DTO/RolePermsConjDto';
-import {ResponseDataModel} from '../../appCommon/models/dto/ResponseDataModel';
-import {AbstractDataModelService} from '../../appCommon/services/AbstractDataModelService';
-import {InputDataModel} from '../../appCommon/models/dto/InputDataModel';
 import {ResponseDto} from '../../models/DTO/ResponseDto';
 import {RegUserDto} from '../../models/DTO/RegUserDto';
 import {ChangeUserPassDto} from '../../models/DTO/ChangeUserPassDto';
 import {ChangeUserPrefDto} from '../../models/DTO/ChangeUserPrefDto';
 import {IdUserNameDto} from '../../models/DTO/IdUserNameDto';
 import {Constants} from '../../models/utilites/Constants';
+import {ResponseDataModel} from "../../../../projects/app-common/src/lib/appCommon/models/dto/ResponseDataModel";
+import {InputDataModel} from "../../../../projects/app-common/src/lib/appCommon/models/dto/InputDataModel";
+import {AbstractDataModelService} from "../../../../projects/app-common/src/lib/appCommon/services/AbstractDataModelService";
+
 
 @Injectable({
     providedIn: 'root'

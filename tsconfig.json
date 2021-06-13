@@ -12,6 +12,12 @@
     },
     {
       "path": "./tsconfig.spec.json"
+    },
+    {
+      "path": "./projects/app-common/tsconfig.lib.json"
+    },
+    {
+      "path": "./projects/app-common/tsconfig.spec.json"
     }
   ],
   "emitDecoratorMetadata": true,

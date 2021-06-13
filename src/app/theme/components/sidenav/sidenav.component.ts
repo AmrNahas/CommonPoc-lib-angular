@@ -4,8 +4,8 @@ import {Settings} from '../../../app.settings.model';
 import {MenuService} from '../menu/menu.service';
 import {UsersService} from 'src/app/services/usersServices/users.service';
 import {UserPhotoDTORecv} from 'src/app/models/DTO/UserPhotoDTORecv';
-import {AuthService} from '../../../AuthModule/AuthService';
 import {AuthUser} from '../../../AuthModule/AuthUser';
+import {AuthService} from "../../../AuthModule/AuthService";
 
 @Component({
   selector: 'app-sidenav',

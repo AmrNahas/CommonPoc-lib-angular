@@ -4,10 +4,10 @@ import {PerfectScrollbarDirective} from 'ngx-perfect-scrollbar';
 import {AppSettings} from '../app.settings';
 import {Settings} from '../app.settings.model';
 import {MenuService} from '../theme/components/menu/menu.service';
-import {AuthService} from '../AuthModule/AuthService';
+
 import {AuthUser} from '../AuthModule/AuthUser';
-import {EncryptDecrypt} from "../appCommon/utility/EncryptDecrypt";
-import {PartiesEnum} from "../models/utilites/PartiesEnum";
+import {AuthService} from "../AuthModule/AuthService";
+
 
 @Component({
     selector: 'app-pages',

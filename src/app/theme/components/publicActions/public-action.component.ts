@@ -1,7 +1,8 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {Router} from '@angular/router';
-import {AuthService} from '../../../AuthModule/AuthService';
+
 import {AuthUser} from '../../../AuthModule/AuthUser';
+import {AuthService} from "../../../AuthModule/AuthService";
 
 @Component({
     selector: 'app-public-action',

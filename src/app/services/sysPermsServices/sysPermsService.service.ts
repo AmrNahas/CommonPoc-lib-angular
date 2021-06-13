@@ -1,13 +1,13 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {ResponseDataModel} from '../../appCommon/models/dto/ResponseDataModel';
-import {AbstractDataModelService} from '../../appCommon/services/AbstractDataModelService';
-import {InputDataModel} from '../../appCommon/models/dto/InputDataModel';
 import {SysPermission} from '../../models/SysPermssions';
 import {ResponseDto} from '../../models/DTO/ResponseDto';
 import {IdUserNameDto} from '../../models/DTO/IdUserNameDto';
 import {Constants} from '../../models/utilites/Constants';
+import {InputDataModel} from "../../../../projects/app-common/src/lib/appCommon/models/dto/InputDataModel";
+import {ResponseDataModel} from "../../../../projects/app-common/src/lib/appCommon/models/dto/ResponseDataModel";
+import {AbstractDataModelService} from "../../../../projects/app-common/src/lib/appCommon/services/AbstractDataModelService";
 
 @Injectable({
     providedIn: 'root'

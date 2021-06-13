@@ -1,18 +1,21 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {UtilityController} from '../../../appCommon/controllers/UtilityController';
-import {LocalSelectItem} from '../../../appCommon/models/dto/LocalSelectItem';
 import {Settings} from '../../../app.settings.model';
 import {RegUserDto} from '../../../models/DTO/RegUserDto';
 import {AppSettings} from '../../../app.settings';
-import {AuthService} from '../../../AuthModule/AuthService';
-import {MessagesService} from '../../../appCommon/utility/MessagesService';
 import {DropDownService} from '../../../services/commonServices/drop-down-service.service';
-import {GenericFormValidators} from '../../../appCommon/customFormValidators/GenericFormValidators';
 import {matchingPasswords} from '../../../theme/utils/app-validators';
 import {RegService} from '../../../services/publicServices/RegService';
 import {Constants} from "../../../models/utilites/Constants";
+import {
+    GenericFormValidators,
+    LocalSelectItem,
+    MessagesService,
+    UtilityController
+} from "../../../../../dist/app-common";
+import {AuthService} from "../../../AuthModule/AuthService";
+
 
 
 @Component({

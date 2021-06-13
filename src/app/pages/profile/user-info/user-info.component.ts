@@ -6,13 +6,14 @@ import {AlertService} from 'src/app/services/AlertServices/alert.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {Router} from '@angular/router';
 import {AuthUser} from '../../../AuthModule/AuthUser';
-import {AuthService} from '../../../AuthModule/AuthService';
-import {LocalSelectItem} from '../../../appCommon/models/dto/LocalSelectItem';
 import {HttpClient} from '@angular/common/http';
-import {GenericFormValidators} from '../../../appCommon/customFormValidators/GenericFormValidators';
-import {matchingPasswords} from '../../../theme/utils/app-validators';
-import {UtilityController} from '../../../appCommon/controllers/UtilityController';
-import {MessagesService} from '../../../appCommon/utility/MessagesService';
+import {UtilityController} from "../../../../../projects/app-common/src/lib/appCommon/controllers/UtilityController";
+import {GenericFormValidators} from "../../../../../projects/app-common/src/lib/appCommon/customFormValidators/GenericFormValidators";
+import {LocalSelectItem} from "../../../../../projects/app-common/src/lib/appCommon/models/dto/LocalSelectItem";
+import {matchingPasswords} from "../../../theme/utils/app-validators";
+import {MessagesService} from "../../../../../projects/app-common/src/lib/appCommon/utility/MessagesService";
+import {AuthService} from "../../../AuthModule/AuthService";
+
 
 @Component({
     selector: 'app-user-info',

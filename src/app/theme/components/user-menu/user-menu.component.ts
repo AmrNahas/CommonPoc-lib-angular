@@ -1,10 +1,11 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {Router} from '@angular/router';
 import {UsersService} from 'src/app/services/usersServices/users.service';
-import {AuthService} from '../../../AuthModule/AuthService';
-import {AuthUser} from '../../../AuthModule/AuthUser';
-import {EncryptDecrypt} from "../../../appCommon/utility/EncryptDecrypt";
 import {PartiesEnum} from "../../../models/utilites/PartiesEnum";
+import {EncryptDecrypt} from "../../../../../projects/app-common/src/lib/appCommon/utility/EncryptDecrypt";
+
+import {AuthUser} from "../../../AuthModule/AuthUser";
+import {AuthService} from "../../../AuthModule/AuthService";
 
 @Component({
     selector: 'app-user-menu',

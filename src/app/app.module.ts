@@ -34,20 +34,9 @@ import {SettingsMenu} from "./theme/components/settings-menu/settings-menu.compo
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {PublicActionComponent} from "./theme/components/publicActions/public-action.component";
-import {CustomDirectivesModule} from "./appCommon/customDirectivies/customDirectives.module";
-import {CustomPipesModule} from "./appCommon/customePipes/customPipes.module";
-import {AuthInterceptor} from "./appCommon/interceptors/AuthInterceptor";
 import {MatPaginatorIntl} from "@angular/material/paginator";
-import {PaginationCustomConfig} from "./appCommon/cofigurations/PaginationCustomConfig";
-import {AuthorizationGuard} from "./appCommon/guards/AuthorizationGuard";
-import {LoginGuard} from "./appCommon/guards/LoginGuard";
-import {AuthService} from "./AuthModule/AuthService";
-import {AuthenticationGuard} from "./appCommon/guards/AuthenticationGuard";
-import {AdminGuard} from "./appCommon/guards/adminGuard";
-import {SpGuard} from "./appCommon/guards/SpGuard";
-import {AttImgDialogComponent} from "./appCommon/CustomeComponents/attachmentPreview/att-img-dialog.component";
-import {AttImg64DialogComponent} from "./appCommon/CustomeComponents/attachmentBase64Preview/att-img64-dialog.component";
-import {AgrementDialogComponent} from "./appCommon/CustomeComponents/AgreementViewDialoge/agrement-dialog.component";
+
+
 import {NgxContentLoadingModule} from "ngx-content-loading";
 import {MatBadgeModule} from "@angular/material/badge";
 import {WebSocketService} from "./notifications/WebSocketService ";
@@ -61,8 +50,22 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 
 import * as tslib_1 from 'tslib';
 import * as date_fns_2 from 'date-fns';
+import {CustomDirectivesModule} from "./common/customDirectivies/customDirectives.module";
+import {AuthService} from "./AuthModule/AuthService";
+import {AuthenticationGuard} from "./common/guards/AuthenticationGuard";
+import {LoginGuard} from "./common/guards/LoginGuard";
+import {AuthorizationGuard} from "./common/guards/AuthorizationGuard";
+import {SpGuard} from "./common/guards/SpGuard";
+import {AdminGuard} from "./common/guards/adminGuard";
+import {AuthInterceptor} from "./AuthModule/AuthInterceptor";
+import {CustomPipesModule} from "./common/customePipes/customPipes.module";
+import {AttImgDialogComponent} from "./common/CustomeComponents/attachmentPreview/att-img-dialog.component";
+import {AgrementDialogComponent} from "./common/CustomeComponents/AgreementViewDialoge/agrement-dialog.component";
+import {AttImg64DialogComponent} from "./common/CustomeComponents/attachmentBase64Preview/att-img64-dialog.component";
+import {PaginationCustomConfig} from "./config/PaginationCustomConfig";
+
 function adapterFactory() {
-    return tslib_1.__assign(tslib_1.__assign({}),date_fns_2);
+    return tslib_1.__assign(tslib_1.__assign({}), date_fns_2);
 }
 
 // localization
@@ -74,6 +77,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 //  injector   global variable    >>  you can import it and use all over app
 export let AppInjector: Injector;
+export let myAppSettings: AppSettings;
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -136,7 +140,7 @@ export function createTranslateLoader(http: HttpClient) {
         AgrementDialogComponent,
     ],
     providers: [
-        AppSettings, AuthService, AuthenticationGuard, LoginGuard, AuthorizationGuard, SpGuard, AdminGuard,WebSocketService,NotificationsService,
+        AppSettings, AuthService, AuthenticationGuard, LoginGuard, AuthorizationGuard, SpGuard, AdminGuard, WebSocketService, NotificationsService,
         {provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG},
         {provide: OverlayContainer, useClass: CustomOverlayContainer},
         {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
@@ -146,8 +150,9 @@ export function createTranslateLoader(http: HttpClient) {
 })
 export class AppModule {
     // to save injector in global variable >>  so you can use it all over App
-    constructor(private injector: Injector) {
+    constructor(private injector: Injector, public appSettings: AppSettings) {
         AppInjector = this.injector;
+        myAppSettings = this.appSettings;
     }
 }
 

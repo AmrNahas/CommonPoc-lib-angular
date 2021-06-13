@@ -6,8 +6,8 @@ import { SharedModule } from '../../shared/shared.module';
 import { ProfileComponent } from './profile.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { UserInfoComponent } from './user-info/user-info.component';
-import {CustomPipesModule} from '../../appCommon/customePipes/customPipes.module';
 import {TranslateModule} from '@ngx-translate/core';
+import {CustomPipesModule} from "../../common/customePipes/customPipes.module";
 
 export const routes = [
   {

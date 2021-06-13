@@ -1,11 +1,12 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {PagesComponent} from "./pages/pages.component";
-import {AuthenticationGuard} from "./appCommon/guards/AuthenticationGuard";
-import {LoginGuard} from "./appCommon/guards/LoginGuard";
 import {ErrorComponent} from "./pages/errors/error/error.component";
 import {NotFoundComponent} from "./pages/errors/not-found/not-found.component";
-import {SpGuard} from "./appCommon/guards/SpGuard";
+import {AuthenticationGuard} from "./common/guards/AuthenticationGuard";
+import {LoginGuard} from "./common/guards/LoginGuard";
+
+
 
 
 // AuthorizationGuard

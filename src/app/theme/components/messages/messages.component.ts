@@ -1,15 +1,14 @@
 import {Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
 import {MatMenuTrigger} from '@angular/material/menu';
 import {WebSocketService} from "../../../notifications/WebSocketService ";
-import {AuthService} from "../../../AuthModule/AuthService";
 import {NotificationsService} from "../../../services/userNotifications/NotificationsService ";
 import {UserNotifications} from "../../../models/DTO/UserNotifications";
-import {UtilityController} from "../../../appCommon/controllers/UtilityController";
 import {MatDialog} from "@angular/material/dialog";
 import {AppSettings} from "../../../app.settings";
-import {Constants} from "../../../models/utilites/Constants";
-import {MessagesService} from "../../../appCommon/utility/MessagesService";
 import {Router} from "@angular/router";
+import {UtilityController} from "../../../../../projects/app-common/src/lib/appCommon/controllers/UtilityController";
+import {MessagesService} from "../../../../../projects/app-common/src/lib/appCommon/utility/MessagesService";
+import {AuthService} from "../../../AuthModule/AuthService";
 
 
 // providers: [MessagesService]

@@ -3,11 +3,10 @@ import {Router, NavigationEnd} from '@angular/router';
 import {AppSettings} from '../../../../app.settings';
 import {Settings} from '../../../../app.settings.model';
 import {MenuService} from '../menu.service';
-import {AuthService} from '../../../../AuthModule/AuthService';
-import {UtilityController} from '../../../../appCommon/controllers/UtilityController';
 import {PartiesEnum} from '../../../../models/utilites/PartiesEnum';
 import {MatMenuTrigger} from "@angular/material/menu";
-import {EncryptDecrypt} from "../../../../appCommon/utility/EncryptDecrypt";
+import {UtilityController} from "../../../../../../projects/app-common/src/lib/appCommon/controllers/UtilityController";
+import {AuthService} from "../../../../AuthModule/AuthService";
 
 
 @Component({

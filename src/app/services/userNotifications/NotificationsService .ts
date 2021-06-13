@@ -1,12 +1,13 @@
 import {Injectable} from "@angular/core";
-import {AbstractDataModelService} from "../../appCommon/services/AbstractDataModelService";
 import {HttpClient} from "@angular/common/http";
 import {UserNotifications} from "../../models/DTO/UserNotifications";
 import {Observable} from "rxjs";
-import {InputDataModel} from "../../appCommon/models/dto/InputDataModel";
-import {ResponseDataModel} from "../../appCommon/models/dto/ResponseDataModel";
+
 import {Constants} from "../../models/utilites/Constants";
 import {ResponseDto} from "../../models/DTO/ResponseDto";
+import {InputDataModel} from "../../../../projects/app-common/src/lib/appCommon/models/dto/InputDataModel";
+import {ResponseDataModel} from "../../../../projects/app-common/src/lib/appCommon/models/dto/ResponseDataModel";
+import {AbstractDataModelService} from "../../../../projects/app-common/src/lib/appCommon/services/AbstractDataModelService";
 
 @Injectable()
 export class NotificationsService extends AbstractDataModelService<UserNotifications> {

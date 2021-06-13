@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {Settings} from '../../app.settings.model';
 import {AppSettings} from '../../app.settings';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {GenericFormValidators} from '../../appCommon/customFormValidators/GenericFormValidators';
+import {GenericFormValidators} from "app-common";
 
 
 @Component({

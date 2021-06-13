@@ -4,18 +4,17 @@ import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 
 import {Router} from '@angular/router';
-import {GenericFormValidators} from '../../../appCommon/customFormValidators/GenericFormValidators';
-import {AuthService} from '../../../AuthModule/AuthService';
-import {PartiesEnum} from '../../../models/utilites/PartiesEnum';
 import {SysPermission} from '../../../models/SysPermssions';
 import {RegUserDto} from '../../../models/DTO/RegUserDto';
-import {MessagesService} from '../../../appCommon/utility/MessagesService';
-import {Country} from "../../../models/country";
+ import {Country} from "../../../models/country";
 import {User} from "../../../models/user";
 import {UsersService} from "../../../services/usersServices/users.service";
 import {DropDownService} from "../../../services/commonServices/drop-down-service.service";
 import {SysPermsService} from "../../../services/sysPermsServices/sysPermsService.service";
-
+import {AuthService} from "../../../AuthModule/AuthService";
+import {PartiesEnum} from "../../../models/utilites/PartiesEnum";
+import {GenericFormValidators} from "app-common";
+import {MessagesService} from "app-common";
 
 @Component({
     selector: 'app-users-dialog',

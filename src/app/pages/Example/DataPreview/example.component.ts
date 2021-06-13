@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, Injector, OnInit, ViewEncapsulation} from '@angular/core';
 import {Router} from '@angular/router';
 
 import {SortDirection} from '@swimlane/ngx-datatable';
@@ -6,20 +6,19 @@ import {MatDialog} from '@angular/material/dialog';
 
 import {Observable} from 'rxjs';
 import {UsersService} from "../../../services/usersServices/users.service";
-import {AbstractDataModelController} from "../../../appCommon/controllers/AbstractDataModelController";
 import {SysRepUser} from "../../../models/DTO/SysRepUser";
 import {DropDownService} from "../../../services/commonServices/drop-down-service.service";
-import {FilterCriteria} from "../../../appCommon/models/dto/FilterCriteria";
-import {PartiesEnum} from "../../../models/utilites/PartiesEnum";
-import {FilterOperationEnum} from "../../../appCommon/models/enum/FilterOperationEnum";
-import {SortCriteria} from "../../../appCommon/models/dto/SortCriteria";
 import {User} from "../../../models/user";
 import {IdUserNameDto} from "../../../models/DTO/IdUserNameDto";
-import {FilterProperty} from "../../../appCommon/models/dto/FilterProperty";
-import {ColumnTypEnum} from "../../../appCommon/models/enum/ColumnTypEnum";
-import {LocalSelectItem} from "../../../appCommon/models/dto/LocalSelectItem";
 import {SysRepUserServices} from "../../../services/ExampleServices/SysRepUserServices";
 import {ExampleDialogComponent} from "../DataOps/example-dialog.component";
+import {LocalSelectItem} from "app-common";
+import {FilterProperty} from "app-common";
+import {ColumnTypEnum} from   "app-common";
+import {FilterOperationEnum} from "app-common";
+import { SortCriteria} from "app-common";
+import {AppSettings} from "../../../app.settings";
+import {AbstractDataModelWrapper} from "../../../Wrappers/abstract-data-model-wrapper.service";
 
 
 
@@ -30,12 +29,12 @@ import {ExampleDialogComponent} from "../DataOps/example-dialog.component";
     providers: [UsersService]
 })
 
-export class ExampleComponent extends AbstractDataModelController<SysRepUser> implements OnInit {
+export class ExampleComponent extends AbstractDataModelWrapper<SysRepUser> implements OnInit {
     constructor(
-        public dialog: MatDialog, public dropDownServices: DropDownService,
+        public dialog: MatDialog, public dropDownServices: DropDownService,public inject:Injector,public appSettings: AppSettings,
         public repUserService: SysRepUserServices,public usersService:UsersService, public router: Router ) {
-        super(repUserService);
-        this.formsManager.upsert('perms', this.filterComponentForm);
+        super(repUserService,appSettings);
+        // this.formsManager.upsert('perms', this.filterComponentForm);
     }
 
     prepareDisplayColumns(): string[] {
@@ -44,12 +43,12 @@ export class ExampleComponent extends AbstractDataModelController<SysRepUser> im
 
 
     addPermanentFilterColumns() {
-        this.permanentFiltersObjValues.push(new FilterCriteria('repInfo:repPartyId', PartiesEnum.ADMIN, FilterOperationEnum.EQUAL));
+     //   this.permanentFiltersObjValues.push(new FilterCriteria('repInfo:repPartyId', PartiesEnum.ADMIN, FilterOperationEnum.EQUAL));
     }
 
 
     addPermanentSortColumn(): SortCriteria {
-        return new SortCriteria('repId', SortDirection.asc);
+        return new SortCriteria('userId', SortDirection.asc);
     }
 
     editData() {
@@ -108,18 +107,18 @@ export class ExampleComponent extends AbstractDataModelController<SysRepUser> im
 
 
     prepareFiltersColumns() {
-        let status = new FilterProperty('USERS.status', 'user:status', ColumnTypEnum.DROPDOWN, FilterOperationEnum.BIT_CHECK, this.loadStatusListBits(), []);
-        let fNameFilterColumn = new FilterProperty('registration.firstName', 'user:firstName', ColumnTypEnum.TEXT, FilterOperationEnum.MATCH, null, []);
-        let lNameFilterColumn = new FilterProperty('registration.lastName', 'user:lastName', ColumnTypEnum.TEXT, FilterOperationEnum.MATCH, null, []);
-        let userNameFilterColumn = new FilterProperty('USERS.userName', 'user:userName', ColumnTypEnum.TEXT, FilterOperationEnum.MATCH, null, []);
-        let countryFilterColumn = new FilterProperty('USERS.country', 'user:cntryId', ColumnTypEnum.DROPDOWN_MULTI, FilterOperationEnum.IN_LONG_LIST, this.loadCountryList(), []);
-
+        let status = new FilterProperty('USERS.status', 'status', ColumnTypEnum.DROPDOWN, FilterOperationEnum.BIT_CHECK, this.loadStatusListBits(), []);
+        let fNameFilterColumn = new FilterProperty('registration.firstName', 'firstName', ColumnTypEnum.TEXT, FilterOperationEnum.MATCH, null, []);
+        let lNameFilterColumn = new FilterProperty('registration.lastName', 'lastName', ColumnTypEnum.TEXT, FilterOperationEnum.MATCH, null, []);
+        let userNameFilterColumn = new FilterProperty('USERS.userName', 'userName', ColumnTypEnum.TEXT, FilterOperationEnum.MATCH, null, []);
+        // let countryFilterColumn = new FilterProperty('USERS.country', 'cntryId', ColumnTypEnum.DROPDOWN_MULTI, FilterOperationEnum.IN_LONG_LIST, this.loadCountryList(), []);
+        //
 
         // Object to create Filter for.
         this.filterPropertiesArr.push(fNameFilterColumn);
         this.filterPropertiesArr.push(lNameFilterColumn);
         this.filterPropertiesArr.push(userNameFilterColumn);
-        this.filterPropertiesArr.push(countryFilterColumn);
+       // this.filterPropertiesArr.push(countryFilterColumn);
         this.filterPropertiesArr.push(status);
 
     }

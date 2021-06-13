@@ -3,10 +3,11 @@ import {UsersService} from 'src/app/services/usersServices/users.service';
 // import { Binary } from "crypto";
 import {UserPhotoDTO} from 'src/app/models/DTO/UserPhotoDTO';
 import {UserPhotoDTORecv} from 'src/app/models/DTO/UserPhotoDTORecv';
-import {AuthService} from '../../AuthModule/AuthService';
 import {AuthUser} from '../../AuthModule/AuthUser';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {MessagesService} from '../../appCommon/utility/MessagesService';
+import {MessagesService} from "../../../../projects/app-common/src/lib/appCommon/utility/MessagesService";
+import {AuthService} from "../../AuthModule/AuthService";
+
 
 
 @Component({

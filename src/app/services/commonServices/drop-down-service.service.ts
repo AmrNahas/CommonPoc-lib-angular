@@ -3,10 +3,9 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Country } from '../../models/country';
 import { City } from '../../models/city';
-import { SystemServc } from '../../models/SystemServc';
 import { SysModule } from '../../models/SysModule';
-import {LocalSelectItem} from '../../appCommon/models/dto/LocalSelectItem';
 import {Constants} from '../../models/utilites/Constants';
+import {LocalSelectItem} from "app-common";
 
 @Injectable({
   providedIn: 'root'
