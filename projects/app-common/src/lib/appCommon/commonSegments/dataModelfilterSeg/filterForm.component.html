@@ -6,9 +6,9 @@
             <mat-label>{{filter.localName | translate}}</mat-label>
 
 
-    <!-- <input *ngIf="filter.columnType ==  ColumnTypEnum.DATE_Hij" matInput matNativeControl ngbDatepicker [readonly]="true" (click)="d.open()"
+      <input *ngIf="filter.columnType ==  ColumnTypEnum.DATE_Hij" matInput matNativeControl ngbDatepicker [readonly]="true" (click)="d.open()"
             container="body" #d="ngbDatepicker" formControlName="{{filter.columnProp}}"     />
--->
+
             <mat-select formControlName="{{filter.columnProp}}" *ngIf="filter.columnType ==  ColumnTypEnum.DROPDOWN">
                 <mat-option [value]=" "> --{{'GENERIC.select'|translate}} {{filter.localName | translate }}--</mat-option>
                 <mat-option [value]="item.value" *ngFor="let item of filter.options">{{isArabicLang() ? item.nameAr : item.nameEn }} </mat-option>

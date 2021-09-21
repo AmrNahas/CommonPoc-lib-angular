@@ -1,0 +1,15 @@
+          <hijri-date-picker
+                  [(selectedDate)]="selectedDate"
+                  (selectedDateChange)="dateSelected()"
+                  [readonly]="readonly"
+                  [min]="minHijri" [max]="maxHijri"
+                  style="flex: 1 1 auto;"
+                  [name]="label"
+                  [isRequired]="isRequired"
+                  [placeHolder]="placeHolder"
+
+                  [disabled]="disabled">
+          </hijri-date-picker>
+
+         <!-- [formControlName]="formControlName"-->
+          [controlName]="formControlName"

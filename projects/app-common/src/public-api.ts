@@ -2,6 +2,8 @@
  * Public API Surface of app-common
  */
 
+import {DateFormatterService} from "./lib/appCommon/hijri-gregorian-datepicker/date-formatter.service";
+
 export * from './lib/appCommon/controllers/UtilityController';
 export * from './lib/appCommon/services/AbstractDataModelService';
 export * from './lib/appCommon/customFormValidators/GenericFormValidators';
@@ -31,5 +33,13 @@ export * from './lib/appCommon/controllers/AbstractDataModelController';
 export * from './lib/appCommon/commonSegments/dataModelPaginationSeg/pagination.component';
 export * from './lib/appCommon/commonSegments/dataModelfilterSeg/filter.component';
 export * from './lib/appCommon/commonSegments/sharedSegments.module';
+
+export * from './lib/appCommon/hijri-gregorian-datepicker/date-formatter.service';
+
+export * from './lib/appCommon/hijri-gregorian-datepicker/hijri-datepicker/hijri-datepicker.component';
+export * from './lib/appCommon/hijri-gregorian-datepicker/hijri-gregorian-datepicker.component';
+export * from './lib/appCommon/hijri-gregorian-datepicker/IslamicI18n';
+
+
 
 

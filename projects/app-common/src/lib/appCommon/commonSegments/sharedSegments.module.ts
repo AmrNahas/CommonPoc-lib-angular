@@ -7,6 +7,7 @@ import {NgxPaginationModule} from "ngx-pagination";
 import {SharedModule} from "../sharedModules/shared.module";
 import {FilterComponent} from "./dataModelfilterSeg/filter.component";
 import {Pagination} from "./dataModelPaginationSeg/pagination.component";
+import {NgbDatepickerModule} from "@ng-bootstrap/ng-bootstrap";
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import {Pagination} from "./dataModelPaginationSeg/pagination.component";
         ReactiveFormsModule,
         TranslateModule,
         NgxPaginationModule,
+        NgbDatepickerModule,
 
     ],
     // declare all component you need for this module

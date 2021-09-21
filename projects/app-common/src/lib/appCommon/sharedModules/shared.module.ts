@@ -33,6 +33,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {NgxMatFileInputModule} from "@angular-material-components/file-input";
 import {PdfViewerModule} from "ng2-pdf-viewer";
+import {HijriFormatFromNgStructPipe} from "../hijri-gregorian-datepicker/HijriFormatFromNgStructPipe";
 
 
 @NgModule({
@@ -109,7 +110,7 @@ import {PdfViewerModule} from "ng2-pdf-viewer";
         PdfViewerModule,
         // MaterialFileInputModule
     ],
-    declarations: []
+    declarations: [HijriFormatFromNgStructPipe]
 })
 export class SharedModule {
 }

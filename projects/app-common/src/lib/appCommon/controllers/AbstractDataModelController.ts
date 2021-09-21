@@ -19,6 +19,7 @@ import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {SortCriteria} from '../models/dto/SortCriteria';
 import {AkitaNgFormsManager} from '@datorama/akita-ng-forms-manager';
 import {ColumnTypEnum} from "../models/enum/ColumnTypEnum";
+import {HijriFormatFromNgStructPipe} from "../hijri-gregorian-datepicker/HijriFormatFromNgStructPipe";
 
 
 
@@ -267,10 +268,10 @@ export abstract class AbstractDataModelController<T> extends UtilityController i
                     // propertyValue = new DatePipe('en').transform(propertyValue, 'dd/MM/y');
                     propertyValue = propertyValue.getTime();
                 }
-                /*
+
                                 if ( filterProperty.columnType == ColumnTypEnum.DATE_Hij) {
-                                    propertyValue = new HijriFormatFromNgStructPipe().transform(propertyValue);
-                                }*/
+                                    propertyValue =  new HijriFormatFromNgStructPipe().transform(propertyValue);
+                                }
 
                 if (filterProperty.columnType == ColumnTypEnum.DROPDOWN_MULTI && propertyValue != null) {
                     let values: [] = propertyValue;
