@@ -8,7 +8,9 @@ const moment = momentjs;
 import * as moment_ from 'moment-hijri';
 const momentHijri = moment_;
 
-/*@Injectable()*/
+@Injectable({
+    providedIn: 'root'
+})
 export class DateFormatterService {
 
   constructor(private parserFormatter: NgbDateParserFormatter) { }

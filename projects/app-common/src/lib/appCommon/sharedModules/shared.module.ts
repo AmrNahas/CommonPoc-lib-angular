@@ -34,6 +34,9 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {NgxMatFileInputModule} from "@angular-material-components/file-input";
 import {PdfViewerModule} from "ng2-pdf-viewer";
 import {HijriFormatFromNgStructPipe} from "../hijri-gregorian-datepicker/HijriFormatFromNgStructPipe";
+import {HijriDatepickerComponent} from "../hijri-gregorian-datepicker/hijri-datepicker/hijri-datepicker.component";
+import {HijriGregorianDatepickerComponent} from "../hijri-gregorian-datepicker/hijri-gregorian-datepicker.component";
+import {NgbDatepickerModule} from "@ng-bootstrap/ng-bootstrap";
 
 
 @NgModule({
@@ -71,6 +74,7 @@ import {HijriFormatFromNgStructPipe} from "../hijri-gregorian-datepicker/HijriFo
         MatToolbarModule,
         MatTooltipModule,
         MatStepperModule,
+        NgbDatepickerModule,
 
     ],
     exports: [
@@ -110,7 +114,7 @@ import {HijriFormatFromNgStructPipe} from "../hijri-gregorian-datepicker/HijriFo
         PdfViewerModule,
         // MaterialFileInputModule
     ],
-    declarations: [HijriFormatFromNgStructPipe]
+    declarations: [HijriFormatFromNgStructPipe,HijriDatepickerComponent,HijriGregorianDatepickerComponent]
 })
 export class SharedModule {
 }
