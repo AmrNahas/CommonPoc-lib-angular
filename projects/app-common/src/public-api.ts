@@ -33,7 +33,7 @@ export * from './lib/appCommon/controllers/AbstractDataModelController';
 export * from './lib/appCommon/commonSegments/dataModelPaginationSeg/pagination.component';
 export * from './lib/appCommon/commonSegments/dataModelfilterSeg/filter.component';
 export * from './lib/appCommon/commonSegments/sharedSegments.module';
-export * from './lib/appCommon/hijri-gregorian-datepicker/hijri-datepicker/hijri-datepicker.component';
+/*export * from './lib/appCommon/hijri-gregorian-datepicker/hijri-datepicker/hijri-datepicker.component';*/
 /*export * from './lib/appCommon/hijri-gregorian-datepicker/date-formatter.service';*/
 /*export * from './lib/appCommon/hijri-gregorian-datepicker/hijri-gregorian-datepicker.component';*/
 
