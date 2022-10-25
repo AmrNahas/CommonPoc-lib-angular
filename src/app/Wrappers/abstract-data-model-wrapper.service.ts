@@ -1,10 +1,14 @@
-import {Injectable, OnDestroy} from '@angular/core';
-
+import {Injectable} from '@angular/core';
 
 
 import {AppInjector} from "../app.module";
 import {AppSettings} from "../app.settings";
-import {AbstractDataModelController, AbstractDataModelService} from "../../../dist/app-common";
+import {
+    AbstractDataModelController
+} from "../../../projects/app-common/src/lib/appCommon/controllers/AbstractDataModelController";
+import {
+    AbstractDataModelService
+} from "../../../projects/app-common/src/lib/appCommon/services/AbstractDataModelService";
 
 
 @Injectable({
