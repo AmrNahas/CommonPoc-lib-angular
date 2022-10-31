@@ -1,4 +1,11 @@
 <!--  search form -->
+<div *ngIf="componentObject.hasError"
+     class="alert-Error">
+    <i   class="fa fa-times-circle" aria-hidden="true"></i>
+    {{isArabicLang() ?componentObject.errorMessageAr:componentObject.errorMessageLa}}
+    <mat-icon *ngIf="!isArabicLang()" style="float: left"  >info</mat-icon>
+    <mat-icon *ngIf="isArabicLang()" style="float: right"  >info</mat-icon>
+</div>
 
 <div style="padding: 2px">
     <form [formGroup]="componentObject.filterComponentForm" class="user-form" (ngSubmit)="componentObject.search()">

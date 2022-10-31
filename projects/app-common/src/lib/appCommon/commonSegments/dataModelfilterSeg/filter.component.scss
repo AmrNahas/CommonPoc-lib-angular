@@ -65,3 +65,17 @@ ngb-datepicker{
   background-color: #3F51B5 !important;
 }
 
+.alert-info{
+  border-radius: 0;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.alert-Error{
+  border-radius: 0;
+  text-align: center;
+  margin: 6px 0;
+  background: #ff0000b8;
+  color: #fafafa;
+  padding: 7px;
+}

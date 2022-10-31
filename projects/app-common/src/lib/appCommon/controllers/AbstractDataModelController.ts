@@ -1,4 +1,4 @@
-import {Inject, Injectable, Injector, OnDestroy, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {Injectable, Injector, OnDestroy, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {PerfectScrollbarDirective} from 'ngx-perfect-scrollbar';
 import {FilterProperty} from '../models/dto/FilterProperty';
 import {FilterCriteria} from '../models/dto/FilterCriteria';
@@ -20,7 +20,7 @@ import {SortCriteria} from '../models/dto/SortCriteria';
 import {AkitaNgFormsManager} from '@datorama/akita-ng-forms-manager';
 import {ColumnTypEnum} from "../models/enum/ColumnTypEnum";
 import {HijriFormatFromNgStructPipe} from "../hijri-gregorian-datepicker/HijriFormatFromNgStructPipe";
-
+import {GenericResponseRoot} from "../models/dto/GenericResponseRoot";
 
 
 @Injectable({
@@ -49,6 +49,9 @@ export abstract class AbstractDataModelController<T> extends UtilityController i
     storage = localStorage; //  to get local storage and use any where
     dataSourceSub: Subscription;
     public loadDataFlag: boolean;
+    public hasError:boolean;
+    public errorMessageAr:string;
+    public errorMessageLa:string;
 
     public fb: FormBuilder;
     public ;
@@ -113,7 +116,7 @@ export abstract class AbstractDataModelController<T> extends UtilityController i
 
 
     // return  Observable object of ResponseDataModel only
-    public getObservableResponseDataModelArr(): Observable<ResponseDataModel<T>> {
+    public getObservableResponseDataModelArr(): Observable<GenericResponseRoot<ResponseDataModel<T>>> {
         this.dataSource = null;
         let offset = this.pageIndex * this.pageSize;
         let limit = this.pageSize;
@@ -123,19 +126,25 @@ export abstract class AbstractDataModelController<T> extends UtilityController i
 
 
     // load data , subscribed and  set all required members then return  Observable Array object of ResponseDataModel
-    public loadSortedFilteredDataAndShowData(): Observable<ResponseDataModel<T>> {
+    public loadSortedFilteredDataAndShowData(): Observable<GenericResponseRoot<ResponseDataModel<T>>> {
         this.loadDataFlag = true;
         this.dataSource = null;
         let offset = this.pageIndex * this.pageSize;
         let limit = this.pageSize;
         let inputDataModel = new InputDataModel(this.filtersCriteriaArr, limit, offset, this.permanentSortCriteria);
         let response = this.service.loadData(inputDataModel);
-        this.dataSourceSub = response.subscribe((response: ResponseDataModel<T>) => {
-                this.prepareDateAndPaginationValues(response);
-                console.log(response)
-                this.loadDataFlag = false;
-                document.getElementById('main-content').scrollTop = 0;
+        this.dataSourceSub = response.subscribe((response: GenericResponseRoot<ResponseDataModel<T>>) => {
+            if(response.Response.ResponseCode!=0) {
+                this.hasError=true;
+                this.errorMessageAr =response.Response.ResponseDescAr;
+                this.errorMessageLa =response.Response.ResponseDescLa;
+            }
+            else {
+                this.prepareDateAndPaginationValues(response.Response.Data);
                 this.afterLoadData();
+            }
+                document.getElementById('main-content').scrollTop = 0;
+                this.loadDataFlag = false;
             },
             error => {
                 console.log("erorrrrrrr")
