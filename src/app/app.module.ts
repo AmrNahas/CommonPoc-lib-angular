@@ -41,13 +41,6 @@ import {NgxContentLoadingModule} from "ngx-content-loading";
 import {MatBadgeModule} from "@angular/material/badge";
 import {WebSocketService} from "./notifications/WebSocketService ";
 import {NotificationsService} from "./services/userNotifications/NotificationsService ";
-
-
-const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
-    wheelPropagation: true,
-    suppressScrollX: true
-};
-
 import * as tslib_1 from 'tslib';
 import * as date_fns_2 from 'date-fns';
 import {CustomDirectivesModule} from "./common/customDirectivies/customDirectives.module";
@@ -63,6 +56,13 @@ import {AttImgDialogComponent} from "./common/CustomeComponents/attachmentPrevie
 import {AgrementDialogComponent} from "./common/CustomeComponents/AgreementViewDialoge/agrement-dialog.component";
 import {AttImg64DialogComponent} from "./common/CustomeComponents/attachmentBase64Preview/att-img64-dialog.component";
 import {PaginationCustomConfig} from "./config/PaginationCustomConfig";
+import {DropDownService} from "./services/commonServices/drop-down-service.service";
+
+
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+    wheelPropagation: true,
+    suppressScrollX: true
+};
 
 function adapterFactory() {
     return tslib_1.__assign(tslib_1.__assign({}), date_fns_2);
@@ -78,6 +78,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 //  injector   global variable    >>  you can import it and use all over app
 export let AppInjector: Injector;
 export let myAppSettings: AppSettings;
+export let dropDownService: DropDownService;
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './assets/i18n/', '.json');

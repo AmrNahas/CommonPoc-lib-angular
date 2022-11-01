@@ -3,13 +3,10 @@
         <!--start card   -->
         <mat-card class="custom-card">
 
-
             <!--start card header  -->
             <mat-card-header class="bg-primary" fxLayoutAlign="space-between center">
-                <mat-card-title class="p-1"><h6>{{'USERS.title'|translate}}</h6></mat-card-title>
-                <!--            [matMenuTriggerFor]="generalAction" #menuTrigger="matMenuTrigger"-->
-<!--                *hasPermission="permsEnum.ADMIN_ADD_RELATED_USERS"-->
-                <button (click)="addUser()"  mat-icon-button >
+                <mat-card-title class="p-1"><h6>{{'MENU.emps'|translate}}</h6></mat-card-title>
+                <button (click)="prepareAddEmployee()"  mat-icon-button >
                     <mat-icon>person_add</mat-icon>
                 </button>
 
@@ -42,65 +39,53 @@
                         <mat-header-cell *matHeaderCellDef>
                             <label class="table-cell-light">{{'registration.firstName'| translate}}</label>
                         </mat-header-cell>
-                        <mat-cell *matCellDef="let user"> {{user.firstName}} </mat-cell>
+                        <mat-cell *matCellDef="let emp"> {{emp.firstName}} </mat-cell>
                     </ng-container>
 
                     <ng-container matColumnDef="lastName">
                         <mat-header-cell *matHeaderCellDef>
                             <label class="table-cell-light">{{'registration.lastName'| translate}}</label>
                         </mat-header-cell>
-                        <mat-cell *matCellDef="let user"> {{user.lastName}} </mat-cell>
+                        <mat-cell *matCellDef="let emp"> {{emp.lastName}} </mat-cell>
                     </ng-container>
 
-
-                    <ng-container matColumnDef="userName">
+                    <ng-container matColumnDef="hijriDate">
                         <mat-header-cell *matHeaderCellDef>
-                            <label class="table-cell-light">{{'registration.userName'| translate}}</label>
+                            <label class="table-cell-light">{{'resv.date'| translate}}</label>
                         </mat-header-cell>
-                        <mat-cell *matCellDef="let user"> {{user.userName}} </mat-cell>
+                        <mat-cell *matCellDef="let emp"> {{emp.hijriDate|hijriFormat}} </mat-cell>
                     </ng-container>
+
+
                     <ng-container matColumnDef="country">
                         <mat-header-cell *matHeaderCellDef>
                             <label class="table-cell-light">{{'registration.country'| translate}}</label>
                         </mat-header-cell>
-                        <mat-cell *matCellDef="let user"> {{user.country? user.country.nameAr:''}} </mat-cell>
+                        <mat-cell *matCellDef="let emp"> {{emp.country? emp.country.nameAr:''}} </mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="city">
                         <mat-header-cell *matHeaderCellDef>
                             <label class="table-cell-light">{{'registration.city'| translate}}</label>
                         </mat-header-cell>
-                        <mat-cell *matCellDef="let userRep"> {{userRep.city? userRep.user.city.nameAr:''}} </mat-cell>
+                        <mat-cell *matCellDef="let emp"> {{emp.city?  emp.city.nameAr:''}} </mat-cell>
                     </ng-container>-->
 
                     <ng-container matColumnDef="status">
                         <mat-header-cell *matHeaderCellDef>
                             <label class="table-cell-light">{{'USERS.status'| translate}}</label>
                         </mat-header-cell>
-                        <mat-cell  *matCellDef="let user">
+                        <mat-cell  *matCellDef="let emp">
                             <mat-chip-list>
-                                <mat-chip  color="{{user.status != 0 ?'warn':'primary'}}" selected="true"  class="info-chip">
+                                <mat-chip  color="{{emp.status != 0 ?'warn':'primary'}}" selected="true"  class="info-chip">
                                     <!-- <mat-icon class="icon-sm">trending_up</mat-icon>37%&ndash;&gt;-->
-                                    {{(user.status== 0 ? 'GENERIC.status.active'  : 'GENERIC.status.inActive') | translate }}
+                                    {{(emp.status== 0 ? 'GENERIC.status.active'  : 'GENERIC.status.inActive') | translate }}
                                 </mat-chip>
                             </mat-chip-list>
 
                         </mat-cell>
                     </ng-container>
 
-                    <ng-container matColumnDef="comments">
-                        <mat-header-cell *matHeaderCellDef>
-                            <label class="table-cell-light">{{'GENERIC.comments'| translate}}</label>
-                        </mat-header-cell>
-                        <mat-cell  *matCellDef="let user">
-                            <mat-chip-list *ngIf="user.masterUserFlag == 1">
-                                <mat-chip  color="accent" selected="true"  class="info-chip">
-                                    {{'USERS.masterUser'  | translate }}
-                                </mat-chip>
-                            </mat-chip-list>
 
-
-                        </mat-cell>
-                    </ng-container>
 
 
 
@@ -109,24 +94,33 @@
                         <mat-header-cell *matHeaderCellDef>
                             <label class="table-cell-light">{{'GENERIC.actions'| translate}}</label>
                         </mat-header-cell>
-                        <mat-cell *matCellDef="let user">
+                        <mat-cell *matCellDef="let emp">
 
+                            <!--    <ng-container *hasPermission="permsEnum.ADMIN_DEACTIVATE_RELATED_USERS">
+                                    <button  *ngIf="user.status  == 0"  mat-button color="warn" (click)="deActivateUser(user.id)">
+                                        <mat-icon>block</mat-icon>
+                                        <span>{{'GENERIC.action.deactivate'|translate}}</span>
+                                    </button>
+                                </ng-container>-->
 
-                        <!--    <ng-container *hasPermission="permsEnum.ADMIN_DEACTIVATE_RELATED_USERS">
-                                <button  *ngIf="user.status  == 0"  mat-button color="warn" (click)="deActivateUser(user.id)">
-                                    <mat-icon>block</mat-icon>
-                                    <span>{{'GENERIC.action.deactivate'|translate}}</span>
+                            <ng-container >
+                                <button mat-icon-button  mat-button color="primary" (click)="prepareEditEmployee(emp.empId)">
+                                    <mat-icon>edit</mat-icon>
+                                    <!--                                            <span>{{'GENERIC.action.edit'|translate}}</span>-->
                                 </button>
-                            </ng-container>-->
+                            </ng-container>
 
-                    <!--        <ng-container *hasPermission="permsEnum.ADMIN_ACTIVATE_RELATED_USERS">
-                                <button    *ngIf="user.status  != 0 " mat-button color="primary" (click)="activateUser(user.id)">
-                                    <mat-icon>done</mat-icon>
-                                    <span>{{'GENERIC.action.activate'|translate}}</span>
+                            <ng-container >
+                                <button mat-icon-button  mat-button   color="primary" (click)="viewEmployee(emp.empId)">
+                                    <mat-icon>pageview</mat-icon>
+                                    <!--                                    <span>{{'GENERIC.action.view'|translate}}</span>-->
                                 </button>
-                            </ng-container>-->
+                            </ng-container>
 
                         </mat-cell>
+
+
+
                     </ng-container>
                     <!--end Actions container -->
 
@@ -152,7 +146,7 @@
 
 
         <!--spinner-->
-        <div *ngIf="!dataSource" fxLayout="column" fxLayoutAlign="center center" class="user-spinner">
+        <div *ngIf="!dataSource &&loadDataFlag" fxLayout="column" fxLayoutAlign="center center" class="user-spinner">
             <mat-spinner color="primary"></mat-spinner>
         </div>
 

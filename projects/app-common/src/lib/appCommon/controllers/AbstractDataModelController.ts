@@ -54,7 +54,6 @@ export abstract class AbstractDataModelController<T> extends UtilityController i
     public errorMessageLa:string;
 
     public fb: FormBuilder;
-    public ;
     public msgsService: MessagesService;
     public myService: AbstractDataModelService<T>;
     protected formsManager: AkitaNgFormsManager<any>
@@ -142,6 +141,7 @@ export abstract class AbstractDataModelController<T> extends UtilityController i
             else {
                 this.prepareDateAndPaginationValues(response.Response.Data);
                 this.afterLoadData();
+                this.hasError=false;
             }
                 document.getElementById('main-content').scrollTop = 0;
                 this.loadDataFlag = false;

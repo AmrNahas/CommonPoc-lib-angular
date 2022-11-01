@@ -1,5 +1,5 @@
 export  class Constants {
-        static   URL:string="http://localhost:8081" ;
+        static   URL:string="http://localhost:8080/workShop" ;
 
      static   SP_TYPE_COMP:number=1 ;
      static   SP_TYPE_INDIV:number=2 ;

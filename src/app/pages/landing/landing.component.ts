@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {Settings} from '../../app.settings.model';
 import {AppSettings} from '../../app.settings';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {GenericFormValidators} from "app-common";
+import {
+    GenericFormValidators
+} from "../../../../projects/app-common/src/lib/appCommon/customFormValidators/GenericFormValidators";
 
 
 @Component({

@@ -8,14 +8,14 @@ import {DropDownService} from '../../../services/commonServices/drop-down-servic
 import {matchingPasswords} from '../../../theme/utils/app-validators';
 import {RegService} from '../../../services/publicServices/RegService';
 import {Constants} from "../../../models/utilites/Constants";
-import {
-    GenericFormValidators,
-    LocalSelectItem,
-    MessagesService,
-    UtilityController
-} from "../../../../../dist/app-common";
-import {AuthService} from "../../../AuthModule/AuthService";
 
+import {AuthService} from "../../../AuthModule/AuthService";
+import {UtilityController} from "../../../../../projects/app-common/src/lib/appCommon/controllers/UtilityController";
+import {LocalSelectItem} from "../../../../../projects/app-common/src/lib/appCommon/models/dto/LocalSelectItem";
+import {
+    GenericFormValidators
+} from "../../../../../projects/app-common/src/lib/appCommon/customFormValidators/GenericFormValidators";
+import {MessagesService} from "../../../../../projects/app-common/src/lib/appCommon/utility/MessagesService";
 
 
 @Component({

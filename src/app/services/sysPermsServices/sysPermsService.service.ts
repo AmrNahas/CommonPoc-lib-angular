@@ -7,7 +7,10 @@ import {IdUserNameDto} from '../../models/DTO/IdUserNameDto';
 import {Constants} from '../../models/utilites/Constants';
 import {InputDataModel} from "../../../../projects/app-common/src/lib/appCommon/models/dto/InputDataModel";
 import {ResponseDataModel} from "../../../../projects/app-common/src/lib/appCommon/models/dto/ResponseDataModel";
-import {AbstractDataModelService} from "../../../../projects/app-common/src/lib/appCommon/services/AbstractDataModelService";
+import {
+    AbstractDataModelService
+} from "../../../../projects/app-common/src/lib/appCommon/services/AbstractDataModelService";
+import {GenericResponseRoot} from "../../../../projects/app-common/src/lib/appCommon/models/dto/GenericResponseRoot";
 
 @Injectable({
     providedIn: 'root'
@@ -37,7 +40,7 @@ export class SysPermsService extends AbstractDataModelService<SysPermission> {
     }
 
 
-    loadData(inputDataModel: InputDataModel): Observable<ResponseDataModel<SysPermission>> {
+    loadDataKK(inputDataModel: InputDataModel): Observable<ResponseDataModel<SysPermission>> {
         return this.httpClient.post<ResponseDataModel<SysPermission>>(Constants.URL+'/api/permissions/getFiltersSortedUsersData', inputDataModel);
     }
 
@@ -53,6 +56,11 @@ export class SysPermsService extends AbstractDataModelService<SysPermission> {
 
     getById(id: number): Observable<SysPermission> {
         return undefined;
+    }
+
+    loadData(inputDataModel: InputDataModel): Observable<GenericResponseRoot<ResponseDataModel<SysPermission>>> {
+        return this.httpClient.post<GenericResponseRoot<ResponseDataModel<SysPermission>>>(Constants.URL+'/api/permissions/getFiltersSortedUsersData', inputDataModel);
+
     }
 
 }

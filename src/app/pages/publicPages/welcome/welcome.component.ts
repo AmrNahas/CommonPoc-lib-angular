@@ -6,7 +6,8 @@ import {DropDownService} from "../../../services/commonServices/drop-down-servic
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {AkitaNgFormsManager} from "@datorama/akita-ng-forms-manager";
 import {AuthService} from "../../../AuthModule/AuthService";
-import {LocalSelectItem, UtilityController} from "../../../../../dist/app-common";
+import {UtilityController} from "../../../../../projects/app-common/src/lib/appCommon/controllers/UtilityController";
+import {LocalSelectItem} from "../../../../../projects/app-common/src/lib/appCommon/models/dto/LocalSelectItem";
 
 
 @Component({

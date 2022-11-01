@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { Country } from '../../models/country';
-import { City } from '../../models/city';
-import { SysModule } from '../../models/SysModule';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {Country} from '../../models/country';
+import {City} from '../../models/city';
+import {SysModule} from '../../models/SysModule';
 import {Constants} from '../../models/utilites/Constants';
-import {LocalSelectItem} from "app-common";
+import {LocalSelectItem} from "../../../../projects/app-common/src/lib/appCommon/models/dto/LocalSelectItem";
 
 @Injectable({
   providedIn: 'root'

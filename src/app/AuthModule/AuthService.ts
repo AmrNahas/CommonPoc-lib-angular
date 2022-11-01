@@ -7,10 +7,8 @@ import {Router} from '@angular/router';
 
 import {ResponseDto} from "../models/dto/ResponseDto";
 import {AuthUser} from "./AuthUser";
-import {EncryptDecrypt} from "app-common";
 import {Constants} from "../models/utilites/Constants";
-
-
+import {EncryptDecrypt} from "../../../projects/app-common/src/lib/appCommon/utility/EncryptDecrypt";
 
 
 @Injectable({providedIn: 'root'})

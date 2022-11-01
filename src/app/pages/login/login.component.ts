@@ -10,7 +10,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {AuthUser} from '../../AuthModule/AuthUser';
 import {PartiesEnum} from "../../models/utilites/PartiesEnum";
 import {AuthService} from "../../AuthModule/AuthService";
-import {MessagesService} from "app-common";
+import {MessagesService} from "../../../../projects/app-common/src/lib/appCommon/utility/MessagesService";
 
 @Component({
     selector: 'app-login',

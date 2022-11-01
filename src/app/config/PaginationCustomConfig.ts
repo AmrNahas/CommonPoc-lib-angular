@@ -1,6 +1,6 @@
 import {MatPaginatorIntl} from '@angular/material/paginator';
 import {Injectable} from '@angular/core';
-import {MessagesService} from "app-common";
+import {MessagesService} from "../../../projects/app-common/src/lib/appCommon/utility/MessagesService";
 
 
 @Injectable({

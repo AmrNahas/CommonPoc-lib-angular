@@ -7,7 +7,10 @@ import {Constants} from "../../models/utilites/Constants";
 import {ResponseDto} from "../../models/DTO/ResponseDto";
 import {InputDataModel} from "../../../../projects/app-common/src/lib/appCommon/models/dto/InputDataModel";
 import {ResponseDataModel} from "../../../../projects/app-common/src/lib/appCommon/models/dto/ResponseDataModel";
-import {AbstractDataModelService} from "../../../../projects/app-common/src/lib/appCommon/services/AbstractDataModelService";
+import {
+    AbstractDataModelService
+} from "../../../../projects/app-common/src/lib/appCommon/services/AbstractDataModelService";
+import {GenericResponseRoot} from "../../../../projects/app-common/src/lib/appCommon/models/dto/GenericResponseRoot";
 
 @Injectable()
 export class NotificationsService extends AbstractDataModelService<UserNotifications> {
@@ -34,7 +37,7 @@ export class NotificationsService extends AbstractDataModelService<UserNotificat
         return undefined;
     }
 
-    loadData(inputDataModel: InputDataModel): Observable<ResponseDataModel<UserNotifications>> {
+    loadDataBkk(inputDataModel: InputDataModel): Observable<ResponseDataModel<UserNotifications>> {
         return  this.httpClient.post<ResponseDataModel<UserNotifications>>(Constants.URL + '/api/userNotification/getFiltersSortedData',inputDataModel);
     }
 
@@ -42,6 +45,11 @@ export class NotificationsService extends AbstractDataModelService<UserNotificat
     }
 
     updateObj(data: UserNotifications) {
+    }
+
+    loadData(inputDataModel: InputDataModel): Observable<GenericResponseRoot<ResponseDataModel<UserNotifications>>> {
+        return  this.httpClient.post<GenericResponseRoot<ResponseDataModel<UserNotifications>>>(Constants.URL + '/api/userNotification/getFiltersSortedData',inputDataModel);
+
     }
 
 

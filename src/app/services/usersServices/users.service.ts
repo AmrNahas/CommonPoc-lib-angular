@@ -14,7 +14,10 @@ import {IdUserNameDto} from '../../models/DTO/IdUserNameDto';
 import {Constants} from '../../models/utilites/Constants';
 import {ResponseDataModel} from "../../../../projects/app-common/src/lib/appCommon/models/dto/ResponseDataModel";
 import {InputDataModel} from "../../../../projects/app-common/src/lib/appCommon/models/dto/InputDataModel";
-import {AbstractDataModelService} from "../../../../projects/app-common/src/lib/appCommon/services/AbstractDataModelService";
+import {
+    AbstractDataModelService
+} from "../../../../projects/app-common/src/lib/appCommon/services/AbstractDataModelService";
+import {GenericResponseRoot} from "../../../../projects/app-common/src/lib/appCommon/models/dto/GenericResponseRoot";
 
 
 @Injectable({
@@ -85,10 +88,10 @@ export class UsersService extends AbstractDataModelService<User> {
     }
 
     // override
-    loadData(inputDataModel:InputDataModel): Observable<ResponseDataModel<User>> {
+  /*  loadData(inputDataModel:InputDataModel): Observable<ResponseDataModel<User>> {
         return this.httpClient.post<ResponseDataModel<User>>(Constants.URL+'/api/adminUsers/getFiltersSortedUsersData', inputDataModel);
 
-    }
+    }*/
 
 
 
@@ -196,6 +199,11 @@ export class UsersService extends AbstractDataModelService<User> {
     public updateRolePermissions(rolePermsConjDto: RolePermsConjDto) {
 
         return this.httpClient.post(Constants.URL+'/api/perms/updateRolePerms', rolePermsConjDto);
+    }
+
+    loadData(inputDataModel: InputDataModel): Observable<GenericResponseRoot<ResponseDataModel<User>>> {
+        return this.httpClient.post<GenericResponseRoot<ResponseDataModel<User>>>(Constants.URL+'/api/adminUsers/getFiltersSortedUsersData', inputDataModel);
+
     }
 
 
