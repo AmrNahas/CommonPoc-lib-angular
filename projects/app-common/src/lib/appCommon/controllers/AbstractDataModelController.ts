@@ -147,8 +147,8 @@ export abstract class AbstractDataModelController<T> extends UtilityController i
                 this.loadDataFlag = false;
             },
             error => {
-                console.log("erorrrrrrr")
-                console.log(error);
+               // console.log("erorrrrrrr")
+               // console.log(error);
                 document.getElementById('main-content').scrollTop = 0;
 
             }
