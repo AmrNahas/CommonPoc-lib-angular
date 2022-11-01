@@ -79,3 +79,34 @@ ngb-datepicker{
   color: #fafafa;
   padding: 7px;
 }
+
+
+.search-wrapper{
+  margin: -8px;
+  .mat-form-field{
+    width: 100%;
+  }
+  &.variant-1{
+    .mat-form-field-wrapper{
+      padding-bottom: 8px;
+    }
+  }
+  &.variant-2{
+    .mat-form-field-wrapper{
+      padding-bottom: 0px;
+    }
+  }
+  button{
+    min-width: 120px;
+    &.search-btn .mat-button-wrapper{
+      display: flex;
+      align-items: center;
+      place-content: space-between;
+      text-transform: uppercase;
+    }
+  }
+}
+
+.mat-card-border-top{
+  border-top: 2px  solid #0478BEFF
+}

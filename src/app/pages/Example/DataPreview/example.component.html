@@ -1,10 +1,14 @@
 <div  style="padding: 1% 5%;">
-    <div  class="flex-p" >
+    <div   >
+        <!-- start include App filter Component -->
+        <app-filter-form  [componentObject]="this"></app-filter-form>
+        <!-- end include App filter Component -->
+<br/>
         <!--start card   -->
-        <mat-card class="custom-card">
+        <mat-card>
 
             <!--start card header  -->
-            <mat-card-header class="bg-primary" fxLayoutAlign="space-between center">
+          <mat-card-header class="bg-primary" fxLayoutAlign="space-between center">
                 <mat-card-title class="p-1"><h6>{{'MENU.emps'|translate}}</h6></mat-card-title>
                 <button (click)="prepareAddEmployee()"  mat-icon-button >
                     <mat-icon>person_add</mat-icon>
@@ -15,12 +19,9 @@
 
 
             <!--start card content  -->
-            <mat-card-content class="p-">
+            <mat-card-content >
+<br/>
 
-
-                <!-- start include App filter Component -->
-                <app-filter-form  [componentObject]="this"></app-filter-form>
-                <!-- end include App filter Component -->
 
 
                 <!--                  <div  class="flex-p" >-->

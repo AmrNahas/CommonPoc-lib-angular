@@ -1,70 +1,87 @@
 <!--  search form -->
-<div *ngIf="componentObject.hasError"
-     class="alert-Error">
-    <i   class="fa fa-times-circle" aria-hidden="true"></i>
-    {{isArabicLang() ?componentObject.errorMessageAr:componentObject.errorMessageLa}}
-    <mat-icon *ngIf="!isArabicLang()" style="float: left"  >info</mat-icon>
-    <mat-icon *ngIf="isArabicLang()" style="float: right"  >info</mat-icon>
-</div>
+<form [formGroup]="componentObject.filterComponentForm" class="search-wrapper" (ngSubmit)="componentObject.search()">
+    <mat-card class="mat-card-border-top">
+        <div fxLayout="row wrap">
+            <mat-form-field *ngFor="let filter of componentObject.filterPropertiesArr" fxFlex="100" fxFlex.gt-sm="19"
+                            fxFlex.sm="50" class="p-3">
+                <mat-label>{{filter.localName | translate}}</mat-label>
 
-<div style="padding: 2px">
-    <form [formGroup]="componentObject.filterComponentForm" class="user-form" (ngSubmit)="componentObject.search()">
-        <mat-form-field  *ngFor="let filter of componentObject.filterPropertiesArr" style="margin-left: 6px">
-            <mat-label>{{filter.localName | translate}}</mat-label>
+                <input *ngIf="filter.columnType ==  ColumnTypEnum.DATE_Hij" matInput matNativeControl ngbDatepicker
+                       [readonly]="true" (click)="d.open()"
+                       container="body" #d="ngbDatepicker" formControlName="{{filter.columnProp}}"/>
 
 
-      <input *ngIf="filter.columnType ==  ColumnTypEnum.DATE_Hij" matInput matNativeControl ngbDatepicker [readonly]="true" (click)="d.open()"
-            container="body" #d="ngbDatepicker" formControlName="{{filter.columnProp}}"     />
+                <mat-select formControlName="{{filter.columnProp}}"
+                            *ngIf="filter.columnType ==  ColumnTypEnum.DROPDOWN">
+                    <mat-option [value]=" "> --{{'GENERIC.select'|translate}} {{filter.localName | translate }}--
+                    </mat-option>
+                    <mat-option [value]="item.value"
+                                *ngFor="let item of filter.options">{{isArabicLang() ? item.nameAr : item.nameEn }} </mat-option>
+                </mat-select>
 
-            <mat-select formControlName="{{filter.columnProp}}" *ngIf="filter.columnType ==  ColumnTypEnum.DROPDOWN">
-                <mat-option [value]=" "> --{{'GENERIC.select'|translate}} {{filter.localName | translate }}--</mat-option>
-                <mat-option [value]="item.value" *ngFor="let item of filter.options">{{isArabicLang() ? item.nameAr : item.nameEn }} </mat-option>
-            </mat-select>
-
-            <mat-select multiple formControlName="{{filter.columnProp }}" *ngIf="filter.columnType ==  ColumnTypEnum.DROPDOWN_MULTI">
-                <mat-option disabled="true" [value]=" ">--{{'GENERIC.select'|translate}} {{filter.localName | translate }}--</mat-option>
-                <mat-option [value]="item.value" *ngFor="let item of filter.options">{{isArabicLang() ? item.nameAr : item.nameEn}} </mat-option>
-            </mat-select>
-
-
-<!--            <mat-select multiple  formControlName="{{filter.columnProp }}" *ngIf="filter.columnType ==  ColumnTypEnum.DROPDOWN_MULTI_SEARCHABLE"    >
-                <mat-option>
-                    <ngx-mat-select-search   placeholderLabel="search"  [formControl]="filter.formControl"></ngx-mat-select-search>
-                </mat-option>
-                <mat-option [value]="item.value" *ngFor="let item of filter.filterSubject |async">{{isArabicLang() ? item.nameAr : item.nameEn}} </mat-option>
-            </mat-select>-->
+                <mat-select multiple formControlName="{{filter.columnProp }}"
+                            *ngIf="filter.columnType ==  ColumnTypEnum.DROPDOWN_MULTI">
+                    <mat-option disabled="true" [value]=" ">
+                        --{{'GENERIC.select'|translate}} {{filter.localName | translate }}--
+                    </mat-option>
+                    <mat-option [value]="item.value"
+                                *ngFor="let item of filter.options">{{isArabicLang() ? item.nameAr : item.nameEn}} </mat-option>
+                </mat-select>
 
 
-            <input matInput matNativeControl formControlName="{{filter.columnProp}}" [matDatepicker]="myDatepicker" *ngIf="filter.columnType ==  ColumnTypEnum.DATE_GEO">
-            <mat-datepicker-toggle matSuffix [for]="myDatepicker" *ngIf="filter.columnType ==  ColumnTypEnum.DATE_GEO"></mat-datepicker-toggle>
-            <mat-datepicker #myDatepicker disabled="false"></mat-datepicker>
+                <!--            <mat-select multiple  formControlName="{{filter.columnProp }}" *ngIf="filter.columnType ==  ColumnTypEnum.DROPDOWN_MULTI_SEARCHABLE"    >
+                                <mat-option>
+                                    <ngx-mat-select-search   placeholderLabel="search"  [formControl]="filter.formControl"></ngx-mat-select-search>
+                                </mat-option>
+                                <mat-option [value]="item.value" *ngFor="let item of filter.filterSubject |async">{{isArabicLang() ? item.nameAr : item.nameEn}} </mat-option>
+                            </mat-select>-->
 
-            <input *ngIf="filter.columnType == ColumnTypEnum.TEXT" matNativeControl formControlName="{{filter.columnProp}}">
+
+                <input matInput matNativeControl formControlName="{{filter.columnProp}}" [matDatepicker]="myDatepicker"
+                       *ngIf="filter.columnType ==  ColumnTypEnum.DATE_GEO">
+                <mat-datepicker-toggle matSuffix [for]="myDatepicker"
+                                       *ngIf="filter.columnType ==  ColumnTypEnum.DATE_GEO"></mat-datepicker-toggle>
+                <mat-datepicker #myDatepicker disabled="false"></mat-datepicker>
+
+                <input *ngIf="filter.columnType == ColumnTypEnum.TEXT" matNativeControl
+                       formControlName="{{filter.columnProp}}">
 
 
-            <textarea matNativeControl matTextareaAutosize *ngIf="filter.columnType == ColumnTypEnum.MULTI_LINES_TEXT"
-                      matAutosizeMinRows="1" matAutosizeMaxRows="2" formControlName="{{filter.columnProp}}">
+                <textarea matNativeControl matTextareaAutosize
+                          *ngIf="filter.columnType == ColumnTypEnum.MULTI_LINES_TEXT"
+                          matAutosizeMinRows="1" matAutosizeMaxRows="2" formControlName="{{filter.columnProp}}">
                </textarea>
 
-            <button mat-icon-button matSuffix  *ngIf="componentObject.filterComponentForm.controls[filter.columnProp].value"  (click)="componentObject.clearValue(filter.columnProp)"  type="button"  [attr.aria-label]="'Hide password'" >
-                <mat-icon> close </mat-icon>
-            </button>
+                <!-- <button mat-icon-button matSuffix  *ngIf="componentObject.filterComponentForm.controls[filter.columnProp].value"  (click)="componentObject.clearValue(filter.columnProp)"  type="button"  [attr.aria-label]="'Hide password'" >
+                     <mat-icon> close </mat-icon>
+                 </button>-->
 
-            <mat-error
-                    *ngIf="componentObject.filterComponentForm.controls[filter.columnProp].errors">{{'GENERIC.filter.input.notValid' | translate}}</mat-error>
-           <!-- <mat-hint>Hint</mat-hint>-->
-        </mat-form-field>
+                <mat-error
+                        *ngIf="componentObject.filterComponentForm.controls[filter.columnProp].errors">{{'GENERIC.filter.input.notValid' | translate}}</mat-error>
+                <!-- <mat-hint>Hint</mat-hint>-->
+            </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center" class="p-2" fxLayoutGap="5px">
+            <!-- (click)="componentObject.filterAction(filterPropertiesArr)"-->
+            <button *ngIf="componentObject.filterPropertiesArr.length>0" mat-button color="primary"
+                    [disabled]="!componentObject.filterComponentForm.valid" mat-raised-button
+                    type="submit">  {{'GENERIC.filter' | translate }}</button>
 
-        <!-- (click)="componentObject.filterAction(filterPropertiesArr)"-->
-        <button *ngIf="componentObject.filterPropertiesArr.length>0" mat-button color="primary"
-                [disabled]="!componentObject.filterComponentForm.valid"
-                type="submit">  {{'GENERIC.filter' | translate }}</button>
-        <button *ngIf="componentObject.filterPropertiesArr.length>0" mat-button color="accent" type="button"
-                (click)="componentObject.resetFilters()"> {{'GENERIC.reset' | translate }} </button>
-    </form>
+            <!-- <button *ngIf="componentObject.filterPropertiesArr.length>0" mat-button mat-raised-button color="accent" type="button"
+                     (click)="componentObject.resetFilters()"> {{'GENERIC.reset' | translate }} </button>-->
+        </div>
+        <div *ngIf="componentObject.hasError"
+             class="alert-Error">
+            <i   class="fa fa-times-circle" aria-hidden="true"></i>
+            {{isArabicLang() ?componentObject.errorMessageAr:componentObject.errorMessageLa}}
+            <mat-icon *ngIf="!isArabicLang()" style="float: left"  >info</mat-icon>
+            <mat-icon *ngIf="isArabicLang()" style="float: right"  >info</mat-icon>
+        </div>
+    </mat-card>
+</form>
 
-
-</div>
 
 <!-- (keyup)="componentObject.filterChange(filter.columnProp,filter.value)" [(ngModel)]="filter.value"-->
+
+
 
