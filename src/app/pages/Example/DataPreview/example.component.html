@@ -1,12 +1,11 @@
-<div  style="padding: 1% 5%;">
-    <div   >
+<div  style="padding: 1% 1%;" fxLayout="column" fxLayoutGap="15px">
         <!-- start include App filter Component -->
         <app-filter-form  [componentObject]="this"></app-filter-form>
         <!-- end include App filter Component -->
-<br/>
-        <!--start card   -->
-        <mat-card>
 
+        <!--start card   -->
+        <mat-card  >
+            <div    fxLayout="column" fxLayoutGap="15px">
             <!--start card header  -->
           <mat-card-header class="bg-primary" fxLayoutAlign="space-between center">
                 <mat-card-title class="p-1"><h6>{{'MENU.emps'|translate}}</h6></mat-card-title>
@@ -20,7 +19,7 @@
 
             <!--start card content  -->
             <mat-card-content >
-<br/>
+
 
 
 
@@ -139,7 +138,7 @@
             <!--start include  paginator -->
             <app-pagination [componentObject]="this"></app-pagination>
             <!--end  include paginator -->
-
+            </div>
         </mat-card>
         <!--start card   -->
 
@@ -152,5 +151,5 @@
         </div>
 
 
-    </div>
+
 </div>

@@ -75,8 +75,22 @@ ngb-datepicker{
   border-radius: 0;
   text-align: center;
   margin: 6px 0;
-  background: #ff0000b8;
-  color: #fafafa;
+/*  background: #ff0000b8;
+  color: #fafafa;*/
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+
+  padding: 7px;
+}
+
+.alert-info{
+  color: #004085;
+  background-color: #cce5ff;
+  border-color: #b8daff;
+  border-radius: 0;
+  text-align: center;
+  margin: 6px 0;
   padding: 7px;
 }
 
@@ -107,6 +121,10 @@ ngb-datepicker{
   }
 }
 
-.mat-card-border-top{
-  border-top: 2px  solid #0478BEFF
+.mat-card-border-right-{
+  border-right: 4px  solid #0478BEFF
+}
+
+.mat-card-border-left-{
+  border-left: 4px  solid #0478BEFF
 }

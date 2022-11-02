@@ -49,17 +49,19 @@ export abstract class AbstractDataModelController<T> extends UtilityController i
     storage = localStorage; //  to get local storage and use any where
     dataSourceSub: Subscription;
     public loadDataFlag: boolean;
-    public hasError:boolean;
-    public errorMessageAr:string;
-    public errorMessageLa:string;
+    public hasError: boolean;
+    public searchPropsHasValue: boolean;
+    public errorMessageAr: string;
+    public errorMessageLa: string;
 
     public fb: FormBuilder;
     public msgsService: MessagesService;
     public myService: AbstractDataModelService<T>;
     protected formsManager: AkitaNgFormsManager<any>
+    public noDataFlag: boolean;
 
 
-    protected constructor( public service: AbstractDataModelService<T>,AppInjector: Injector) {
+    protected constructor(public service: AbstractDataModelService<T>, AppInjector: Injector) {
 
         super();
         // prepare the needed objects by using   AppInjector >> define in App Module
@@ -133,22 +135,29 @@ export abstract class AbstractDataModelController<T> extends UtilityController i
         let inputDataModel = new InputDataModel(this.filtersCriteriaArr, limit, offset, this.permanentSortCriteria);
         let response = this.service.loadData(inputDataModel);
         this.dataSourceSub = response.subscribe((response: GenericResponseRoot<ResponseDataModel<T>>) => {
-            if(response.Response.ResponseCode!=0) {
-                this.hasError=true;
-                this.errorMessageAr =response.Response.ResponseDescAr;
-                this.errorMessageLa =response.Response.ResponseDescLa;
-            }
-            else {
-                this.prepareDateAndPaginationValues(response.Response.Data);
-                this.afterLoadData();
-                this.hasError=false;
-            }
+                if (response.Response.ResponseCode != 0) {
+                    this.hasError = true;
+                    this.errorMessageAr = response.Response.ResponseDescAr;
+                    this.errorMessageLa = response.Response.ResponseDescLa;
+                } else {
+                    this.prepareDateAndPaginationValues(response.Response.Data);
+                    this.afterLoadData();
+                    this.hasError = false;
+                    if (response.Response.Data.content.length == 0) {
+                        this.noDataFlag = true
+                        this.errorMessageLa = "No Data Found";
+                        this.errorMessageAr = "لا يوجد بيانات";
+                    } else {
+                        this.noDataFlag = false
+
+                    }
+                }
                 document.getElementById('main-content').scrollTop = 0;
                 this.loadDataFlag = false;
             },
             error => {
-               // console.log("erorrrrrrr")
-               // console.log(error);
+                // console.log("erorrrrrrr")
+                // console.log(error);
                 document.getElementById('main-content').scrollTop = 0;
 
             }
@@ -278,9 +287,9 @@ export abstract class AbstractDataModelController<T> extends UtilityController i
                     propertyValue = propertyValue.getTime();
                 }
 
-                                if ( filterProperty.columnType == ColumnTypEnum.DATE_Hij) {
-                                    propertyValue =  new HijriFormatFromNgStructPipe().transform(propertyValue);
-                                }
+                if (filterProperty.columnType == ColumnTypEnum.DATE_Hij) {
+                    propertyValue = new HijriFormatFromNgStructPipe().transform(propertyValue);
+                }
 
                 if (filterProperty.columnType == ColumnTypEnum.DROPDOWN_MULTI && propertyValue != null) {
                     let values: [] = propertyValue;
@@ -295,6 +304,40 @@ export abstract class AbstractDataModelController<T> extends UtilityController i
         }
         return true;
     }
+
+    public canDoSearch(): boolean {
+        let filtersCriteriaArr = [];
+
+        if (this.filterComponentForm.valid) {
+            this.filterPropertiesArr.forEach((filterProperty) => {
+                let propertyValue = this.filterComponentForm.controls[filterProperty.columnProp].value;
+
+                // && filterProperty.operation == FilterOperationEnum.DAY_EQUAL
+                if (propertyValue instanceof Date && filterProperty.columnType == ColumnTypEnum.DATE_GEO) {
+                    // propertyValue = new DatePipe('en').transform(propertyValue, 'dd/MM/y');
+                    propertyValue = propertyValue.getTime();
+                }
+
+                if (filterProperty.columnType == ColumnTypEnum.DATE_Hij) {
+                    propertyValue = new HijriFormatFromNgStructPipe().transform(propertyValue);
+                }
+
+                if (filterProperty.columnType == ColumnTypEnum.DROPDOWN_MULTI && propertyValue != null) {
+                    let values: [] = propertyValue;
+                    if (values.length == 0)
+                        propertyValue = null;
+                }
+                if (propertyValue)
+                    filtersCriteriaArr.push(new FilterCriteria(filterProperty.columnProp, propertyValue, filterProperty.operation));
+            });
+        } else {
+            console.log("false to serach", false)
+            return false;
+        }
+        console.log("  to serach", filtersCriteriaArr.length > 0)
+        return filtersCriteriaArr.length > 0;
+    }
+
 
     clearValue(probName: string) {
         this.filterComponentForm.controls[probName].setValue(null);

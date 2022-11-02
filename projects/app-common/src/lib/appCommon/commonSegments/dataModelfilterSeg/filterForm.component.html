@@ -1,9 +1,9 @@
 <!--  search form -->
-<form [formGroup]="componentObject.filterComponentForm" class="search-wrapper" (ngSubmit)="componentObject.search()">
-    <mat-card class="mat-card-border-top">
-        <div fxLayout="row wrap">
+<form [formGroup]="componentObject.filterComponentForm"   (ngSubmit)="componentObject.search()">
+    <mat-card [class]="isArabicLang()?'mat-card-border-right-':'mat-card-border-left-' ">
+        <div fxLayout="row wrap"    >
             <mat-form-field *ngFor="let filter of componentObject.filterPropertiesArr" fxFlex="100" fxFlex.gt-sm="19"
-                            fxFlex.sm="50" class="p-3">
+                            fxFlex.sm="50"   style="margin-left: 6px">
                 <mat-label>{{filter.localName | translate}}</mat-label>
 
                 <input *ngIf="filter.columnType ==  ColumnTypEnum.DATE_Hij" matInput matNativeControl ngbDatepicker
@@ -52,9 +52,9 @@
                           matAutosizeMinRows="1" matAutosizeMaxRows="2" formControlName="{{filter.columnProp}}">
                </textarea>
 
-                <!-- <button mat-icon-button matSuffix  *ngIf="componentObject.filterComponentForm.controls[filter.columnProp].value"  (click)="componentObject.clearValue(filter.columnProp)"  type="button"  [attr.aria-label]="'Hide password'" >
+                 <button mat-icon-button matSuffix   *ngIf="componentObject.filterComponentForm.controls[filter.columnProp].value"  (click)="componentObject.clearValue(filter.columnProp)"    [attr.aria-label]="'Hide password'" >
                      <mat-icon> close </mat-icon>
-                 </button>-->
+                 </button>
 
                 <mat-error
                         *ngIf="componentObject.filterComponentForm.controls[filter.columnProp].errors">{{'GENERIC.filter.input.notValid' | translate}}</mat-error>
@@ -63,11 +63,11 @@
         </div>
         <div fxLayout="row" fxLayoutAlign="center center" class="p-2" fxLayoutGap="5px">
             <!-- (click)="componentObject.filterAction(filterPropertiesArr)"-->
-            <button *ngIf="componentObject.filterPropertiesArr.length>0" mat-button color="primary"
-                    [disabled]="!componentObject.filterComponentForm.valid" mat-raised-button
+            <button *ngIf="componentObject.filterPropertiesArr.length>0"  mat-button color="primary"
+                    [disabled]="!componentObject.filterComponentForm.valid " mat-raised-button
                     type="submit">  {{'GENERIC.filter' | translate }}</button>
-
-            <!-- <button *ngIf="componentObject.filterPropertiesArr.length>0" mat-button mat-raised-button color="accent" type="button"
+          <!--  ||  !componentObject.canDoSearch()-->
+      <!--     <button *ngIf="componentObject.filterPropertiesArr.length>0" mat-button mat-raised-button color="accent" type="button"
                      (click)="componentObject.resetFilters()"> {{'GENERIC.reset' | translate }} </button>-->
         </div>
         <div *ngIf="componentObject.hasError"
@@ -77,6 +77,15 @@
             <mat-icon *ngIf="!isArabicLang()" style="float: left"  >info</mat-icon>
             <mat-icon *ngIf="isArabicLang()" style="float: right"  >info</mat-icon>
         </div>
+
+        <div *ngIf="componentObject.noDataFlag"
+             class="alert-info">
+            <i   class="fa fa-times-circle" aria-hidden="true"></i>
+            {{isArabicLang() ?componentObject.errorMessageAr:componentObject.errorMessageLa}}
+            <mat-icon *ngIf="!isArabicLang()" style="float: left"  >info</mat-icon>
+            <mat-icon *ngIf="isArabicLang()" style="float: right"  >info</mat-icon>
+        </div>
+
     </mat-card>
 </form>
 
