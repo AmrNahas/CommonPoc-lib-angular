@@ -70,21 +70,6 @@
       <!--     <button *ngIf="componentObject.filterPropertiesArr.length>0" mat-button mat-raised-button color="accent" type="button"
                      (click)="componentObject.resetFilters()"> {{'GENERIC.reset' | translate }} </button>-->
         </div>
-        <div *ngIf="componentObject.hasError"
-             class="alert-Error">
-            <i   class="fa fa-times-circle" aria-hidden="true"></i>
-            {{isArabicLang() ?componentObject.errorMessageAr:componentObject.errorMessageLa}}
-            <mat-icon *ngIf="!isArabicLang()" style="float: left"  >info</mat-icon>
-            <mat-icon *ngIf="isArabicLang()" style="float: right"  >info</mat-icon>
-        </div>
-
-        <div *ngIf="componentObject.noDataFlag"
-             class="alert-info">
-            <i   class="fa fa-times-circle" aria-hidden="true"></i>
-            {{isArabicLang() ?componentObject.errorMessageAr:componentObject.errorMessageLa}}
-            <mat-icon *ngIf="!isArabicLang()" style="float: left"  >info</mat-icon>
-            <mat-icon *ngIf="isArabicLang()" style="float: right"  >info</mat-icon>
-        </div>
 
     </mat-card>
 </form>

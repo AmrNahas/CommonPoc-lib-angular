@@ -56,7 +56,7 @@ export class EmpsComponent extends AbstractDataModelWrapperServiceV2<Employee> i
 
 
     addPermanentFilterColumns(): any {
-        //   this.permanentFiltersObjValues.push(new FilterCriteria('repInfo:repPartyId', PartiesEnum.ADMIN, FilterOperationEnum.EQUAL));
+         //  this.permanentFiltersObjValues.push(new FilterCriteria('empId', 966655885554, FilterOperationEnum.EQUAL));
     }
 
     addPermanentSortColumn(): SortCriteria {

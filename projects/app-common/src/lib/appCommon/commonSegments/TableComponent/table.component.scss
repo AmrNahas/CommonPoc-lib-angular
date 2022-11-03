@@ -1,3 +1,25 @@
 table {
   width: 100%;
 }
+.alert-info{
+  color: #004085;
+  background-color: #cce5ff;
+  border-color: #b8daff;
+  border-radius: 0;
+  text-align: center;
+  margin: 6px 0;
+  padding: 7px;
+}
+
+.alert-Error{
+  border-radius: 0;
+  text-align: center;
+  margin: 6px 0;
+  /*  background: #ff0000b8;
+    color: #fafafa;*/
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+
+  padding: 7px;
+}

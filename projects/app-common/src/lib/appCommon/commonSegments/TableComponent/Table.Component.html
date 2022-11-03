@@ -3,6 +3,15 @@
     <!-- start include App filter Component -->
     <app-filter-form [componentObject]="obj"></app-filter-form>
 
+    <mat-card *ngIf="obj.hasError" >
+        <div  class="alert-Error">
+            <i   class="fa fa-times-circle" aria-hidden="true"></i>
+            {{obj.isArabicLang() ?obj.errorMessageAr:obj.errorMessageLa}}
+            <mat-icon *ngIf="!obj.isArabicLang()" style="float: left"  >info</mat-icon>
+            <mat-icon *ngIf="obj.isArabicLang()" style="float: right"  >info</mat-icon>
+        </div>
+    </mat-card>
+
     <table mat-table [dataSource]="data" matSort (matSortChange)="sortData($event)">
         <ng-container [matColumnDef]="column.key" *ngFor="let column of columns">
             <ng-container *ngIf="column.canSort; else noSort">
@@ -65,6 +74,14 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
 
+    <mat-card  *ngIf="obj.noDataFlag" >
+    <div  class="alert-info">
+        <i   class="fa fa-times-circle" aria-hidden="true"></i>
+        {{obj.isArabicLang() ?obj.errorMessageAr:obj.errorMessageLa}}
+        <mat-icon *ngIf="!obj.isArabicLang()" style="float: left"  >info</mat-icon>
+        <mat-icon *ngIf="obj.isArabicLang()" style="float: right"  >info</mat-icon>
+    </div>
+    </mat-card>
     <!--spinner-->
     <div *ngIf="(obj.loadDataFlag  ) " fxLayout="column" fxLayoutAlign="center center" class="user-spinner">
         <mat-spinner color="primary"></mat-spinner>
