@@ -1,5 +1,4 @@
 import {Menu} from './menu.model';
-import {PermsEnum} from '../../../models/utilites/PermsEnum';
 
 export const verticalMenuItems = [
     new Menu(1, 'sys-users', '/example', null, 'post_add', null, false, 0, 'MENU.Adminstration.SystemUsers', null),
@@ -65,6 +64,8 @@ export const horizontal_SP_MenuItems = [
 
 export const horizontal_Public_MenuItems = [
     new Menu(1, 'sys-users', '/example', null, 'post_add', null, false, 0, 'MENU.Adminstration.SystemUsers', null),
+    new Menu(2, 'MENU.Adminstration.systemPerms.details', '/list', null, 'post_add', null, false, 0, 'MENU.Adminstration.systemPerms.details', null),
+
     // new Menu(2, 'Meeting Organisation', '/seminars', null, 'people', null, false, 0, 'guider.meetings', null),
 /*
     new Menu(3, 'Guiders Chat', '/chat', null, 'chat', null, false, 0, 'guider.chat', null),

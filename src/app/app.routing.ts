@@ -7,8 +7,6 @@ import {AuthenticationGuard} from "./common/guards/AuthenticationGuard";
 import {LoginGuard} from "./common/guards/LoginGuard";
 
 
-
-
 // AuthorizationGuard
 export const routes: Routes = [
     {
@@ -17,6 +15,7 @@ export const routes: Routes = [
             { path: '', loadChildren: () => import('./pages/publicPages/publicPages.module').then(m => m.PublicPagesModule), data: { breadcrumb: 'SP.vehicles' } },
             { path: 'profile',canActivate:[AuthenticationGuard], loadChildren: () => import ('./pages/profile/profile.module').then(m => m.ProfileModule), data: { breadcrumb: 'MENU.profile' } },
             { path: 'example',canActivate:[AuthenticationGuard], loadChildren: () => import ('./pages/Example/example.module').then(m => m.ExampleModule), data: { breadcrumb: 'MENU.Users' } },
+            { path: 'emps',canActivate:[AuthenticationGuard], loadChildren: () => import ('./pages/emps/emps.module').then(m => m.EmpsModule), data: { breadcrumb: 'MENU.Users' } },
 
         ]
     },

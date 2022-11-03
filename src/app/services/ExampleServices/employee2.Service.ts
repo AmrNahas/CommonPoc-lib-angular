@@ -4,18 +4,18 @@ import {HttpClient} from '@angular/common/http';
 import {Constants} from '../../models/utilites/Constants';
 import {ResponseDto} from "../../models/DTO/ResponseDto";
 import {PhotoDTO} from "../../models/DTO/PhotoDTO";
+import {
+    AbstractDataModelService
+} from "../../../../projects/app-common/src/lib/appCommon/services/AbstractDataModelService";
 import {Employee} from "../../models/Employee";
 import {GenericResponseRoot} from "../../../../projects/app-common/src/lib/appCommon/models/dto/GenericResponseRoot";
 import {InputDataModel} from "../../../../projects/app-common/src/lib/appCommon/models/dto/InputDataModel";
-import {ResponseDataModel2} from "../../../../projects/app-common/src/lib/appCommon/models/dto/ResponseDataModel2";
-import {
-    AbstractDataModelServiceV2
-} from "../../../../projects/app-common/src/lib/appCommon/services/AbstractDataModelServiceV2";
+import {ResponseDataModel} from "../../../../projects/app-common/src/lib/appCommon/models/dto/ResponseDataModel";
 
 @Injectable({
     providedIn: 'root'
 })
-export class EmployeeService extends AbstractDataModelServiceV2<Employee> {
+export class Employee2Service extends AbstractDataModelService<Employee> {
     constructor(private httpClient: HttpClient) {
         super();
 
@@ -61,11 +61,11 @@ export class EmployeeService extends AbstractDataModelServiceV2<Employee> {
     }
 
 
-/*    loadData(inputDataModel: InputDataModel): Observable<GenericResponseRoot<ResponseDataModel<Employee>>> {
+   loadData(inputDataModel: InputDataModel): Observable<GenericResponseRoot<ResponseDataModel<Employee>>> {
         return this.httpClient.post<GenericResponseRoot<ResponseDataModel<Employee>>>(Constants.URL + '/api/employees/getFiltersSortedUsersData', inputDataModel);
-    }*/
-    loadData(inputDataModel: InputDataModel): Observable<GenericResponseRoot<ResponseDataModel2<Employee>>> {
-        return this.httpClient.post<GenericResponseRoot<ResponseDataModel2<Employee>>>(Constants.URL + '/api/employees/getFiltersSortedUsersData', inputDataModel);
     }
+ /*   loadData(inputDataModel: InputDataModel): Observable<GenericResponseRoot<ResponseDataModel2<Employee>>> {
+        return this.httpClient.post<GenericResponseRoot<ResponseDataModel2<Employee>>>(Constants.URL + '/api/employees/getFiltersSortedUsersData', inputDataModel);
+    }*/
 
 }

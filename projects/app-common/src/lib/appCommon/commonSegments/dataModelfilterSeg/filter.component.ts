@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {UtilityController} from '../../controllers/UtilityController';
 import {ColumnTypEnum} from '../../models/enum/ColumnTypEnum';
-import {AbstractDataModelController} from '../../controllers/AbstractDataModelController';
+import {AbstractDataModelControllerV2} from "../../controllers/AbstractDataModelControllerV2";
 
 
 @Component({
@@ -11,7 +11,7 @@ import {AbstractDataModelController} from '../../controllers/AbstractDataModelCo
 })
 
 export class FilterComponent extends UtilityController implements OnInit {
-    @Input() public componentObject: AbstractDataModelController<any> ;
+    @Input() public componentObject: AbstractDataModelControllerV2<any> ;
     public  ColumnTypEnum=ColumnTypEnum;
     constructor(   ) {
         super();

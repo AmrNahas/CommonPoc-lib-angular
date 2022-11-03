@@ -16,8 +16,8 @@ import {
 } from "../../../../../projects/app-common/src/lib/appCommon/models/enum/FilterOperationEnum";
 import {LocalSelectItem} from "../../../../../projects/app-common/src/lib/appCommon/models/dto/LocalSelectItem";
 import {EncryptDecrypt} from "../../../../../projects/app-common/src/lib/appCommon/utility/EncryptDecrypt";
-import {EmployeeService} from "../../../services/ExampleServices/employee.Service";
 import {Employee} from "../../../models/Employee";
+import {Employee2Service} from "../../../services/ExampleServices/employee2.Service";
 
 
 @Component({
@@ -30,7 +30,7 @@ import {Employee} from "../../../models/Employee";
 export class ExampleComponent extends AbstractDataModelWrapper<Employee> implements OnInit {
     constructor(
         public dialog: MatDialog,   public appSettings: AppSettings,
-        public employeeService: EmployeeService, public router: Router) {
+        public employeeService: Employee2Service, public router: Router) {
         super(employeeService, appSettings);
         this.formsManager.upsert('emps', this.filterComponentForm);
 
