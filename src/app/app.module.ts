@@ -151,9 +151,10 @@ export function createTranslateLoader(http: HttpClient) {
 })
 export class AppModule {
     // to save injector in global variable >>  so you can use it all over App
-    constructor(private injector: Injector, public appSettings: AppSettings) {
+    constructor(private injector: Injector, public appSettings: AppSettings,public dropDownSrvc:DropDownService) {
         AppInjector = this.injector;
         myAppSettings = this.appSettings;
+        dropDownService=dropDownSrvc;
     }
 }
 

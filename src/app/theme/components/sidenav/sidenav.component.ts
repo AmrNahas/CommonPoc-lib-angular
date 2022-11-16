@@ -3,7 +3,6 @@ import {AppSettings} from '../../../app.settings';
 import {Settings} from '../../../app.settings.model';
 import {MenuService} from '../menu/menu.service';
 import {UsersService} from 'src/app/services/usersServices/users.service';
-import {UserPhotoDTORecv} from 'src/app/models/DTO/UserPhotoDTORecv';
 import {AuthUser} from '../../../AuthModule/AuthUser';
 import {AuthService} from "../../../AuthModule/AuthService";
 
@@ -39,11 +38,11 @@ export class SidenavComponent implements OnInit {
     // }
 
 
-    this.userService.getUserPhoto(this.authUser.id).subscribe((data: UserPhotoDTORecv)=>  {
+/*    this.userService.getUserPhoto(this.authUser.id).subscribe((data: UserPhotoDTORecv)=>  {
       // get base 64 from java
       this.imageBlobUrl=data.userPhotoBase64;
 
-    }) ;
+    }) ;*/
   }
 
   public closeSubMenus(){

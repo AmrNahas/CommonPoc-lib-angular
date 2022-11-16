@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, Type} from '@angular/core';
 
 
 import {AppInjector} from "../app.module";
@@ -17,8 +17,8 @@ import {
 
 export abstract class AbstractDataModelWrapperServiceV2<T> extends AbstractDataModelControllerV2<T>  {
 
-    protected constructor(public service: AbstractDataModelServiceV2<T>, public appSettings: AppSettings) {
-        super(service,AppInjector);
+    protected constructor(public service: AbstractDataModelServiceV2<T>, public appSettings: AppSettings, t: Type<T> ) {
+        super(service,AppInjector,t );
     }
 
 

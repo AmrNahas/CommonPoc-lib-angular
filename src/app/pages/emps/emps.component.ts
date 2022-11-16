@@ -2,12 +2,9 @@ import {Component, OnInit, ViewEncapsulation} from "@angular/core";
 import {MatDialog} from "@angular/material/dialog";
 import {AppSettings} from "../../app.settings";
 import {Router} from "@angular/router";
-import {SortDirection} from "@swimlane/ngx-datatable";
 import {HttpClient} from "@angular/common/http";
 // import {JsonArray} from "@angular/compiler-cli/ngcc/src/packages/entry_point";
 import {Observable} from "rxjs";
-import {Employee} from "../../models/Employee";
-import {EmployeeService} from "../../services/ExampleServices/employee.Service";
 import {SortCriteria} from "../../../../projects/app-common/src/lib/appCommon/models/dto/SortCriteria";
 import {FilterProperty} from "../../../../projects/app-common/src/lib/appCommon/models/dto/FilterProperty";
 import {ColumnTypEnum} from "../../../../projects/app-common/src/lib/appCommon/models/enum/ColumnTypEnum";
@@ -15,16 +12,11 @@ import {FilterOperationEnum} from "../../../../projects/app-common/src/lib/appCo
 import {LocalSelectItem} from "../../../../projects/app-common/src/lib/appCommon/models/dto/LocalSelectItem";
 import {EncryptDecrypt} from "../../../../projects/app-common/src/lib/appCommon/utility/EncryptDecrypt";
 import {AbstractDataModelWrapperServiceV2} from "../../Wrappers/abstract-data-model-wrapper.serviceV2";
+import {dropDownService} from "../../app.module";
+import {ActionDetInfo} from "../../../../projects/app-common/src/lib/appCommon/models/dto/ActionDetInfo";
+import {EmployeeModel} from "../../models/EmployeeModel";
+import {EmployeeServiceV2} from "../../services/ExampleServices/employeeV2.Service";
 
-export class ActionDetInfo {
-    constructor(type: number, color: string) {
-        this.color = color;
-        this.type = type;
-    }
-
-    type: number;
-    color: string;
-}
 
 @Component({
     selector: 'app-empss',
@@ -32,57 +24,51 @@ export class ActionDetInfo {
     encapsulation: ViewEncapsulation.None,
 })
 
-export class EmpsComponent extends AbstractDataModelWrapperServiceV2<Employee> implements OnInit {
-    actionDetails: ActionDetInfo[];
+export class EmpsComponent extends AbstractDataModelWrapperServiceV2<EmployeeModel> implements OnInit {
 
-    //public dataInfo: Observable<Employee[]>;
     constructor(
         public dialog: MatDialog, public appSettings: AppSettings,
-        public employeeService: EmployeeService, public router: Router, private http: HttpClient) {
-        super(employeeService, appSettings);
+        public employeeService: EmployeeServiceV2, public router: Router, private http: HttpClient) {
+        super(employeeService, appSettings, EmployeeModel );
         this.formsManager.upsert('emps', this.filterComponentForm);
-
     }
-
 
     ngOnInit() {
         this.loadDataAndPublish();
-        this.actionDetails = [];
-        this.actionDetails.push(new ActionDetInfo(1, "primary"), new ActionDetInfo(2, "accent"), new ActionDetInfo(3, "accent"))
-
     }
 
-
-
-
     addPermanentFilterColumns(): any {
-         //  this.permanentFiltersObjValues.push(new FilterCriteria('empId', 966655885554, FilterOperationEnum.EQUAL));
+      // this.permanentFiltersObjValues.push(new FilterCriteria('empId', 966655885554, FilterOperationEnum.EQUAL));
     }
 
     addPermanentSortColumn(): SortCriteria {
-        return new SortCriteria('empId', SortDirection.desc);
+        return null;// new SortCriteria('empId', SortDirection.desc);
     }
 
-    editData(): any {
+
+    prepareActionsDetails(): ActionDetInfo[] {
+        let actionDetails = [];
+        let viewAction: ActionDetInfo = new ActionDetInfo('view', "primary", "pageview", this.view);
+        let editAction: ActionDetInfo = new ActionDetInfo('edit', "accent", "edit", this.edit)
+        let deleteAction: ActionDetInfo = new ActionDetInfo('delete', "warn", "delete", this.delete);
+        actionDetails.push(viewAction, editAction, deleteAction);
+        return actionDetails;
     }
 
-    prepareDisplayColumns(): Array<string> {
-        return ['id', 'firstName', 'lastName', 'hijriDate', 'country', 'city', 'status', 'actions'];
-    }
 
-    prepareFiltersColumns(): any {
-        let status = new FilterProperty('USERS.status', 'status', ColumnTypEnum.DROPDOWN, FilterOperationEnum.BIT_CHECK, this.loadStatusListBits(), []);
-        let fNameFilterColumn = new FilterProperty('registration.firstName', 'firstName', ColumnTypEnum.TEXT, FilterOperationEnum.MATCH, null, []);
-        let lNameFilterColumn = new FilterProperty('registration.lastName', 'lastName', ColumnTypEnum.TEXT, FilterOperationEnum.MATCH, null, []);
-        let countryFilterColumn = new FilterProperty('USERS.country', 'cntryId', ColumnTypEnum.DROPDOWN_MULTI, FilterOperationEnum.IN_LONG_LIST, this.loadCountryList(), []);
-        let hijri = new FilterProperty('resv.date', 'hijriDate', ColumnTypEnum.DATE_Hij, FilterOperationEnum.EQUAL, null, []);
 
-        // Object to create Filter for.
-        this.filterPropertiesArr.push(fNameFilterColumn);
-        this.filterPropertiesArr.push(lNameFilterColumn);
-        this.filterPropertiesArr.push(countryFilterColumn);
-        this.filterPropertiesArr.push(status);
-        this.filterPropertiesArr.push(hijri);
+    prepareFiltersColumns(): Array<FilterProperty> {
+        let filtersArray:Array<FilterProperty>=[]
+        let empId = new FilterProperty(null, 'empId', ColumnTypEnum.TEXT, FilterOperationEnum.EQUAL, null, []);
+        let identityNum = new FilterProperty(null, 'identityNum', ColumnTypEnum.TEXT, FilterOperationEnum.MATCH, null, []);
+        let email = new FilterProperty(null, 'email', ColumnTypEnum.TEXT, FilterOperationEnum.MATCH, null, []);
+        let status = new FilterProperty(null, 'status', ColumnTypEnum.DROPDOWN, FilterOperationEnum.BIT_CHECK, this.loadStatusListBits(), []);
+        let fNameFilterColumn = new FilterProperty(null, 'firstName', ColumnTypEnum.TEXT, FilterOperationEnum.MATCH, null, []);
+        let lNameFilterColumn = new FilterProperty(null, 'lastName', ColumnTypEnum.TEXT, FilterOperationEnum.MATCH, null, []);
+        let countryFilterColumn = new FilterProperty(null, 'cntryId', ColumnTypEnum.DROPDOWN, FilterOperationEnum.EQUAL, this.loadCountryList(), []);
+        let hijri = new FilterProperty(null, 'hijriDate', ColumnTypEnum.DATE_Hij, FilterOperationEnum.EQUAL, null, []);
+        filtersArray.push(fNameFilterColumn,lNameFilterColumn,countryFilterColumn,status,hijri,email,identityNum,empId)
+        return filtersArray;
     }
 
     viewData(): any {
@@ -98,7 +84,7 @@ export class EmpsComponent extends AbstractDataModelWrapperServiceV2<Employee> i
     }
 
     public loadCountryList(): Observable<Array<LocalSelectItem>> {
-        return null;//   dropDownService.getAllCountriesDropDownValues();
+        return dropDownService.getAllCountriesDropDownValues();
     }
 
     public prepareAddEmployee() {
@@ -114,5 +100,21 @@ export class EmpsComponent extends AbstractDataModelWrapperServiceV2<Employee> i
         this.router.navigate(['/pages/employees/viewEmp'],
             {queryParams: {p: EncryptDecrypt.encrypt(empId.toString())}});
     }
+
+    public delete = () => {
+        this.loadDataAndPublish();
+    };
+
+
+    public edit = () => {
+        this.loadDataAndPublish();
+    };
+
+
+    public view = () => {
+        this.loadDataAndPublish();
+    };
+
+
 }
 

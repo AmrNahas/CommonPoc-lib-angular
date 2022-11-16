@@ -1,80 +1,89 @@
-import {Component, Input, OnInit} from "@angular/core";
-import {cloneDeep, orderBy, sortBy} from "lodash";
-import {Sort, SortDirection} from "@angular/material/sort";
+import {Component, Input, OnInit, ViewChild} from "@angular/core";
+import {cloneDeep, sortBy} from "lodash";
 import {TableModel} from "./decorator/TableModel";
 import {tableSymbol} from "./decorator/Column";
 import {ColumnModel} from "./decorator/ColumnModel";
 import {AbstractDataModelControllerV2} from "../../controllers/AbstractDataModelControllerV2";
+import {ColumnTypEnum} from "../../models/enum/ColumnTypEnum";
+import {MatTable} from "@angular/material/table";
+import {FilterProperty} from "../../models/dto/FilterProperty";
+import {LocalSelectItem} from "../../models/dto/LocalSelectItem";
+import {ActionDetInfo} from "../../models/dto/ActionDetInfo";
+import {BadgeValueColorMap} from "./BadgeValueColorMap";
+import {ColorEnum} from "../../models/enum/ColorEnum";
 
-export class ActionDetInfo {
-    type: number;
-    color: string;
-}
 
 @Component({
     selector: "app-table",
     templateUrl: "./table.component.html",
-    styleUrls: ["./table.component.scss"],
+    styleUrls: ["./Table.component.scss"],
 })
 export class TableComponent implements OnInit {
-    public loadData: boolean;
+    public ColumnTypEnum = ColumnTypEnum;
     private _data = [];
+    @ViewChild(MatTable) table: MatTable<any>;
+    public empty: boolean;
     @Input() obj: AbstractDataModelControllerV2<any>;
     private _originalData: any[] = [];
     private _tableModel: TableModel;
     @Input() hasActions: boolean;
     @Input() actionDetails: ActionDetInfo[];
+    @Input() dummyValue: any;
+    columns: ColumnModel[];
+    displayedColumns: string[];
+    actionColum: ColumnModel;
+
+
+    constructor() {
+
+    }
 
     @Input() set data(values: any[]) {
+        if (!values || values.length == 0) {
+            this.empty = true;
+            values = [];
+            values.push(this.dummyValue);
+        } else {
+            this.empty = false;
+        }
         this._data = cloneDeep(values);
         this._tableModel = this._data[0][tableSymbol];
         this.buildColumns();
-        if (!this._originalData.length) {
+
+        if (!this._originalData.length && this._originalData[0] != null) {
             // Keep original order of data
             this._originalData = cloneDeep(this._data);
         }
+
     }
 
     get data(): any[] {
         return this._data;
     }
 
-    @Input() instance: any;
-
-    columns: ColumnModel[];
-    displayedColumns: string[];
-    actionColum: ColumnModel;
-
-    constructor() {
-        console.log("construct table")
-    }
 
     ngOnInit() {
-        console.log("on init table")
-        // this.buildColumns();
-    }
 
-    sortData(params: Sort) {
-        const direction: SortDirection = params.direction;
-        this.data = direction
-            ? orderBy(this.data, [params.active], [direction])
-            : this._originalData;
     }
 
     private buildColumns() {
-        this.columns = this._tableModel.columns
-        this.sortColumns();
-        if (this.actionDetails && this.actionDetails.length > 0) {
-            this.actionColum = new ColumnModel(
-                {
-                    key: "actions",
-                    canSort: true, label: "GENERIC.actions", hasBadge: false
-                }
-            );
-            this.columns.push(this.actionColum)
+        if (this._tableModel) {
+            let columnsList: ColumnModel[] = this._tableModel.columns
+            this.columns = columnsList.filter(item => item.lang == null || item.lang == this.getCurrentLang());
+            this.sortColumns();
+            if (this.actionDetails && this.actionDetails.length > 0 && !this.empty) {
+                this.actionColum = new ColumnModel(
+                    {
+                        key: "actions",
+                        canSort: false, label: "GENERIC.actions", hasBadge: false,
+                    }
+                );
+                this.columns.push(this.actionColum)
+            }
+
+            this.displayedColumns = this.columns.map(col => col.key);
         }
 
-        this.displayedColumns = this.columns.map(col => col.key);
     }
 
 
@@ -82,16 +91,70 @@ export class TableComponent implements OnInit {
         this.columns = sortBy(this.columns, ["order"]);
     }
 
-    /*   view(obj:Employee) {
-           console.log(obj.empId)
-       }
 
-       edit(obj:Employee) {
-           console.log(obj.empId)
-       }
+    openLog(column: ColumnModel) {
+        console.log(column)
+    }
 
-       delete(obj:Employee) {
-           console.log(obj.empId)
-       }*/
 
+
+    stopPropagation($event: any) {
+        if ($event) $event.stopPropagation();
+    }
+
+
+
+    loadData($event: Event) {
+        console.log("type>>", $event.type)
+
+    }
+
+
+    getOptions(key: string): LocalSelectItem[] {
+        if (this.obj.filterPropertiesArr && this.obj.filterPropertiesArr.length > 0) {
+            let filter: FilterProperty[] = this.obj.filterPropertiesArr.filter(item => item.columnProp == key);
+            return filter[0].options;
+        }
+    }
+
+    isSearchable(key: string): boolean {
+        if (this.obj.filterPropertiesArr && this.obj.filterPropertiesArr.length > 0) {
+            let filter: FilterProperty[] = this.obj.filterPropertiesArr.filter(item => item.columnProp == key);
+            return filter.length > 0;
+        }
+        return false;
+    }
+
+
+    getColorForBadge(badgeColorsMap: Array<BadgeValueColorMap>, value: any) {
+        try {
+            if (badgeColorsMap && badgeColorsMap.length > 0 && value != null)
+                return badgeColorsMap.filter(item => item.value == value)[0].color
+            else {
+                return ColorEnum.DEFAULT;
+            }
+        } catch (e) {
+            return ColorEnum.DEFAULT;
+        }
+    }
+
+
+    transformData(value: any, column: ColumnModel) {
+        try {
+            if (column.pipeTransformation)
+                return column.pipeTransformation.transform(value);
+            else
+                return value
+        } catch (e) {
+            return value
+        }
+
+    }
+
+
+    getCurrentLang() {
+        let lang = localStorage.getItem('lang');
+        return lang ? lang : "ar";
+    }
 }
+

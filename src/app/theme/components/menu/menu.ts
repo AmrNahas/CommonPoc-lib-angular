@@ -2,6 +2,7 @@ import {Menu} from './menu.model';
 
 export const verticalMenuItems = [
     new Menu(1, 'sys-users', '/example', null, 'post_add', null, false, 0, 'MENU.Adminstration.SystemUsers', null),
+    new Menu(2, 'sys-users', '/emps', null, 'post_add', null, false, 0, 'MENU.Adminstration.SystemUsers', null),
 
     /*
         new Menu(1, 'Dashboard', '/', null, 'dashboard', null, false, 0, 'MENU.Dashboard', null),

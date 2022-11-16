@@ -67,7 +67,7 @@ export class MessagesComponent extends UtilityController implements OnInit {
     }
 
     subscribeNotifications() {
-        let stompClient = this.webSocketService.connect();
+   /*     let stompClient = this.webSocketService.connect();
         stompClient.connect({}, frame => {
             // Subscribe to notification topic
 
@@ -80,7 +80,7 @@ export class MessagesComponent extends UtilityController implements OnInit {
             })
         });
 
-
+*/
     }
 
     openMessagesMenu() {

@@ -1,0 +1,56 @@
+
+<mat-form-field (keyup.enter)="obj.search()" (click)="stopPropagation($event)"
+                *ngIf="isSearchable(column.key)">
+
+    <input matNativeControl *ngIf="column.columnType==ColumnTypEnum.TEXT"
+           formControlName="{{column.key}}">
+
+    <mat-select formControlName="{{column.key}}"
+                *ngIf="column.columnType ==  ColumnTypEnum.DROPDOWN">
+        <mat-option [value]=" "> --{{'GENERIC.select'|translate}} {{column.label | translate }}
+            --
+        </mat-option>
+        <mat-option [value]="item.value"
+                    *ngFor="let item of getOptions(column.key)">{{isArabicLang() ? item.nameAr : item.nameEn}} </mat-option>
+    </mat-select>
+
+
+    <input *ngIf="column.columnType ==  ColumnTypEnum.DATE_Hij" matInput matNativeControl
+           ngbDatepicker
+           [readonly]="true" (click)="d.open()"
+           container="body" #d="ngbDatepicker" formControlName="{{column.key}}"/>
+
+
+    <mat-select multiple formControlName="{{column.key }}"
+                *ngIf="column.columnType ==  ColumnTypEnum.DROPDOWN_MULTI">
+        <mat-option disabled="true" [value]=" ">
+            --{{'GENERIC.select'|translate}} {{column.label | translate }}--
+        </mat-option>
+        <!--        <mat-option [value]="item.value"
+                            *ngFor="let item of filter.options">{{obj.isArabicLang() ? item.nameAr : item.nameEn}} </mat-option>-->
+    </mat-select>
+
+
+    <input matInput matNativeControl formControlName="{{column.key}}"
+           [matDatepicker]="myDatepicker"
+           *ngIf="column.columnType ==  ColumnTypEnum.DATE_GEO">
+    <mat-datepicker-toggle matSuffix [for]="myDatepicker"
+                           *ngIf="column.columnType ==  ColumnTypEnum.DATE_GEO"></mat-datepicker-toggle>
+    <mat-datepicker #myDatepicker disabled="false"></mat-datepicker>
+
+
+    <textarea matNativeControl matTextareaAutosize
+              *ngIf="column.columnType == ColumnTypEnum.MULTI_LINES_TEXT"
+              matAutosizeMinRows="1" matAutosizeMaxRows="2" formControlName="{{column.key}}">
+                              </textarea>
+
+
+    <button mat-icon-button matSuffix *ngIf="obj.filterComponentForm.controls[column.key].value"
+            (click)="obj.clearValue(column.key)" [attr.aria-label]="'Hide password'">
+        <mat-icon> close</mat-icon>
+    </button>
+    <!--   <mat-error
+               *ngIf="obj.filterComponentForm.controls[column.key].errors">{{'GENERIC.filter.input.notValid' | translate}}</mat-error>-->
+    <!-- <mat-hint>Hint</mat-hint>-->
+
+</mat-form-field>

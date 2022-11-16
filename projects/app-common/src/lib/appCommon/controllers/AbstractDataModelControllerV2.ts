@@ -1,12 +1,9 @@
-import {Injectable, Injector, OnDestroy, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {Injectable, Injector, OnDestroy, QueryList, Type, ViewChild, ViewChildren} from '@angular/core';
 import {PerfectScrollbarDirective} from 'ngx-perfect-scrollbar';
 import {FilterProperty} from '../models/dto/FilterProperty';
 import {FilterCriteria} from '../models/dto/FilterCriteria';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
-
-
-import {SqSort} from '../cofigurations/SqSort';
+import {MatSort, Sort} from '@angular/material/sort';
 import {MessagesService} from '../utility/MessagesService';
 import {UtilityController} from './UtilityController';
 import {Observable, Subscription} from 'rxjs';
@@ -21,8 +18,8 @@ import {GenericResponseRoot} from "../models/dto/GenericResponseRoot";
 import {AbstractDataModelServiceV2} from "../services/AbstractDataModelServiceV2";
 import {ResponseDataModel2} from "../models/dto/ResponseDataModel2";
 import {DeserializeArray} from "cerializr";
-import {map, tap} from "rxjs/operators";
-import {Employee} from "../../../../../../src/app/models/Employee";
+import {map} from "rxjs/operators";
+import {ActionDetInfo} from "../models/dto/ActionDetInfo";
 
 
 @Injectable({
@@ -39,8 +36,9 @@ export abstract class AbstractDataModelControllerV2<T> extends UtilityController
     // used for filters values from   form
     private filtersCriteriaArr = Array<FilterCriteria>();
     permanentFiltersObjValues: Array<FilterCriteria>;
-
-    public dataSource:  Observable<any[]>;
+    actionDetails: ActionDetInfo[];
+    dummyValue: any;
+    public dataSource: Observable<any[]>;
     public pageIndex: number;
     public pageSize: number;
     public length: number;
@@ -61,9 +59,10 @@ export abstract class AbstractDataModelControllerV2<T> extends UtilityController
     public myService: AbstractDataModelService<T>;
     protected formsManager: AkitaNgFormsManager<any>
     public noDataFlag: boolean;
+    public entityClass: Type<T>;
+    public responseInfo: Observable<GenericResponseRoot<ResponseDataModel2<T>>>;
 
-
-    protected constructor(public service: AbstractDataModelServiceV2<T>, AppInjector: Injector) {
+    protected constructor(public service: AbstractDataModelServiceV2<T>, AppInjector: Injector, t: Type<T> ) {
 
         super();
         // prepare the needed objects by using   AppInjector >> define in App Module
@@ -71,41 +70,35 @@ export abstract class AbstractDataModelControllerV2<T> extends UtilityController
         this.msgsService = AppInjector.get<MessagesService>(MessagesService);
         this.formsManager = AppInjector.get<AkitaNgFormsManager>(AkitaNgFormsManager);
         // this.myService=AppInjector.get<AbstractDataModelService<T>(token)> ;
-
+        this.entityClass = t;
         this.pageIndex = 0;
         this.pageSize = 10;
+        this.actionDetails = []
         this.permanentFiltersObjValues = new Array<FilterCriteria>();
-        // this.settings = this.appSettings.settings;
-        this.displayedColumns = this.prepareDisplayColumns();
         this.permanentSortCriteria = this.addPermanentSortColumn();
         // prepare search columns
-        this.prepareFiltersColumns();
+        this.filterPropertiesArr = this.prepareFiltersColumns() || [];
         this.addPermanentFilterColumns();
         this.preparePermanentFilters();// todo   delete >>  no need after last modifing
         this.prepareFiltersFormGroup(this.filterPropertiesArr);
+        this.dummyValue = new t();
 
     }
 
     public afterLoadData() {
-
+        this.actionDetails = this.prepareActionsDetails();
     }
 
-    // to prepare the columns appears in table UI
-    abstract prepareDisplayColumns(): Array<string> ;
 
     // to prepare the  filters   properties for   appears in table UI   >>>  used to initialize  : this.filterSelectObj
-    abstract prepareFiltersColumns();  //: Array<FilterProperty>;
+    abstract prepareFiltersColumns(): Array<FilterProperty>;
+
+    abstract prepareActionsDetails(): ActionDetInfo[];   //: Array<FilterProperty>;
 
     // to prepare the custom Permanent  filters   properties and not appeared on Table  UI to apply this filters every time load the data >>>  used to initialize  : this.permanentFiltersObjValues
     abstract addPermanentFilterColumns();//:Array<FilterCriteria>;
     // to prepare the custom Permanent  sort object  >>  return sort criteria obj
     abstract addPermanentSortColumn(): SortCriteria;
-
-    // to View the Data based  in your custom implementation
-    abstract viewData() ;
-
-    // to Edit the Data based  in your custom implementation
-    abstract editData();
 
     /*   optional to override   as per your Implementation
          parent Implementation of load data , if you did not override it , data will be loaded as per  instructions in method >>loadSortedFilteredDataAndShowData()
@@ -113,6 +106,7 @@ export abstract class AbstractDataModelControllerV2<T> extends UtilityController
     public loadDataAndPublish() {
         this.prepareAllFilterCriteria();
         this.loadSortedFilteredDataAndShowData();
+        this.afterLoadData()
     }
 
 
@@ -121,7 +115,7 @@ export abstract class AbstractDataModelControllerV2<T> extends UtilityController
         this.dataSource = null;
         let offset = this.pageIndex * this.pageSize;
         let limit = this.pageSize;
-        let inputDataModel = new InputDataModel(this.filtersCriteriaArr, limit, offset, this.permanentSortCriteria);
+        let inputDataModel = new InputDataModel(this.filtersCriteriaArr, limit, offset, this.permanentSortCriteria, this.sortCriteriaArr);
         return this.service.loadData(inputDataModel);
     }
 
@@ -129,13 +123,12 @@ export abstract class AbstractDataModelControllerV2<T> extends UtilityController
     // load data , subscribed and  set all required members then return  Observable Array object of ResponseDataModel
     public loadSortedFilteredDataAndShowData(): Observable<GenericResponseRoot<ResponseDataModel2<T>>> {
         this.loadDataFlag = true;
-        this.dataSource=new Observable<any[]>();
+        this.dataSource = new Observable<any[]>();
         let offset = this.pageIndex * this.pageSize;
         let limit = this.pageSize;
-        let inputDataModel = new InputDataModel(this.filtersCriteriaArr, limit, offset, this.permanentSortCriteria);
-        let responseInfo = this.service.loadData(inputDataModel);
-
-        this.dataSourceSub = responseInfo.subscribe((response: GenericResponseRoot<ResponseDataModel2<T>>) => {
+        let inputDataModel = new InputDataModel(this.filtersCriteriaArr, limit, offset, this.permanentSortCriteria, this.sortCriteriaArr);
+        this.responseInfo = this.service.loadData(inputDataModel);
+        this.dataSourceSub = this.responseInfo.subscribe((response: GenericResponseRoot<ResponseDataModel2<T>>) => {
                 if (response.Response.ResponseCode != 0) {
                     this.hasError = true;
                     this.noDataFlag = false
@@ -151,10 +144,12 @@ export abstract class AbstractDataModelControllerV2<T> extends UtilityController
                         this.noDataFlag = false
                         this.hasError = false;
                         this.prepareDateAndPaginationValues(response.Response.Data);
-                        this.dataSource=  responseInfo.pipe(
-                            map((x: GenericResponseRoot<ResponseDataModel2<T>>) => DeserializeArray(x.Response.Data.content,Employee )),
-                            tap(res => console.log(res))
+                        this.dataSource = this.responseInfo.pipe(
+                            map((x: GenericResponseRoot<ResponseDataModel2<T>>) => DeserializeArray(x.Response.Data.content, this.entityClass))
+                            // , tap(res => console.log(res,"1"))
                         );
+
+
                         this.afterLoadData();
 
                     }
@@ -170,9 +165,8 @@ export abstract class AbstractDataModelControllerV2<T> extends UtilityController
             }
         );
 
-         return responseInfo;
+        return this.responseInfo;
     }
-
 
 
     // Reset table filters
@@ -212,23 +206,61 @@ export abstract class AbstractDataModelControllerV2<T> extends UtilityController
 
 
     //  you can handel it from server side  by load data and send the sort values as parameter
-    public sortColumn($event: SqSort) {
+    public sortColumn($event: Sort) {
+        let sortCriteriaArrayNew = [];
+        let exist: boolean = false;
         // todo   complete the sort server side
         /*   console.log(`sort event ${JSON.stringify($event)}`);
            console.log($event.direction);*/
-        this.sortCriteriaArr = [];
-        this.sortCriteriaArr.push(new SortCriteria($event.active, $event.direction));
+        // this.sortCriteriaArr = [];
+        let sortCriteria: SortCriteria = new SortCriteria($event.active, $event.direction)
+        this.sortCriteriaArr.forEach(item => {
+            if (item.propertyName == sortCriteria.propertyName) {
+                exist = true;
+            } else if (sortCriteria.sortOrder.trim() != null && sortCriteria.sortOrder != "")
+                sortCriteriaArrayNew.push(item);
+        })
+        if (!exist && sortCriteria.propertyName && sortCriteria.sortOrder.trim() != null && sortCriteria.sortOrder != "")
+            sortCriteriaArrayNew.push(sortCriteria);
+        else {
+
+        }
+        this.sortCriteriaArr = sortCriteriaArrayNew;
+        console.log(this.sortCriteriaArr)
+        this.loadDataAndPublish();
     }
 
+    public sortAction($event: Sort) {
+        let sortCriteriaArrayNew = [];
+        let sortCriteria: SortCriteria = new SortCriteria($event.active, $event.direction)
+        this.sortCriteriaArr.forEach(item => {
+            if (sortCriteria.propertyName != item.propertyName) {
+                sortCriteriaArrayNew.push(item)
+            }
+        })
+        if (sortCriteria.sortOrder == 'desc' || sortCriteria.sortOrder == 'asc') {
+            sortCriteriaArrayNew.push(sortCriteria);
+        }
+
+        this.sortCriteriaArr = sortCriteriaArrayNew;
+
+
+        this.loadDataAndPublish();
+    }
+
+
+    prepareSortCriteriaArrayThenLoadAndPublish() {
+
+        this.loadSortedFilteredDataAndShowData()
+    }
 
     // handel  pagination values limit and offset in change page or limit  >> must call it inside subscription of data if you handel the data by yourself
     public prepareDateAndPaginationValues(dataModel: ResponseDataModel2<T>) {
-       // this.dataSource = new MatTableDataSource<T>(dataModel.content);
+        // this.dataSource = new MatTableDataSource<T>(dataModel.content);
         this.length = dataModel.numberOfRecords;
-     //   this.dataSource.sort = this.sort;
+        //   this.dataSource.sort = this.sort;
 
     }
-
 
 
     // to handel the pagination event    >> take pagination Event
@@ -261,7 +293,7 @@ export abstract class AbstractDataModelControllerV2<T> extends UtilityController
     }
 
     public search() {
-      //  this.dataSource=new Observable<any[]>();
+        //  this.dataSource=new Observable<any[]>();
         if (this.prepareAllFilterCriteria()) {
             this.pageIndex = 0;
             this.loadDataAndPublish();
@@ -364,6 +396,21 @@ export abstract class AbstractDataModelControllerV2<T> extends UtilityController
     }
 
 
+    /* private prepareSortCriteria() {
+         let sortCriteriaArr = [];
+         if (this.sortCriteriaArr != null)
+             this.sortCriteriaArr.forEach(org => {
+                 sortCriteriaArr.forEach(item => {
+                 })
+             })
+     }*/
+    isSortedBy(key: string): boolean {
+        return this.sortCriteriaArr.filter(item => (item.propertyName == key && item.sortOrder != "")).length > 0
+    }
+
+
 }
+
+
 
 

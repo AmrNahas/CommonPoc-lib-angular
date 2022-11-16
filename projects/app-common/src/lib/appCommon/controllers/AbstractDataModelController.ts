@@ -121,7 +121,7 @@ export abstract class AbstractDataModelController<T> extends UtilityController i
         this.dataSource = null;
         let offset = this.pageIndex * this.pageSize;
         let limit = this.pageSize;
-        let inputDataModel = new InputDataModel(this.filtersCriteriaArr, limit, offset, this.permanentSortCriteria);
+        let inputDataModel = new InputDataModel(this.filtersCriteriaArr, limit, offset, this.permanentSortCriteria,this.sortCriteriaArr);
         return this.service.loadData(inputDataModel);
     }
 
@@ -132,7 +132,7 @@ export abstract class AbstractDataModelController<T> extends UtilityController i
         this.dataSource = null;
         let offset = this.pageIndex * this.pageSize;
         let limit = this.pageSize;
-        let inputDataModel = new InputDataModel(this.filtersCriteriaArr, limit, offset, this.permanentSortCriteria);
+        let inputDataModel = new InputDataModel(this.filtersCriteriaArr, limit, offset, this.permanentSortCriteria,this.sortCriteriaArr);
         let response = this.service.loadData(inputDataModel);
         this.dataSourceSub = response.subscribe((response: GenericResponseRoot<ResponseDataModel<T>>) => {
                 if (response.Response.ResponseCode != 0) {

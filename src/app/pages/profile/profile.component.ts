@@ -2,12 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {UsersService} from 'src/app/services/usersServices/users.service';
 // import { Binary } from "crypto";
 import {UserPhotoDTO} from 'src/app/models/DTO/UserPhotoDTO';
-import {UserPhotoDTORecv} from 'src/app/models/DTO/UserPhotoDTORecv';
 import {AuthUser} from '../../AuthModule/AuthUser';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MessagesService} from "../../../../projects/app-common/src/lib/appCommon/utility/MessagesService";
 import {AuthService} from "../../AuthModule/AuthService";
-
 
 
 @Component({
@@ -37,10 +35,10 @@ export class ProfileComponent implements OnInit {
 
 
     ngOnInit() {
-        this.userService.getUserPhoto(this.authUser.id).subscribe((data: UserPhotoDTORecv) => {
+   /*     this.userService.getUserPhoto(this.authUser.id).subscribe((data: UserPhotoDTORecv) => {
             this.imageBlobUrl = data.userPhotoBase64;
             this.oldImageBlobUrl = this.imageBlobUrl;
-        });
+        });*/
 
     }
 

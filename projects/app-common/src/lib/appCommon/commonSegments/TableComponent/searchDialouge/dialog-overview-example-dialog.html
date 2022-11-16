@@ -1,0 +1,108 @@
+<h1 mat-dialog-title>   البحث بواسطة {{data.label|translate}}</h1>
+<div mat-dialog-content>
+<!--
+
+   <mat-form-field appearance="fill">
+        <mat-label>Favorite Animal</mat-label>
+        <input matInput [(ngModel)]="value">
+    </mat-form-field>-->
+
+
+    <mat-form-field  appearance="fill" >
+        <mat-label>{{data.label|translate}}</mat-label>
+
+
+    <button mat-icon-button matSuffix   (click)="clearValue()"    [attr.aria-label]="'Hide password'" >
+        <mat-icon> close </mat-icon>
+    </button>
+
+        <input   matNativeControl [(ngModel)]="value">
+
+  <!--      <mat-error      *ngIf="componentObject.filterComponentForm.controls[filter.columnProp].errors">{{'GENERIC.filter.input.notValid' | translate}}</mat-error>
+     <mat-hint>Hint</mat-hint> -->
+    </mat-form-field>
+
+
+
+   <!-- <form [formGroup]="componentObject.filterComponentForm"   (ngSubmit)="componentObject.search()">
+        <mat-card [class]="isArabicLang()?'mat-card-border-right-':'mat-card-border-left-' ">
+            <div fxLayout="row wrap"    >
+                <mat-form-field *ngFor="let filter of componentObject.filterPropertiesArr" fxFlex="100" fxFlex.gt-sm="19"
+                                fxFlex.sm="50"   style="margin-left: 6px">
+                    <mat-label>{{filter.localName | translate}}</mat-label>
+
+                    <input *ngIf="filter.columnType ==  ColumnTypEnum.DATE_Hij" matInput matNativeControl ngbDatepicker
+                           [readonly]="true" (click)="d.open()"
+                           container="body" #d="ngbDatepicker" formControlName="{{filter.columnProp}}"/>
+
+
+                    <mat-select formControlName="{{filter.columnProp}}"
+                                *ngIf="filter.columnType ==  ColumnTypEnum.DROPDOWN">
+                        <mat-option [value]=" "> &#45;&#45;{{'GENERIC.select'|translate}} {{filter.localName | translate }}&#45;&#45;
+                        </mat-option>
+                        <mat-option [value]="item.value"
+                                    *ngFor="let item of filter.options">{{isArabicLang() ? item.nameAr : item.nameEn }} </mat-option>
+                    </mat-select>
+
+                    <mat-select multiple formControlName="{{filter.columnProp }}"
+                                *ngIf="filter.columnType ==  ColumnTypEnum.DROPDOWN_MULTI">
+                        <mat-option disabled="true" [value]=" ">
+                            &#45;&#45;{{'GENERIC.select'|translate}} {{filter.localName | translate }}&#45;&#45;
+                        </mat-option>
+                        <mat-option [value]="item.value"
+                                    *ngFor="let item of filter.options">{{isArabicLang() ? item.nameAr : item.nameEn}} </mat-option>
+                    </mat-select>
+
+
+                    &lt;!&ndash;            <mat-select multiple  formControlName="{{filter.columnProp }}" *ngIf="filter.columnType ==  ColumnTypEnum.DROPDOWN_MULTI_SEARCHABLE"    >
+                                    <mat-option>
+                                        <ngx-mat-select-search   placeholderLabel="search"  [formControl]="filter.formControl"></ngx-mat-select-search>
+                                    </mat-option>
+                                    <mat-option [value]="item.value" *ngFor="let item of filter.filterSubject |async">{{isArabicLang() ? item.nameAr : item.nameEn}} </mat-option>
+                                </mat-select>&ndash;&gt;
+
+
+                    <input matInput matNativeControl formControlName="{{filter.columnProp}}" [matDatepicker]="myDatepicker"
+                           *ngIf="filter.columnType ==  ColumnTypEnum.DATE_GEO">
+                    <mat-datepicker-toggle matSuffix [for]="myDatepicker"
+                                           *ngIf="filter.columnType ==  ColumnTypEnum.DATE_GEO"></mat-datepicker-toggle>
+                    <mat-datepicker #myDatepicker disabled="false"></mat-datepicker>
+
+                    <input *ngIf="filter.columnType == ColumnTypEnum.TEXT" matNativeControl
+                           formControlName="{{filter.columnProp}}">
+
+
+                    <textarea matNativeControl matTextareaAutosize
+                              *ngIf="filter.columnType == ColumnTypEnum.MULTI_LINES_TEXT"
+                              matAutosizeMinRows="1" matAutosizeMaxRows="2" formControlName="{{filter.columnProp}}">
+               </textarea>
+
+                    <button mat-icon-button matSuffix   *ngIf="componentObject.filterComponentForm.controls[filter.columnProp].value"  (click)="componentObject.clearValue(filter.columnProp)"    [attr.aria-label]="'Hide password'" >
+                        <mat-icon> close </mat-icon>
+                    </button>
+
+                    <mat-error
+                            *ngIf="componentObject.filterComponentForm.controls[filter.columnProp].errors">{{'GENERIC.filter.input.notValid' | translate}}</mat-error>
+                    &lt;!&ndash; <mat-hint>Hint</mat-hint>&ndash;&gt;
+                </mat-form-field>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="center center" class="p-2" fxLayoutGap="5px">
+                &lt;!&ndash; (click)="componentObject.filterAction(filterPropertiesArr)"&ndash;&gt;
+                <button *ngIf="componentObject.filterPropertiesArr.length>0"  mat-button color="primary"
+                        [disabled]="!componentObject.filterComponentForm.valid " mat-raised-button
+                        type="submit">  {{'GENERIC.filter' | translate }}</button>
+                &lt;!&ndash;  ||  !componentObject.canDoSearch()&ndash;&gt;
+                &lt;!&ndash;     <button *ngIf="componentObject.filterPropertiesArr.length>0" mat-button mat-raised-button color="accent" type="button"
+                               (click)="componentObject.resetFilters()"> {{'GENERIC.reset' | translate }} </button>&ndash;&gt;
+            </div>
+
+        </mat-card>
+    </form>
+
+-->
+</div>
+
+<div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>cancel</button>
+    <button mat-button (click)="printTheValue()">Ok</button>
+</div>

@@ -15,7 +15,7 @@ import {
 
 export const routes = [
     {path: '', redirectTo: 'list', pathMatch: 'full'},
-    {path: 'list', component: EmpsComponent, data: {breadcrumb: 'MENU.list', perm: '214589'}},
+    {path: 'list', component: EmpsComponent, data: {breadcrumb: 'MENU.list' }},
 
 
 ];

@@ -10,8 +10,13 @@ export class UtilityController {
     }
 
 
+    getCurrentLang() {
+        let lang = localStorage.getItem('lang');
+        return lang ? lang : "ar";
+    }
+
     // check Bit  is set  or not
-    public  isBitSetted(value: number, bitNum: number): boolean {
+    public isBitSetted(value: number, bitNum: number): boolean {
         if ((value >> (bitNum - 1)) && 1) {
             return true;
         } else {
@@ -30,8 +35,6 @@ export class UtilityController {
             }
         }
     }
-
-
 
 
 }

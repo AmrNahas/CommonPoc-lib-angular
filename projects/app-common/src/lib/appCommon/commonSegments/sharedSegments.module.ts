@@ -9,6 +9,10 @@ import {FilterComponent} from "./dataModelfilterSeg/filter.component";
 import {Pagination} from "./dataModelPaginationSeg/pagination.component";
 import {NgbDatepickerModule} from "@ng-bootstrap/ng-bootstrap";
 import {TableComponent} from "./TableComponent/Table.Component";
+import {TooltipModule} from "@swimlane/ngx-charts";
+import {SearchDialougeComponent} from "./TableComponent/searchDialouge/SearchDialougeComponent";
+import {CdkTableModule} from "@angular/cdk/table";
+import {InlineFilterComponent} from "./TableComponent/inlineFilter/inlineFilter.component";
 
 
 @NgModule({
@@ -21,18 +25,25 @@ import {TableComponent} from "./TableComponent/Table.Component";
         TranslateModule,
         NgxPaginationModule,
         NgbDatepickerModule,
+        TooltipModule,
+        CdkTableModule,
+        // CustomPipesModule,
 
     ],
     // declare all component you need for this module
     declarations: [
         FilterComponent,
         Pagination,
-        TableComponent
+        TableComponent,
+        SearchDialougeComponent,
+        InlineFilterComponent
     ],
     exports: [
         FilterComponent,
         Pagination,
-        TableComponent
+        TableComponent,
+        SearchDialougeComponent,
+        InlineFilterComponent
     ],
 
 // put  all needed  entry  component you need for this module  like dialog
