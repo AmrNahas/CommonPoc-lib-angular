@@ -2,6 +2,8 @@ import {FilterOperationEnum} from "../../../models/enum/FilterOperationEnum";
 import {ValidatorFn} from "@angular/forms";
 import {BadgeValueColorMap} from "../BadgeValueColorMap";
 import {PipeTransform} from "@angular/core";
+import {LocalSelectItem} from "../../../models/dto/LocalSelectItem";
+import {Observable, of} from "rxjs";
 
 export class ColumnModel {
     /** List of options */
@@ -19,8 +21,8 @@ export class ColumnModel {
     badgeColorsMap: Array<BadgeValueColorMap>
     pipeTransformation: PipeTransform
     lang: string
-
-    // searchable: boolean;
+    searchable: boolean;
+    dropDownOptions: Observable<LocalSelectItem[]> ;
 
 
     constructor(options: Partial<ColumnModel> = {}) {
@@ -38,5 +40,7 @@ export class ColumnModel {
         this.badgeColorsMap = options.badgeColorsMap || [];
         this.pipeTransformation = options.pipeTransformation || null;
         this.lang = options.lang || null;
+        this.searchable=options.searchable || false;
+        this.dropDownOptions=options.dropDownOptions||of([]);
     }
 }

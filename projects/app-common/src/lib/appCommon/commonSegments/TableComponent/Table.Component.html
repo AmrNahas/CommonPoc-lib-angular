@@ -23,15 +23,12 @@
                                   <mat-icon>search</mat-icon>
                               </button>-->
 
-                        <div  *ngIf="!isSearchable(column.key)">
-                            <label class="table-cell-light" style="font-weight: bold;color: #0478be"
-                                   *ngIf="obj.isSortedBy(column.key)">{{column.label| translate}}</label>
-                            <label class="table-cell-light"
-                                   *ngIf="!obj.isSortedBy(column.key)">{{column.label| translate}}</label>
+                        <div  *ngIf="!column.searchable">
+                            <label class="table-cell-light" >{{column.label| translate}}</label>
                         </div>
 
                             <mat-form-field (keyup.enter)="obj.search()" (click)="stopPropagation($event)"
-                                            *ngIf="isSearchable(column.key)" style="width: 125px">
+                                            *ngIf="column.searchable" style="width: 125px">
                                 <mat-label class="table-cell-light">{{column.label | translate}}</mat-label>
 
                                 <input matNativeControl *ngIf="column.columnType==ColumnTypEnum.TEXT"
@@ -44,7 +41,7 @@
                                         --
                                     </mat-option>
                                     <mat-option [value]="item.value"
-                                                *ngFor="let item of getOptions(column.key)">{{obj.isArabicLang() ? item.nameAr : item.nameEn}} </mat-option>
+                                                *ngFor="let item of column.dropDownOptions |async">{{obj.isArabicLang() ? item.nameAr : item.nameEn}} </mat-option>
                                 </mat-select>
 
 
@@ -97,20 +94,18 @@
 
 
                 <ng-template #noSort>
-                    <mat-header-cell *matHeaderCellDef  >
+                    <mat-header-cell *matHeaderCellDef   >
                         <!--      <button mat-icon-button color="primary" (click)="searchEvent($event,column)">
                                   <mat-icon>search</mat-icon>
                               </button>-->
 
-                        <div  *ngIf="!isSearchable(column.key)">
-                            <label class="table-cell-light" style="font-weight: bold;color: #0478be"
-                                   *ngIf="obj.isSortedBy(column.key)">{{column.label| translate}}</label>
-                            <label class="table-cell-light"
-                                   *ngIf="!obj.isSortedBy(column.key)">{{column.label| translate}}</label>
+                        <div  *ngIf="!column.searchable">
+                            <label class="table-cell-light"  >{{column.label| translate}}</label>
+
                         </div>
 
                         <mat-form-field (keyup.enter)="obj.search()" (click)="stopPropagation($event)"
-                                        *ngIf="isSearchable(column.key)" style="width: 125px">
+                                        *ngIf="column.searchable" style="width: 125px">
                             <mat-label class="table-cell-light">{{column.label | translate}}</mat-label>
 
                             <input matNativeControl *ngIf="column.columnType==ColumnTypEnum.TEXT"

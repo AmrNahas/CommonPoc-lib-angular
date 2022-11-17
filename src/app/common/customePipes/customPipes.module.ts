@@ -6,6 +6,7 @@ import {ImagePdfPipe} from "./pipes/imagePdfPipe";
 import {ImageSvPipe} from "./pipes/imageSvPipe";
 import {VeichlePicPipe} from "./pipes/VeichlePicPipe";
 import {HoursPipe} from "./pipes/HoursPipe";
+import {StatusPipe} from "./pipes/statusPipe";
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import {HoursPipe} from "./pipes/HoursPipe";
         ImagePdfPipe,
         ImageSvPipe,
         VeichlePicPipe,
-        HoursPipe
+        HoursPipe,
+        StatusPipe
     ],
     exports: [
         HijriFormatPipe,
@@ -26,7 +28,8 @@ import {HoursPipe} from "./pipes/HoursPipe";
         ImagePdfPipe,
         ImageSvPipe,
         VeichlePicPipe,
-        HoursPipe
+        HoursPipe,
+        StatusPipe
     ]
 })
 export class CustomPipesModule { }

@@ -18,7 +18,7 @@ import {ColorEnum} from "../../models/enum/ColorEnum";
     templateUrl: "./table.component.html",
     styleUrls: ["./Table.component.scss"],
 })
-export class TableComponent implements OnInit {
+export class TableComponent  implements OnInit {
     public ColumnTypEnum = ColumnTypEnum;
     private _data = [];
     @ViewChild(MatTable) table: MatTable<any>;
@@ -54,7 +54,7 @@ export class TableComponent implements OnInit {
             // Keep original order of data
             this._originalData = cloneDeep(this._data);
         }
-
+        // console.log(Object.getOwnPropertySymbols(this.dummyValue)) ;
     }
 
     get data(): any[] {

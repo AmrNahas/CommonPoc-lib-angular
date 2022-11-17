@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {Country} from '../../models/country';
 import {City} from '../../models/city';
 import {SysModule} from '../../models/SysModule';
@@ -69,4 +69,14 @@ export class DropDownService {
     public getAllTicketTypes():Observable<Array<LocalSelectItem>>{
         return this.httpClient.get<Array<LocalSelectItem>>(Constants.URL+'/api/helper/getTicketScType');
     }
+
+    public loadStatusListBits(): Observable<LocalSelectItem[]> {
+        let options = Array<LocalSelectItem>();
+        // options.push(new LocalSelectItem(this.msgsService.getMessageTranslation('USERS.status'),this.msgsService.getMessageTranslation('USERS.status'),9))
+        options.push(new LocalSelectItem('فعال', 'Active', [1, 0]));
+        options.push(new LocalSelectItem('غير فعال', 'InActive', [1, 1]));
+        return of(options) ;
+    }
+
+
 }

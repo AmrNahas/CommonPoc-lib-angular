@@ -20,6 +20,8 @@ import {ResponseDataModel2} from "../models/dto/ResponseDataModel2";
 import {DeserializeArray} from "cerializr";
 import {map} from "rxjs/operators";
 import {ActionDetInfo} from "../models/dto/ActionDetInfo";
+import {ColumnModel} from "../commonSegments/TableComponent/decorator/ColumnModel";
+import {tableSymbol} from "../commonSegments/TableComponent/decorator/Column";
 
 
 @Injectable({
@@ -62,7 +64,7 @@ export abstract class AbstractDataModelControllerV2<T> extends UtilityController
     public entityClass: Type<T>;
     public responseInfo: Observable<GenericResponseRoot<ResponseDataModel2<T>>>;
 
-    protected constructor(public service: AbstractDataModelServiceV2<T>, AppInjector: Injector, t: Type<T> ) {
+    protected constructor(public service: AbstractDataModelServiceV2<T>, AppInjector: Injector, t: Type<T>) {
 
         super();
         // prepare the needed objects by using   AppInjector >> define in App Module
@@ -77,11 +79,11 @@ export abstract class AbstractDataModelControllerV2<T> extends UtilityController
         this.permanentFiltersObjValues = new Array<FilterCriteria>();
         this.permanentSortCriteria = this.addPermanentSortColumn();
         // prepare search columns
-        this.filterPropertiesArr = this.prepareFiltersColumns() || [];
+        this.dummyValue = new t();
+        this.prepareFiltersColumns();
         this.addPermanentFilterColumns();
         this.preparePermanentFilters();// todo   delete >>  no need after last modifing
         this.prepareFiltersFormGroup(this.filterPropertiesArr);
-        this.dummyValue = new t();
 
     }
 
@@ -91,7 +93,18 @@ export abstract class AbstractDataModelControllerV2<T> extends UtilityController
 
 
     // to prepare the  filters   properties for   appears in table UI   >>>  used to initialize  : this.filterSelectObj
-    abstract prepareFiltersColumns(): Array<FilterProperty>;
+    prepareFiltersColumns() {
+        this.filterPropertiesArr = []
+
+        let columns: ColumnModel[] = this.dummyValue[tableSymbol].columns;
+        columns.forEach(item => {
+            if (item.searchable) {
+                let obj = new FilterProperty(item.label, item.key, item.columnType, item.operation, item.observableLocalItems, []);
+                this.filterPropertiesArr.push(obj);
+            }
+        })
+
+    }
 
     abstract prepareActionsDetails(): ActionDetInfo[];   //: Array<FilterProperty>;
 
@@ -250,7 +263,6 @@ export abstract class AbstractDataModelControllerV2<T> extends UtilityController
 
 
     prepareSortCriteriaArrayThenLoadAndPublish() {
-
         this.loadSortedFilteredDataAndShowData()
     }
 
@@ -393,6 +405,7 @@ export abstract class AbstractDataModelControllerV2<T> extends UtilityController
         console.log('destroyeeeed');
         if (this.dataSourceSub)
             this.dataSourceSub.unsubscribe();
+
     }
 
 
@@ -409,6 +422,9 @@ export abstract class AbstractDataModelControllerV2<T> extends UtilityController
     }
 
 
+    checkColumnType(key: string, type: ColumnTypEnum): boolean {
+        return this.filterPropertiesArr.filter(item => item.columnProp == key && item.columnType == type).length > 0
+    }
 }
 
 
