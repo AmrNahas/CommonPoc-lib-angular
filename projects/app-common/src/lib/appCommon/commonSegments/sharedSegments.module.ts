@@ -10,7 +10,6 @@ import {Pagination} from "./dataModelPaginationSeg/pagination.component";
 import {NgbDatepickerModule} from "@ng-bootstrap/ng-bootstrap";
 import {TableComponent} from "./TableComponent/Table.Component";
 import {TooltipModule} from "@swimlane/ngx-charts";
-import {SearchDialougeComponent} from "./TableComponent/searchDialouge/SearchDialougeComponent";
 import {CdkTableModule} from "@angular/cdk/table";
 import {InlineFilterComponent} from "./TableComponent/inlineFilter/inlineFilter.component";
 
@@ -35,14 +34,12 @@ import {InlineFilterComponent} from "./TableComponent/inlineFilter/inlineFilter.
         FilterComponent,
         Pagination,
         TableComponent,
-        SearchDialougeComponent,
         InlineFilterComponent
     ],
     exports: [
         FilterComponent,
         Pagination,
         TableComponent,
-        SearchDialougeComponent,
         InlineFilterComponent
     ],
 

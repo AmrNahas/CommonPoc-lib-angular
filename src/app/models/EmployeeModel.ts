@@ -17,7 +17,7 @@ export class EmployeeModel {
         canSort: false,
         label: "USERS.id",
         columnType: ColumnTypEnum.TEXT,
-        lang: "ar"
+        lang: "en"
         , searchable: false,
         operation: FilterOperationEnum.EQUAL
     })

@@ -19,9 +19,9 @@ import {AbstractDataModelServiceV2} from "../services/AbstractDataModelServiceV2
 import {ResponseDataModel2} from "../models/dto/ResponseDataModel2";
 import {DeserializeArray} from "cerializr";
 import {map} from "rxjs/operators";
-import {ActionDetInfo} from "../models/dto/ActionDetInfo";
 import {ColumnModel} from "../commonSegments/TableComponent/decorator/ColumnModel";
 import {tableSymbol} from "../commonSegments/TableComponent/decorator/Column";
+import {ActionsInfo} from "../models/dto/ActionsInfo";
 
 
 @Injectable({
@@ -38,8 +38,8 @@ export abstract class AbstractDataModelControllerV2<T> extends UtilityController
     // used for filters values from   form
     private filtersCriteriaArr = Array<FilterCriteria>();
     permanentFiltersObjValues: Array<FilterCriteria>;
-    actionDetails: ActionDetInfo[];
-    dummyValue: any;
+    actionsInfo: ActionsInfo;
+    public dummyValue: any;
     public dataSource: Observable<any[]>;
     public pageIndex: number;
     public pageSize: number;
@@ -75,7 +75,6 @@ export abstract class AbstractDataModelControllerV2<T> extends UtilityController
         this.entityClass = t;
         this.pageIndex = 0;
         this.pageSize = 10;
-        this.actionDetails = []
         this.permanentFiltersObjValues = new Array<FilterCriteria>();
         this.permanentSortCriteria = this.addPermanentSortColumn();
         // prepare search columns
@@ -88,7 +87,7 @@ export abstract class AbstractDataModelControllerV2<T> extends UtilityController
     }
 
     public afterLoadData() {
-        this.actionDetails = this.prepareActionsDetails();
+        this.actionsInfo = this.prepareActionsDetails();
     }
 
 
@@ -106,7 +105,7 @@ export abstract class AbstractDataModelControllerV2<T> extends UtilityController
 
     }
 
-    abstract prepareActionsDetails(): ActionDetInfo[];   //: Array<FilterProperty>;
+    abstract prepareActionsDetails(): ActionsInfo;   //: Array<FilterProperty>;
 
     // to prepare the custom Permanent  filters   properties and not appeared on Table  UI to apply this filters every time load the data >>>  used to initialize  : this.permanentFiltersObjValues
     abstract addPermanentFilterColumns();//:Array<FilterCriteria>;
@@ -147,16 +146,18 @@ export abstract class AbstractDataModelControllerV2<T> extends UtilityController
                     this.noDataFlag = false
                     this.errorMessageAr = response.Response.ResponseDescAr;
                     this.errorMessageLa = response.Response.ResponseDescLa;
+                    this.prepareDateAndPaginationValues(0);
                 } else {
                     this.hasError = false;
                     if (response.Response.Data.content.length == 0) {
                         this.noDataFlag = true
                         this.errorMessageLa = "No Data Found";
                         this.errorMessageAr = "لا يوجد بيانات";
+                        this.prepareDateAndPaginationValues(0);
                     } else {
                         this.noDataFlag = false
                         this.hasError = false;
-                        this.prepareDateAndPaginationValues(response.Response.Data);
+                        this.prepareDateAndPaginationValues(response.Response.Data.numberOfRecords);
                         this.dataSource = this.responseInfo.pipe(
                             map((x: GenericResponseRoot<ResponseDataModel2<T>>) => DeserializeArray(x.Response.Data.content, this.entityClass))
                             // , tap(res => console.log(res,"1"))
@@ -267,9 +268,9 @@ export abstract class AbstractDataModelControllerV2<T> extends UtilityController
     }
 
     // handel  pagination values limit and offset in change page or limit  >> must call it inside subscription of data if you handel the data by yourself
-    public prepareDateAndPaginationValues(dataModel: ResponseDataModel2<T>) {
+    public prepareDateAndPaginationValues(numOfRecords: number) {
         // this.dataSource = new MatTableDataSource<T>(dataModel.content);
-        this.length = dataModel.numberOfRecords;
+        this.length = numOfRecords;
         //   this.dataSource.sort = this.sort;
 
     }

@@ -14,6 +14,7 @@ export class DropDownService {
 
   constructor(private httpClient: HttpClient) { }
   public getALlCountries():Observable<Array<Country>>{
+      console.warn("loaded getALlCountries ")
         return this.httpClient.get<Array<Country>>(Constants.URL+'/api/helper/getAllCountries');
   }
 

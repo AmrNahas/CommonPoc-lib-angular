@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from "@angular/core";
+import {Component, Input, OnChanges, OnInit, ViewChild} from "@angular/core";
 import {cloneDeep, sortBy} from "lodash";
 import {TableModel} from "./decorator/TableModel";
 import {tableSymbol} from "./decorator/Column";
@@ -8,9 +8,10 @@ import {ColumnTypEnum} from "../../models/enum/ColumnTypEnum";
 import {MatTable} from "@angular/material/table";
 import {FilterProperty} from "../../models/dto/FilterProperty";
 import {LocalSelectItem} from "../../models/dto/LocalSelectItem";
-import {ActionDetInfo} from "../../models/dto/ActionDetInfo";
 import {BadgeValueColorMap} from "./BadgeValueColorMap";
 import {ColorEnum} from "../../models/enum/ColorEnum";
+import {ActionsInfo} from "../../models/dto/ActionsInfo";
+import {ActionRenderTypeEnum} from "../../models/enum/ActionRenderTypeEnum";
 
 
 @Component({
@@ -18,8 +19,9 @@ import {ColorEnum} from "../../models/enum/ColorEnum";
     templateUrl: "./table.component.html",
     styleUrls: ["./Table.component.scss"],
 })
-export class TableComponent  implements OnInit {
+export class TableComponent implements OnInit, OnChanges {
     public ColumnTypEnum = ColumnTypEnum;
+    public ActionRenderTypeEnum = ActionRenderTypeEnum;
     private _data = [];
     @ViewChild(MatTable) table: MatTable<any>;
     public empty: boolean;
@@ -27,34 +29,40 @@ export class TableComponent  implements OnInit {
     private _originalData: any[] = [];
     private _tableModel: TableModel;
     @Input() hasActions: boolean;
-    @Input() actionDetails: ActionDetInfo[];
+    @Input() actionsInfo: ActionsInfo;
     @Input() dummyValue: any;
     columns: ColumnModel[];
     displayedColumns: string[];
     actionColum: ColumnModel;
+    rendering: boolean;
+    dataSetFlag: boolean;
+    selectedUser: any;
+
 
 
     constructor() {
 
     }
 
+
     @Input() set data(values: any[]) {
+        this.dataSetFlag = true;
+        this.rendering = true;
         if (!values || values.length == 0) {
             this.empty = true;
             values = [];
-            values.push(this.dummyValue);
         } else {
             this.empty = false;
         }
         this._data = cloneDeep(values);
-        this._tableModel = this._data[0][tableSymbol];
+        this._tableModel = this._data && this._data.length > 0 ? this._data[0][tableSymbol] : this.dummyValue[tableSymbol];
         this.buildColumns();
 
         if (!this._originalData.length && this._originalData[0] != null) {
             // Keep original order of data
             this._originalData = cloneDeep(this._data);
         }
-        // console.log(Object.getOwnPropertySymbols(this.dummyValue)) ;
+        this.rendering = false;
     }
 
     get data(): any[] {
@@ -63,7 +71,11 @@ export class TableComponent  implements OnInit {
 
 
     ngOnInit() {
+        this.rendering = true;
+    }
 
+    ngOnChanges() {
+        this.dataSetFlag = false;
     }
 
     private buildColumns() {
@@ -71,11 +83,11 @@ export class TableComponent  implements OnInit {
             let columnsList: ColumnModel[] = this._tableModel.columns
             this.columns = columnsList.filter(item => item.lang == null || item.lang == this.getCurrentLang());
             this.sortColumns();
-            if (this.actionDetails && this.actionDetails.length > 0 && !this.empty) {
+            if (this.actionsInfo && this.actionsInfo.actions.length > 0) {
                 this.actionColum = new ColumnModel(
                     {
                         key: "actions",
-                        canSort: false, label: "GENERIC.actions", hasBadge: false,
+                        label: "GENERIC.actions"
                     }
                 );
                 this.columns.push(this.actionColum)
@@ -92,16 +104,9 @@ export class TableComponent  implements OnInit {
     }
 
 
-    openLog(column: ColumnModel) {
-        console.log(column)
-    }
-
-
-
     stopPropagation($event: any) {
         if ($event) $event.stopPropagation();
     }
-
 
 
     loadData($event: Event) {
@@ -156,5 +161,6 @@ export class TableComponent  implements OnInit {
         let lang = localStorage.getItem('lang');
         return lang ? lang : "ar";
     }
+
 }
 

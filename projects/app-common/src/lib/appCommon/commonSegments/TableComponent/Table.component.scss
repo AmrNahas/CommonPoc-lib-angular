@@ -36,3 +36,11 @@ table {
 .app.teal-light .mat-form-field-appearance-legacy .mat-form-field-infix {
   padding: 0;
 }
+
+
+.demo-table {
+  width: 100%;
+}
+.mat-row:nth-child(2n) {
+  background-color: #f2f2f2;
+}
