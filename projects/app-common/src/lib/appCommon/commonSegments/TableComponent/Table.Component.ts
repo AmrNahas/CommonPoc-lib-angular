@@ -162,5 +162,6 @@ export class TableComponent implements OnInit, OnChanges {
         return lang ? lang : "ar";
     }
 
+
 }
 

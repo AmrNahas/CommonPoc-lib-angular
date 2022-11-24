@@ -14,11 +14,11 @@ export class EmployeeModel {
     @autoserializeAs(Number)
     @Column({
         key: "empId",
-        canSort: false,
+        canSort: true,
         label: "USERS.id",
         columnType: ColumnTypEnum.TEXT,
-        lang: "en"
-        , searchable: false,
+         searchable: true,
+        lang:"en",
         operation: FilterOperationEnum.EQUAL
     })
     empId: number
@@ -31,6 +31,7 @@ export class EmployeeModel {
         canSort: true,
         label: "registration.firstName",
         hasBadge: false,
+        lang:"en",
         searchable: true,
         operation: FilterOperationEnum.MATCH
     })

@@ -117,6 +117,7 @@ export abstract class AbstractDataModelControllerV2<T> extends UtilityController
       */
     public loadDataAndPublish() {
         this.prepareAllFilterCriteria();
+        this.filterComponentForm.disable();
         this.loadSortedFilteredDataAndShowData();
         this.afterLoadData()
     }
@@ -170,6 +171,7 @@ export abstract class AbstractDataModelControllerV2<T> extends UtilityController
                 }
                 document.getElementById('main-content').scrollTop = 0;
                 this.loadDataFlag = false;
+                this.filterComponentForm.enable();
             },
             error => {
                 // console.log("erorrrrrrr")
@@ -422,9 +424,24 @@ export abstract class AbstractDataModelControllerV2<T> extends UtilityController
         return this.sortCriteriaArr.filter(item => (item.propertyName == key && item.sortOrder != "")).length > 0
     }
 
+    getCorrectIcon(key: string): string {
+        let sortOrder: string = this.sortCriteriaArr.filter(item => (item.propertyName == key))[0].sortOrder
+        return sortOrder&& sortOrder === "asc" ? "arrow_upward" : "arrow_downward";
+
+
+    }
+
 
     checkColumnType(key: string, type: ColumnTypEnum): boolean {
         return this.filterPropertiesArr.filter(item => item.columnProp == key && item.columnType == type).length > 0
+    }
+
+    isSortedByAsc(key: string) {
+        return this.sortCriteriaArr.filter(item => (item.propertyName == key && item.sortOrder != "asc")).length > 0
+    }
+
+    isSortedByDesc(key: string) {
+        return this.sortCriteriaArr.filter(item => (item.propertyName == key && item.sortOrder != "desc")).length > 0
     }
 }
 

@@ -54,7 +54,8 @@
     "stompjs": "^2.3.3",
     "tslib": "2.0.0",
     "zone.js": "0.10.3",
-    "cerializr": "^3.1.3"
+    "cerializr": "^3.1.3",
+    "ngx-skeleton-loader": "^2.9.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "0.1000.0",

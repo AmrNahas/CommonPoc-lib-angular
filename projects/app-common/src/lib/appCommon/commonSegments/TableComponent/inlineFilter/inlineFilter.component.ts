@@ -5,6 +5,8 @@ import {ColumnModel} from "../decorator/ColumnModel";
 import {LocalSelectItem} from "../../../models/dto/LocalSelectItem";
 import {FilterProperty} from "../../../models/dto/FilterProperty";
 import {AbstractDataModelControllerV2} from "../../../controllers/AbstractDataModelControllerV2";
+import {BadgeValueColorMap} from "../BadgeValueColorMap";
+import {ColorEnum} from "../../../models/enum/ColorEnum";
 
 
 @Component({
@@ -14,7 +16,7 @@ import {AbstractDataModelControllerV2} from "../../../controllers/AbstractDataMo
 })
 
 export class InlineFilterComponent extends UtilityController implements OnInit {
-    @Input() public column:ColumnModel
+    @Input() public columns:ColumnModel[]
     @Input() public obj: AbstractDataModelControllerV2<any> ;
     public  ColumnTypEnum=ColumnTypEnum;
     constructor(   ) {
@@ -42,6 +44,19 @@ export class InlineFilterComponent extends UtilityController implements OnInit {
 
     stopPropagation($event: any) {
         if ($event) $event.stopPropagation();
+    }
+
+
+    getColorForBadge(badgeColorsMap: Array<BadgeValueColorMap>, value: any) {
+        try {
+            if (badgeColorsMap && badgeColorsMap.length > 0 && value != null)
+                return badgeColorsMap.filter(item => item.value == value)[0].color
+            else {
+                return ColorEnum.DEFAULT;
+            }
+        } catch (e) {
+            return ColorEnum.DEFAULT;
+        }
     }
 
 }
