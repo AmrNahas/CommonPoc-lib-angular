@@ -12,7 +12,6 @@ import {TableComponent} from "./TableComponent/Table.Component";
 import {TooltipModule} from "@swimlane/ngx-charts";
 import {CdkTableModule} from "@angular/cdk/table";
 import {InlineFilterComponent} from "./TableComponent/inlineFilter/inlineFilter.component";
-import {NgxSkeletonLoaderModule} from "ngx-skeleton-loader";
 
 
 @NgModule({
@@ -27,7 +26,6 @@ import {NgxSkeletonLoaderModule} from "ngx-skeleton-loader";
         NgbDatepickerModule,
         TooltipModule,
         CdkTableModule,
-        NgxSkeletonLoaderModule,
         // CustomPipesModule,
 
     ],
