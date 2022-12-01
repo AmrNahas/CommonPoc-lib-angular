@@ -65,6 +65,7 @@ export class EmployeeServiceV2 extends AbstractDataModelServiceV2<EmployeeModel>
         return this.httpClient.post<GenericResponseRoot<ResponseDataModel<Employee>>>(Constants.URL + '/api/employees/getFiltersSortedUsersData', inputDataModel);
     }*/
     loadData(inputDataModel: InputDataModel): Observable<GenericResponseRoot<ResponseDataModel2<EmployeeModel>>> {
+
         return this.httpClient.post<GenericResponseRoot<ResponseDataModel2<EmployeeModel>>>(Constants.URL + '/api/employees/getFiltersSortedUsersData', inputDataModel);
     }
 

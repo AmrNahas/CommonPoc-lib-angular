@@ -72,7 +72,32 @@ export class TableComponent implements OnInit, OnChanges {
 
     ngOnInit() {
         this.rendering = true;
+/*        window.addEventListener('keydown', function(e) {
+            if(e.keyCode == 32 && e.target == document.body) {
+                console.log(e.key)
+                e.preventDefault();
+            }
+        });*/
+
+       this.disableF5Event()
     }
+
+
+
+
+
+
+    disableF5Event() {
+        window.addEventListener('keyup', disableF5);
+        window.addEventListener('keydown', disableF5);
+
+        function disableF5(e) {
+            if ((e.which || e.key) == 116) {
+                e.preventDefault();
+            }
+        }
+    }
+
 
     ngOnChanges() {
         this.dataSetFlag = false;
@@ -105,7 +130,8 @@ export class TableComponent implements OnInit, OnChanges {
 
 
     stopPropagation($event: any) {
-        if ($event) $event.stopPropagation();
+        $event.stopPropagation();
+       // if ($event) $event.stopPropagation();
     }
 
 
@@ -163,5 +189,12 @@ export class TableComponent implements OnInit, OnChanges {
     }
 
 
+    test() {
+        console.log("space action  down")
+    }
+
+    toggle($event: Event) {
+        console.log("Toggle", $event)
+    }
 }
 

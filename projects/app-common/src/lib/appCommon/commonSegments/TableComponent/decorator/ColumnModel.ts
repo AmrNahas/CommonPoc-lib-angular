@@ -23,6 +23,7 @@ export class ColumnModel {
     lang: string
     searchable: boolean;
     dropDownOptions: Observable<LocalSelectItem[]> ;
+    availableSearchOps: FilterOperationEnum[] ;
 
 
     constructor(options: Partial<ColumnModel> = {}) {
@@ -42,5 +43,6 @@ export class ColumnModel {
         this.lang = options.lang || null;
         this.searchable=options.searchable || false;
         this.dropDownOptions=options.dropDownOptions||of([]);
+        this.availableSearchOps=options.availableSearchOps  || [] ;
     }
 }

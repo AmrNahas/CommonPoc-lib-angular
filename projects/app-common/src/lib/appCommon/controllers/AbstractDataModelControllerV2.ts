@@ -6,7 +6,7 @@ import {MatPaginator, PageEvent} from '@angular/material/paginator';
 import {MatSort, Sort} from '@angular/material/sort';
 import {MessagesService} from '../utility/MessagesService';
 import {UtilityController} from './UtilityController';
-import {Observable, Subscription} from 'rxjs';
+import {Observable, of, Subscription} from 'rxjs';
 import {AbstractDataModelService} from '../services/AbstractDataModelService';
 import {InputDataModel} from '../models/dto/InputDataModel';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
@@ -17,11 +17,12 @@ import {HijriFormatFromNgStructPipe} from "../hijri-gregorian-datepicker/HijriFo
 import {GenericResponseRoot} from "../models/dto/GenericResponseRoot";
 import {AbstractDataModelServiceV2} from "../services/AbstractDataModelServiceV2";
 import {ResponseDataModel2} from "../models/dto/ResponseDataModel2";
-import {DeserializeArray} from "cerializr";
+import {DeserializeArray, JsonArray} from "cerializr";
 import {map} from "rxjs/operators";
 import {ColumnModel} from "../commonSegments/TableComponent/decorator/ColumnModel";
 import {tableSymbol} from "../commonSegments/TableComponent/decorator/Column";
 import {ActionsInfo} from "../models/dto/ActionsInfo";
+import {FilterOperationEnum} from "../models/enum/FilterOperationEnum";
 
 
 @Injectable({
@@ -63,6 +64,7 @@ export abstract class AbstractDataModelControllerV2<T> extends UtilityController
     public noDataFlag: boolean;
     public entityClass: Type<T>;
     public responseInfo: Observable<GenericResponseRoot<ResponseDataModel2<T>>>;
+    public content: Observable<JsonArray>;
 
     protected constructor(public service: AbstractDataModelServiceV2<T>, AppInjector: Injector, t: Type<T>) {
 
@@ -94,14 +96,43 @@ export abstract class AbstractDataModelControllerV2<T> extends UtilityController
     // to prepare the  filters   properties for   appears in table UI   >>>  used to initialize  : this.filterSelectObj
     prepareFiltersColumns() {
         this.filterPropertiesArr = []
-
         let columns: ColumnModel[] = this.dummyValue[tableSymbol].columns;
         columns.forEach(item => {
             if (item.searchable) {
-                let obj = new FilterProperty(item.label, item.key, item.columnType, item.operation, item.observableLocalItems, []);
+                let obj = new FilterProperty(item.label, item.key, item.columnType, item.operation, item.observableLocalItems, item.inputValidators);
                 this.filterPropertiesArr.push(obj);
             }
         })
+
+    }
+
+    changeFilterPropOps(key: string, ops: FilterOperationEnum) {
+        if (this.filterPropertiesArr) {
+            this.filterPropertiesArr.forEach(item => {
+                if (item.columnProp == key)
+                    item.operation = ops;
+
+            })
+        }
+
+    }
+
+
+
+
+    checkSelectedOps(key: string, ops: FilterOperationEnum): boolean {
+        let x: boolean = false;
+        if (this.filterPropertiesArr) {
+            for (var i = 0; i < this.filterPropertiesArr.length; i++)
+                if (this.filterPropertiesArr[i].columnProp == key && this.filterPropertiesArr[i].operation == ops) {
+                    x = true;
+                    break;
+                }
+        } else
+            x = false;
+
+        return x;
+
 
     }
 
@@ -123,25 +154,19 @@ export abstract class AbstractDataModelControllerV2<T> extends UtilityController
     }
 
 
-    // return  Observable object of ResponseDataModel only
-    public getObservableResponseDataModelArr(): Observable<GenericResponseRoot<ResponseDataModel2<T>>> {
-        this.dataSource = null;
-        let offset = this.pageIndex * this.pageSize;
-        let limit = this.pageSize;
-        let inputDataModel = new InputDataModel(this.filtersCriteriaArr, limit, offset, this.permanentSortCriteria, this.sortCriteriaArr);
-        return this.service.loadData(inputDataModel);
-    }
-
-
     // load data , subscribed and  set all required members then return  Observable Array object of ResponseDataModel
-    public loadSortedFilteredDataAndShowData(): Observable<GenericResponseRoot<ResponseDataModel2<T>>> {
+    public loadSortedFilteredDataAndShowData() {
         this.loadDataFlag = true;
         this.dataSource = new Observable<any[]>();
         let offset = this.pageIndex * this.pageSize;
         let limit = this.pageSize;
         let inputDataModel = new InputDataModel(this.filtersCriteriaArr, limit, offset, this.permanentSortCriteria, this.sortCriteriaArr);
-        this.responseInfo = this.service.loadData(inputDataModel);
-        this.dataSourceSub = this.responseInfo.subscribe((response: GenericResponseRoot<ResponseDataModel2<T>>) => {
+        this.loadDataAndSubscribe(inputDataModel);
+    }
+
+
+    private loadDataAndSubscribe(inputDataModel: InputDataModel) {
+        this.dataSourceSub = this.service.loadData(inputDataModel).subscribe((response: GenericResponseRoot<ResponseDataModel2<T>>) => {
                 if (response.Response.ResponseCode != 0) {
                     this.hasError = true;
                     this.noDataFlag = false
@@ -150,21 +175,16 @@ export abstract class AbstractDataModelControllerV2<T> extends UtilityController
                     this.prepareDateAndPaginationValues(0);
                 } else {
                     this.hasError = false;
+                    this.prepareDateAndPaginationValues(response.Response.Data.numberOfRecords);
                     if (response.Response.Data.content.length == 0) {
                         this.noDataFlag = true
                         this.errorMessageLa = "No Data Found";
                         this.errorMessageAr = "لا يوجد بيانات";
-                        this.prepareDateAndPaginationValues(0);
                     } else {
                         this.noDataFlag = false
                         this.hasError = false;
-                        this.prepareDateAndPaginationValues(response.Response.Data.numberOfRecords);
-                        this.dataSource = this.responseInfo.pipe(
-                            map((x: GenericResponseRoot<ResponseDataModel2<T>>) => DeserializeArray(x.Response.Data.content, this.entityClass))
-                            // , tap(res => console.log(res,"1"))
-                        );
-
-
+                        this.dataSource = of(response.Response.Data.content).pipe(map((x: JsonArray) => DeserializeArray(x, this.entityClass)));
+                        /*   , tap(res => console.log(res, "1")));*/
                         this.afterLoadData();
 
                     }
@@ -174,14 +194,15 @@ export abstract class AbstractDataModelControllerV2<T> extends UtilityController
                 this.filterComponentForm.enable();
             },
             error => {
-                // console.log("erorrrrrrr")
-                // console.log(error);
+                this.hasError = true;
+                this.noDataFlag = false
+                this.errorMessageLa = "No Data Found";
+                this.errorMessageAr = "لا يوجد بيانات";
+                this.prepareDateAndPaginationValues(0);
                 document.getElementById('main-content').scrollTop = 0;
 
             }
         );
-
-        return this.responseInfo;
     }
 
 
@@ -265,9 +286,9 @@ export abstract class AbstractDataModelControllerV2<T> extends UtilityController
     }
 
 
-    prepareSortCriteriaArrayThenLoadAndPublish() {
-        this.loadSortedFilteredDataAndShowData()
-    }
+    /*  prepareSortCriteriaArrayThenLoadAndPublish() {
+          this.loadSortedFilteredDataAndShowData()
+      }*/
 
     // handel  pagination values limit and offset in change page or limit  >> must call it inside subscription of data if you handel the data by yourself
     public prepareDateAndPaginationValues(numOfRecords: number) {
@@ -338,7 +359,6 @@ export abstract class AbstractDataModelControllerV2<T> extends UtilityController
         if (this.filterComponentForm.valid) {
             this.filterPropertiesArr.forEach((filterProperty) => {
                 let propertyValue = this.filterComponentForm.controls[filterProperty.columnProp].value;
-
                 // && filterProperty.operation == FilterOperationEnum.DAY_EQUAL
                 if (propertyValue instanceof Date && filterProperty.columnType == ColumnTypEnum.DATE_GEO) {
                     // propertyValue = new DatePipe('en').transform(propertyValue, 'dd/MM/y');
@@ -405,7 +425,6 @@ export abstract class AbstractDataModelControllerV2<T> extends UtilityController
 
 
     ngOnDestroy(): void {
-        console.log('destroyeeeed');
         if (this.dataSourceSub)
             this.dataSourceSub.unsubscribe();
 
@@ -426,7 +445,7 @@ export abstract class AbstractDataModelControllerV2<T> extends UtilityController
 
     getCorrectIcon(key: string): string {
         let sortOrder: string = this.sortCriteriaArr.filter(item => (item.propertyName == key))[0].sortOrder
-        return sortOrder&& sortOrder === "asc" ? "arrow_upward" : "arrow_downward";
+        return sortOrder && sortOrder === "asc" ? "arrow_upward" : "arrow_downward";
 
 
     }
@@ -443,6 +462,9 @@ export abstract class AbstractDataModelControllerV2<T> extends UtilityController
     isSortedByDesc(key: string) {
         return this.sortCriteriaArr.filter(item => (item.propertyName == key && item.sortOrder != "desc")).length > 0
     }
+
+
+
 }
 
 

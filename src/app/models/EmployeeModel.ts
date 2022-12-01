@@ -8,6 +8,9 @@ import {
 import {StatusPipe} from "../common/customePipes/pipes/statusPipe";
 import {FilterOperationEnum} from "../../../projects/app-common/src/lib/appCommon/models/enum/FilterOperationEnum";
 import {dropDownService} from "../app.module";
+import {
+    GenericFormValidators
+} from "../../../projects/app-common/src/lib/appCommon/customFormValidators/GenericFormValidators";
 
 export class EmployeeModel {
 
@@ -18,8 +21,9 @@ export class EmployeeModel {
         label: "USERS.id",
         columnType: ColumnTypEnum.TEXT,
          searchable: true,
-        lang:"en",
-        operation: FilterOperationEnum.EQUAL
+        operation: FilterOperationEnum.EQUAL,
+         inputValidators:[GenericFormValidators.numeric],
+        availableSearchOps:[FilterOperationEnum.EQUAL,FilterOperationEnum.MATCH,FilterOperationEnum.NOT_EQUAL,FilterOperationEnum.GREATER_THAN_EQUAL,FilterOperationEnum.LESS_THAN_EQUAL]
     })
     empId: number
 
@@ -31,9 +35,10 @@ export class EmployeeModel {
         canSort: true,
         label: "registration.firstName",
         hasBadge: false,
-        lang:"en",
         searchable: true,
-        operation: FilterOperationEnum.MATCH
+        operation: FilterOperationEnum.MATCH,
+        availableSearchOps:[FilterOperationEnum.EQUAL,FilterOperationEnum.MATCH]
+
     })
     firstName: string;
 
@@ -47,7 +52,8 @@ export class EmployeeModel {
         columnType: ColumnTypEnum.TEXT,
         lang: "en",
         searchable: true,
-        operation: FilterOperationEnum.MATCH
+        operation: FilterOperationEnum.MATCH,
+        availableSearchOps:[FilterOperationEnum.EQUAL,FilterOperationEnum.MATCH]
     })
     lastName: String;
 
@@ -60,7 +66,8 @@ export class EmployeeModel {
         hasBadge: false,
         columnType: ColumnTypEnum.TEXT,
         searchable: true,
-        operation: FilterOperationEnum.MATCH
+        operation: FilterOperationEnum.MATCH,
+        availableSearchOps:[FilterOperationEnum.EQUAL,FilterOperationEnum.MATCH]
     })
     email: String;
     @autoserializeAs(String)
@@ -71,7 +78,9 @@ export class EmployeeModel {
         hasBadge: false,
         columnType: ColumnTypEnum.TEXT,
         searchable: true,
-        operation: FilterOperationEnum.EQUAL
+        operation: FilterOperationEnum.EQUAL,
+        // inputValidators:[GenericFormValidators.KsaPhoneValidator],
+        availableSearchOps:[FilterOperationEnum.EQUAL,FilterOperationEnum.MATCH,FilterOperationEnum.NOT_EQUAL]
     })
     identityNum: String;
 
@@ -118,7 +127,8 @@ export class EmployeeModel {
     @Column({
         key: "hijriDate", searchable: true,
         canSort: false, label: "registration.birthDay", hasBadge: false, columnType: ColumnTypEnum.DATE_Hij,
-        operation: FilterOperationEnum.EQUAL
+        operation: FilterOperationEnum.EQUAL,
+        availableSearchOps:[FilterOperationEnum.EQUAL,FilterOperationEnum.MATCH,FilterOperationEnum.NOT_EQUAL]
 
     })
     hijriDate: number

@@ -1,4 +1,12 @@
 {
+  "equal": "Equal",
+  "match": "Match",
+  "gt": "Greater Than ",
+  "lt": "Less Than ",
+  "gte": "Greater or Equal",
+  "lte": "Less or Equal",
+  "not_equal": "Not Equal",
+  "operation": "Search Operation",
   "MENU": {
     "Home": " Home",
     "Dashboard": "Dashboard",

@@ -10,28 +10,32 @@
         </div>
     </mat-card>
 
-    <div class="mat-elevation-z8" >
-        <!--    table  matSortActive="firstName" -->
-        <mat-table [dataSource]="data" class="mat-elevation-z8 demo-table t" matSort
-                   style="table-layout: fixed !important;"
-                   (matSortChange)="obj.sortAction($event)">
+    <div class="mat-elevation-z8">
 
-            <form [formGroup]="obj.filterComponentForm" (ngSubmit)="obj.search()" >
+        <mat-table [dataSource]="data" class="mat-elevation-z8 demo-table t" matSort
+                   style="table-layout: fixed !important;" (keyup.space)="$event.stopPropagation()"
+                   (matSortChange)="obj.sortAction($event)"   >
+
+            <form [formGroup]="obj.filterComponentForm" (ngSubmit)="obj.search()">
                 <ng-container [cdkColumnDef]="column.key" *ngFor="let column of columns">
 
-                    <mat-header-cell *matHeaderCellDef [mat-sort-header]="column.key" [disabled]="!column.canSort || (obj.loadDataFlag  || rendering || dataSetFlag) ">
+                    <mat-header-cell style="font-size: 10px;"  (click)="$event.stopPropagation()"
+                                     *matHeaderCellDef [mat-sort-header]="column.key"
+                                     [disabled]="!column.canSort || (obj.loadDataFlag  || rendering || dataSetFlag) ">
 
-                        <!--      <button mat-icon-button color="primary" (click)="searchEvent($event,column)">
-                                  <mat-icon>search</mat-icon>
-                              </button>-->
+                        <div  fxLayout="row " >
 
+                            <!--label if non searchable-->
                         <div *ngIf="!column.searchable">
                             <label class="table-cell-light">{{column.label| translate}}</label>
                         </div>
 
-                        <mat-form-field (keyup.enter)="obj.search()" (click)="stopPropagation($event)"
-                                        *ngIf="column.searchable" style="width: 125px">
-                            <mat-label class="table-cell-light">{{column.label | translate}}</mat-label>
+
+                        <!--searchable input -->
+                        <mat-form-field (keyup.enter)="obj.search()" (keydown.space)="$event.preventDefault()"
+                                        (click)="$event.stopPropagation()"
+                                        *ngIf="column.searchable" style="width: 100px" >
+                            <mat-label class="table-cell-light"><mat-icon >filter_list</mat-icon> {{column.label | translate}}  </mat-label>
 
                             <input matNativeControl *ngIf="column.columnType==ColumnTypEnum.TEXT"
                                    formControlName="{{column.key}}">
@@ -88,76 +92,115 @@
                             <!--<mat-hint>Hint</mat-hint> -->
                         </mat-form-field>
 
+
+
+                     <!--   sort-operation-->
                         <ng-container *ngIf="column.canSort">
-                            <mat-icon class="muted-text" *ngIf="!obj.isSortedBy(column.key) ; else haveSort" >sort</mat-icon>
+                            <mat-icon class="muted-icon sort-icon"    *ngIf="!obj.isSortedBy(column.key) ; else haveSort">arrow_upward
+                            </mat-icon>
                             <ng-template #haveSort>
-                            <mat-icon color="primary"> {{obj.getCorrectIcon(column.key)}}</mat-icon>
+                                <mat-icon color="primary"> {{obj.getCorrectIcon(column.key)}}</mat-icon>
                             </ng-template>
+                        </ng-container>
+
+
+                        </div>
+
+                        <!-- operation - select -->
+                        <ng-container  *ngIf="  column.searchable && column.availableSearchOps && column.availableSearchOps.length>0">
+                            <button mat-icon-button [matMenuTriggerFor]="menuOps" #menuTrigger="matMenuTrigger"
+                                    (click)="$event.stopPropagation()">
+                                <mat-icon >more_vert</mat-icon>
+                            </button>
+
+                            <mat-menu #menuOps="matMenu" xPosition="before" overlapTrigger="true">
+                                      <span (mouseleave)="menuTrigger.closeMenu()">
+                                           <button mat-button [disabled]="true">
+                                             <mat-icon color="primary">filter_list</mat-icon>
+                                               <mat-label style="color: #0277bd">{{"operation"|translate}}</mat-label>
+                                           </button>
+                                            <button mat-button (click)="obj.changeFilterPropOps(column.key,column.operation) "   >
+                                             <mat-icon   >wrap_text</mat-icon>
+                                           </button>
+
+                                             <mat-divider></mat-divider>
+                                    <ng-container *ngFor="let op of column.availableSearchOps ; let indexOfElement=index;">
+                                      <button mat-menu-item  (click)="obj.changeFilterPropOps(column.key,op) " >
+                                               <mat-icon *ngIf="obj.checkSelectedOps(column.key,op) ; else notChecked" color="primary">radio_button_checked</mat-icon>
+                                               <ng-template #notChecked>
+                                               <mat-icon   >radio_button_unchecked</mat-icon>
+                                               </ng-template>
+                                               <span>{{op|translate}}</span>
+                                                </button>
+                                                <mat-divider *ngIf="column.availableSearchOps.length-1!=indexOfElement"></mat-divider>
+                                        </ng-container>
+                                      </span>
+                            </mat-menu>
                         </ng-container>
 
                     </mat-header-cell>
 
 
-
                     <ng-container *ngIf="data && data.length>0">
-                    <ng-container *ngIf="column.key!='actions'">
-                        <ng-container *ngIf="column.hasBadge ">
-                            <mat-cell *matCellDef="let element">
-                                <mat-chip-list
-                                        *ngIf=" element[column.key]!=null  && !element[column.key].toString.empty ">
-                                    <mat-chip color="{{getColorForBadge( column.badgeColorsMap, element[column.key])}}"
-                                              selected="true" class="info-chip">
-                                        {{column.pipeTransformation ? transformData(element[column.key], column) : element[column.key]}}
-                                    </mat-chip>
-                                </mat-chip-list>
-                            </mat-cell>
-                        </ng-container>
-
-                        <ng-container *ngIf="!column.hasBadge ">
-                            <mat-cell
-                                    *matCellDef="let element"> {{column.pipeTransformation ? transformData(element[column.key], column) : element[column.key]}}  </mat-cell>
-
-                        </ng-container>
-
-                    </ng-container>
-
-
-                    <ng-container *ngIf="column.key=='actions' ">
-                        <mat-cell *matCellDef="let element">
-                            <ng-container *ngIf="actionsInfo.type==ActionRenderTypeEnum.SEPERATED">
-                                <ng-container *ngFor="let ac of actionsInfo.actions  ">
-                                    <ng-container>
-                                        <button mat-icon-button mat-button color="{{ac.color}}"
-                                                (click)="ac.function(element)">
-                                            <mat-icon>{{ac.icon}}</mat-icon>
-                                        </button>
-                                    </ng-container>
-                                </ng-container>
+                        <ng-container *ngIf="column.key!='actions'">
+                            <ng-container *ngIf="column.hasBadge ">
+                                <mat-cell *matCellDef="let element">
+                                    <mat-chip-list
+                                            *ngIf=" element[column.key]!=null  && !element[column.key].toString.empty ">
+                                        <mat-chip
+                                                color="{{getColorForBadge( column.badgeColorsMap, element[column.key])}}"
+                                                selected="true" class="info-chip">
+                                            {{column.pipeTransformation ? transformData(element[column.key], column) : element[column.key]}}
+                                        </mat-chip>
+                                    </mat-chip-list>
+                                </mat-cell>
                             </ng-container>
 
-                            <ng-container *ngIf="actionsInfo.type==ActionRenderTypeEnum.TOGGLE">
-                                <button mat-icon-button [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger">
-                                    <mat-icon color="primary">more_vert</mat-icon>
-                                </button>
+                            <ng-container *ngIf="!column.hasBadge ">
+                                <mat-cell
+                                        *matCellDef="let element"> {{column.pipeTransformation ? transformData(element[column.key], column) : element[column.key]}}  </mat-cell>
 
-                                <mat-menu #menu="matMenu" xPosition="before" overlapTrigger="true">
+                            </ng-container>
+
+                        </ng-container>
+
+
+                        <ng-container *ngIf="column.key=='actions' ">
+                            <mat-cell *matCellDef="let element">
+                                <ng-container *ngIf="actionsInfo.type==ActionRenderTypeEnum.SEPERATED">
+                                    <ng-container *ngFor="let ac of actionsInfo.actions  ">
+                                        <ng-container>
+                                            <button mat-icon-button mat-button color="{{ac.color}}"
+                                                    (click)="ac.function(element)">
+                                                <mat-icon>{{ac.icon}}</mat-icon>
+                                            </button>
+                                        </ng-container>
+                                    </ng-container>
+                                </ng-container>
+
+                                <ng-container *ngIf="actionsInfo.type==ActionRenderTypeEnum.TOGGLE">
+                                    <button mat-icon-button [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger">
+                                        <mat-icon color="primary">more_vert</mat-icon>
+                                    </button>
+
+                                    <mat-menu #menu="matMenu" xPosition="before" overlapTrigger="true">
                                       <span (mouseleave)="menuTrigger.closeMenu()">
                                     <ng-container *ngFor="let ac of actionsInfo.actions  ">
                                       <button mat-menu-item (click)="ac.function(element)">
                                                    <mat-icon color="{{ac.color}}">{{ac.icon}}</mat-icon>
-                                              <span>Edit</span>
+                                              <span>{{ac.name}}</span>
                                                 </button>
 
                                         </ng-container>
                                       </span>
-                                </mat-menu>
+                                    </mat-menu>
 
 
-                            </ng-container>
+                                </ng-container>
 
-                        </mat-cell>
+                            </mat-cell>
 
-                    </ng-container>
+                        </ng-container>
                     </ng-container>
 
 
@@ -167,7 +210,7 @@
              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 
      -->
-            <mat-header-row *matHeaderRowDef="displayedColumns; "></mat-header-row>
+            <mat-header-row style="width: auto" *matHeaderRowDef="displayedColumns; "></mat-header-row>
             <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
             <!--        <mat-row *matRowDef="let row; columns: displayedColumns;"
                              class="hover"
@@ -179,7 +222,7 @@
         <!--spinner-->
         <div *ngIf="(obj.loadDataFlag  || rendering || dataSetFlag) " fxLayout="column" fxLayoutAlign="center center"
              class="user-spinner">
-         <mat-spinner color="primary"></mat-spinner>
+            <mat-spinner color="primary"></mat-spinner>
         </div>
 
         <mat-card *ngIf="obj.noDataFlag  && !obj.loadDataFlag ">
@@ -200,8 +243,6 @@
         </mat-paginator>
 
     </div>
-
-
 
 
 </div>
