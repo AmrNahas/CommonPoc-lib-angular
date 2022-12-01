@@ -21,8 +21,8 @@ import {DeserializeArray, JsonArray} from "cerializr";
 import {map} from "rxjs/operators";
 import {ColumnModel} from "../commonSegments/TableComponent/decorator/ColumnModel";
 import {tableSymbol} from "../commonSegments/TableComponent/decorator/Column";
-import {ActionsInfo} from "../models/dto/ActionsInfo";
 import {FilterOperationEnum} from "../models/enum/FilterOperationEnum";
+import {TableProperties} from "../models/dto/TableProperties";
 
 
 @Injectable({
@@ -37,9 +37,9 @@ export abstract class AbstractDataModelControllerV2<T> extends UtilityController
     sortCriteriaArr = Array<SortCriteria>();
     permanentSortCriteria: SortCriteria;
     // used for filters values from   form
-    private filtersCriteriaArr = Array<FilterCriteria>();
+    public filtersCriteriaArr = Array<FilterCriteria>();
     permanentFiltersObjValues: Array<FilterCriteria>;
-    actionsInfo: ActionsInfo;
+    public tableProperties: TableProperties
     public dummyValue: any;
     public dataSource: Observable<any[]>;
     public pageIndex: number;
@@ -86,10 +86,12 @@ export abstract class AbstractDataModelControllerV2<T> extends UtilityController
         this.preparePermanentFilters();// todo   delete >>  no need after last modifing
         this.prepareFiltersFormGroup(this.filterPropertiesArr);
 
+
     }
 
     public afterLoadData() {
-        this.actionsInfo = this.prepareActionsDetails();
+        this.tableProperties = this.defineTableProperties();
+
     }
 
 
@@ -118,8 +120,6 @@ export abstract class AbstractDataModelControllerV2<T> extends UtilityController
     }
 
 
-
-
     checkSelectedOps(key: string, ops: FilterOperationEnum): boolean {
         let x: boolean = false;
         if (this.filterPropertiesArr) {
@@ -136,7 +136,9 @@ export abstract class AbstractDataModelControllerV2<T> extends UtilityController
 
     }
 
-    abstract prepareActionsDetails(): ActionsInfo;   //: Array<FilterProperty>;
+
+
+    abstract defineTableProperties(): TableProperties
 
     // to prepare the custom Permanent  filters   properties and not appeared on Table  UI to apply this filters every time load the data >>>  used to initialize  : this.permanentFiltersObjValues
     abstract addPermanentFilterColumns();//:Array<FilterCriteria>;
@@ -301,7 +303,6 @@ export abstract class AbstractDataModelControllerV2<T> extends UtilityController
 
     // to handel the pagination event    >> take pagination Event
     public paginationHandel(event?: PageEvent) {
-        console.warn("pagination " + event.pageSize);
         this.pageIndex = event.pageIndex;
         this.pageSize = event.pageSize;
         this.loadDataAndPublish();
@@ -423,6 +424,12 @@ export abstract class AbstractDataModelControllerV2<T> extends UtilityController
 
     }
 
+    clearFilter(probName: string) {
+        this.clearValue(probName);
+        this.loadDataAndPublish();
+
+
+    }
 
     ngOnDestroy(): void {
         if (this.dataSourceSub)
@@ -462,7 +469,6 @@ export abstract class AbstractDataModelControllerV2<T> extends UtilityController
     isSortedByDesc(key: string) {
         return this.sortCriteriaArr.filter(item => (item.propertyName == key && item.sortOrder != "desc")).length > 0
     }
-
 
 
 }

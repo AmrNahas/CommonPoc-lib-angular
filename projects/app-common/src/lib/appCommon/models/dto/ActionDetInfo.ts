@@ -7,7 +7,7 @@ export class ActionDetInfo {
     }
 
     function: Function;
-    name: number;
+    name: string;
     color: string;
     icon: string;
 

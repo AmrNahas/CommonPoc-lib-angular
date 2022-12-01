@@ -10,8 +10,8 @@ import {AbstractDataModelWrapperServiceV2} from "../../Wrappers/abstract-data-mo
 import {ActionDetInfo} from "../../../../projects/app-common/src/lib/appCommon/models/dto/ActionDetInfo";
 import {EmployeeModel} from "../../models/EmployeeModel";
 import {EmployeeServiceV2} from "../../services/ExampleServices/employeeV2.Service";
-import {ActionsInfo} from "../../../../projects/app-common/src/lib/appCommon/models/dto/ActionsInfo";
 import {ActionRenderTypeEnum} from "../../../../projects/app-common/src/lib/appCommon/models/enum/ActionRenderTypeEnum";
+import {TableProperties} from "../../../../projects/app-common/src/lib/appCommon/models/dto/TableProperties";
 
 @Component({
     selector: 'app-empss',
@@ -33,22 +33,20 @@ export class EmpsComponent extends AbstractDataModelWrapperServiceV2<EmployeeMod
     }
 
     addPermanentFilterColumns(): any {
-       //  this.permanentFiltersObjValues.push(new FilterCriteria('empId', 966655885554, FilterOperationEnum.EQUAL));
+        //  this.permanentFiltersObjValues.push(new FilterCriteria('empId', 966655885554, FilterOperationEnum.EQUAL));
     }
 
     addPermanentSortColumn(): SortCriteria {
         return null;// new SortCriteria('empId', SortDirection.desc);
     }
 
+    defineTableProperties(): TableProperties {
+        let recordActionsDetails: Array<ActionDetInfo> = new Array<ActionDetInfo>(new ActionDetInfo('view', "primary", "pageview", this.view)
+            , new ActionDetInfo('edit', "accent", "edit", this.edit)
+            , new ActionDetInfo('delete', "warn", "delete", this.delete));
+        let tableActionsDetails: Array<ActionDetInfo> = new Array<ActionDetInfo>(new ActionDetInfo('GENERIC.action.add', "primary", "person_add", this.prepareAddEmployee));
 
-    prepareActionsDetails(): ActionsInfo {
-        let actionDetails = [];
-        let viewAction: ActionDetInfo = new ActionDetInfo('view', "primary", "pageview", this.view);
-        let editAction: ActionDetInfo = new ActionDetInfo('edit', "accent", "edit", this.edit)
-        let deleteAction: ActionDetInfo = new ActionDetInfo('delete', "warn", "delete", this.delete);
-        actionDetails.push(viewAction, editAction, deleteAction);
-
-        return  new ActionsInfo(ActionRenderTypeEnum.TOGGLE,actionDetails );
+        return new TableProperties("usersTable", "Users", "USERS.title", true, true, ActionRenderTypeEnum.TOGGLE, recordActionsDetails, tableActionsDetails);
     }
 
 
@@ -56,27 +54,28 @@ export class EmpsComponent extends AbstractDataModelWrapperServiceV2<EmployeeMod
     }
 
 
+    public prepareAddEmployee = () => {
+        this.router.navigate(['/pages/employees/addEmp']).then(r => {
+        });
+    };
 
-    public prepareAddEmployee() {
-        this.router.navigate(['/pages/employees/addEmp']);
-    }
 
-    public delete = (emp:EmployeeModel) => {
-         this.loadDataAndPublish();
+    public delete = (emp: EmployeeModel) => {
+        this.loadDataAndPublish();
         // this.router.navigate(['/pages/employees/addEmp']).then(r => {});
     };
 
 
-    public edit = (emp:EmployeeModel) => {
+    public edit = (emp: EmployeeModel) => {
         this.router.navigate(['/pages/employees/editEmp'],
             {queryParams: {p: EncryptDecrypt.encrypt(emp.empId.toString())}});
     };
 
 
-    public view = (emp:EmployeeModel) => {
+    public view = (emp: EmployeeModel) => {
         this.router.navigate(['/pages/employees/viewEmp'],
             {queryParams: {p: EncryptDecrypt.encrypt(emp.empId.toString())}});
-       // this.loadDataAndPublish();
+        // this.loadDataAndPublish();
     };
 
 

@@ -7,6 +7,8 @@
   "lte": "Less or Equal",
   "not_equal": "Not Equal",
   "operation": "Search Operation",
+  "no.data": "No Data To Export !",
+  "export": "Export",
   "MENU": {
     "Home": " Home",
     "Dashboard": "Dashboard",

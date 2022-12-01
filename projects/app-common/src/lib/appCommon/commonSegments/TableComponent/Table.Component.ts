@@ -10,8 +10,10 @@ import {FilterProperty} from "../../models/dto/FilterProperty";
 import {LocalSelectItem} from "../../models/dto/LocalSelectItem";
 import {BadgeValueColorMap} from "./BadgeValueColorMap";
 import {ColorEnum} from "../../models/enum/ColorEnum";
-import {ActionsInfo} from "../../models/dto/ActionsInfo";
 import {ActionRenderTypeEnum} from "../../models/enum/ActionRenderTypeEnum";
+import {TableUtil} from "../../utility/TableUtil";
+import {MessagesService} from "../../utility/MessagesService";
+import {TableProperties} from "../../models/dto/TableProperties";
 
 
 @Component({
@@ -20,6 +22,7 @@ import {ActionRenderTypeEnum} from "../../models/enum/ActionRenderTypeEnum";
     styleUrls: ["./Table.component.scss"],
 })
 export class TableComponent implements OnInit, OnChanges {
+    @Input() tableProperties: TableProperties;
     public ColumnTypEnum = ColumnTypEnum;
     public ActionRenderTypeEnum = ActionRenderTypeEnum;
     private _data = [];
@@ -29,7 +32,6 @@ export class TableComponent implements OnInit, OnChanges {
     private _originalData: any[] = [];
     private _tableModel: TableModel;
     @Input() hasActions: boolean;
-    @Input() actionsInfo: ActionsInfo;
     @Input() dummyValue: any;
     columns: ColumnModel[];
     displayedColumns: string[];
@@ -40,7 +42,7 @@ export class TableComponent implements OnInit, OnChanges {
 
 
 
-    constructor() {
+    constructor(public messagesService :MessagesService) {
 
     }
 
@@ -108,7 +110,7 @@ export class TableComponent implements OnInit, OnChanges {
             let columnsList: ColumnModel[] = this._tableModel.columns
             this.columns = columnsList.filter(item => item.lang == null || item.lang == this.getCurrentLang());
             this.sortColumns();
-            if (this.actionsInfo && this.actionsInfo.actions.length > 0) {
+            if (this.tableProperties&&this.tableProperties.recordsActionsList && this.tableProperties.recordsActionsList.length > 0) {
                 this.actionColum = new ColumnModel(
                     {
                         key: "actions",
@@ -195,6 +197,20 @@ export class TableComponent implements OnInit, OnChanges {
 
     toggle($event: Event) {
         console.log("Toggle", $event)
+    }
+
+    exportToExcel(){
+       if(this._data && this.data.length>0)
+        TableUtil.exportArrayToExcel(this._data)
+        else
+            this.messagesService.showErrorMessageLocal("no.data");
+       // TableUtil.export(this.table)
+      //  TableUtil.exportTableToExcel(this.cardHeaderInfo.tableId,this.cardHeaderInfo.tableName)
+    }
+
+    getColumnName(propertyName: string):string {
+       let arr:ColumnModel[]= this.columns.filter(item=>item.key==propertyName);
+        return  arr&& arr.length>0 ? arr[0].label:"";
     }
 }
 
