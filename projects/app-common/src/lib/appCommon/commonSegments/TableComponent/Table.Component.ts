@@ -212,5 +212,7 @@ export class TableComponent implements OnInit, OnChanges {
        let arr:ColumnModel[]= this.columns.filter(item=>item.key==propertyName);
         return  arr&& arr.length>0 ? arr[0].label:"";
     }
+
+
 }
 

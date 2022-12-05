@@ -9,6 +9,9 @@
   "operation": "Search Operation",
   "no.data": "No Data To Export !",
   "export": "Export",
+  "searchWith": "Search With",
+  "sortBy": "Sort",
+  "operations": "Operations",
   "MENU": {
     "Home": " Home",
     "Dashboard": "Dashboard",

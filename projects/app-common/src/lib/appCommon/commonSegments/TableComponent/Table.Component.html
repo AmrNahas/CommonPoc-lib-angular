@@ -6,7 +6,7 @@
                 <mat-card-title><h6 style="    margin-top: 8px;">{{tableProperties.localCardTitle|translate}}</h6>
                 </mat-card-title>
 
-                <button [disabled]="(obj.loadDataFlag  || rendering || dataSetFlag) "
+                <button [disabled]="(obj.loadDataFlag  || rendering || dataSetFlag) " matTooltip="{{'operations'|translate}}"
                         *ngIf=" tableProperties && ( (tableProperties.tableActions && tableProperties.tableActions.length>0)  || tableProperties.exportable  ) "
                         mat-icon-button [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger"
                         (click)="$event.stopPropagation()">
@@ -71,7 +71,7 @@
                 <form [formGroup]="obj.filterComponentForm" (ngSubmit)="obj.search()">
                     <ng-container [cdkColumnDef]="column.key" *ngFor="let column of columns">
 
-                        <mat-header-cell style="font-size: 10px;" (click)="$event.stopPropagation()"
+                        <mat-header-cell style="font-size: 11px;" (click)="$event.stopPropagation()"
                                          *matHeaderCellDef [mat-sort-header]="column.key"
                                          [disabled]="!column.canSort || (obj.loadDataFlag  || rendering || dataSetFlag) ">
 
@@ -84,12 +84,13 @@
 
 
                                 <!--searchable input -->
-                                <mat-form-field (keyup.enter)="obj.search()"
+                                <mat-form-field (keyup.enter)="obj.search()" matTooltip="{{'searchWith'|translate}} {{column.label | translate}}"
                                                 (keydown.space)="$event.preventDefault()"
                                                 (click)="$event.stopPropagation()"
                                                 *ngIf="column.searchable" style="width: 100px">
-                                    <mat-label class="table-cell-light">
-                                        <mat-icon>filter_list</mat-icon>
+                                    <mat-label   class="table-cell-light {{obj.filterComponentForm.controls[column.key].value?'primary-color-c':''}} "  >
+
+                                        <mat-icon   color="{{obj.filterComponentForm.controls[column.key].value?'primary':''}}" >filter_list</mat-icon>
                                         {{column.label | translate}}  </mat-label>
 
                                     <input matNativeControl *ngIf="column.columnType==ColumnTypEnum.TEXT"
@@ -153,7 +154,7 @@
 
                                 <!--   sort-operation-->
                                 <ng-container *ngIf="column.canSort">
-                                    <mat-icon class="muted-icon sort-icon"
+                                    <mat-icon class="muted-icon sort-icon" matTooltip="{{'sortBy'|translate}}"
                                               *ngIf="!obj.isSortedBy(column.key) ; else haveSort">arrow_upward
                                     </mat-icon>
                                     <ng-template #haveSort>
