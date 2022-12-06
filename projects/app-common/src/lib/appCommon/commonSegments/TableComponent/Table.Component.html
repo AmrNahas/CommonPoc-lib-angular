@@ -254,7 +254,7 @@
                                     <ng-container *ngFor="let ac of tableProperties.recordsActionsList  ">
                                       <button mat-menu-item (click)="ac.function(element)">
                                                    <mat-icon color="{{ac.color}}">{{ac.icon}}</mat-icon>
-                                              <span>{{ac.name}}</span>
+                                              <span>{{ac.name|translate}}</span>
                                                 </button>
 
                                         </ng-container>

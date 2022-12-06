@@ -16,6 +16,8 @@ export * from './lib/appCommon/models/dto/FilterProperty';
 export * from './lib/appCommon/models/dto/InputDataModel';
 export * from './lib/appCommon/models/dto/ResponseDataModel';
 export * from './lib/appCommon/models/dto/ActionDetInfo';
+export * from './lib/appCommon/models/dto/TableProperties';
+export * from './lib/appCommon/models/enum/ActionRenderTypeEnum';
 export * from './lib/appCommon/models/enum/ColorEnum';
 export * from './lib/appCommon/commonSegments/TableComponent/decorator/Column';
 export * from './lib/appCommon/commonSegments/TableComponent/decorator/ColumnModel';
